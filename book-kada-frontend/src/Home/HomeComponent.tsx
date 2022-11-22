@@ -3,14 +3,10 @@ import { useState } from "react";
 import Padding from "../UI/Padding";
 import { Grid } from "@mui/material";
 import Cards from "./Cards";
-import Cart from "./Shoppingcart";
-import Favorites from "./Addfavorite";
+
 
 export default function UserPage() {
-  const [isActive, setisActive] = useState(false);
-  const [isActive2, setisActive2] = useState(false);
-  const [tooltip, setTooltip] = useState("Add to Cart");
-  const [favtip, setFavtip] = useState("Add to Favorites");
+  
   return (
     <Padding>
       <Grid
@@ -22,9 +18,7 @@ export default function UserPage() {
         }}
       >
         <Cards/>
-        <Cart/>
-        <Favorites/>
-
+        
       </Grid>
     </Padding>
   );
