@@ -12,9 +12,9 @@ export class OrdersController {
     return this.ordersService.create(createOrderDto);
   }
 
-  @Get('orderedbooks/:id')
-  findAll(@Param('id') id:string) {
-    return this.ordersService.findAll(+id);
+  @Get()
+  findAll(id:string) {
+    return this.ordersService.findAll();
   }
 
   @Get(':id')
