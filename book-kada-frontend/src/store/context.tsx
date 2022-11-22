@@ -1,6 +1,7 @@
 import * as React from "react";
-import BooksContextProvider from "./books_context";
-import UserContextProvider from "./user_context";
+import BooksContextProvider from "./Books_context";
+import ThemeContextProvider from "./Theme_context";
+import UserContextProvider from "./User_context";
 
 export interface IContextProps {
   children?: React.ReactNode;
@@ -9,10 +10,10 @@ export interface IContextProps {
 export default function ContextProvider({ children }: IContextProps) {
 
   return (
-    <div>
+    <ThemeContextProvider>
       <UserContextProvider>
         <BooksContextProvider>{children}</BooksContextProvider>
       </UserContextProvider>
-    </div>
+    </ThemeContextProvider>
   );
 }
