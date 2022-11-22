@@ -11,25 +11,27 @@ export default function Favorites() {
   return (
     <Padding>
       <Tooltip title={favtip}>
-        <IconButton>
-          {!isActive2 ? (
-            <FavoriteBorder
-              onClick={() => {
-                setisActive2(!isActive2);
-                {
-                  setFavtip("Remove from Favorites");
-                }
-              }}
-            />
-          ) : (
+        {!isActive2 ? (
+          <IconButton
+            onClick={() => {
+              setisActive2(!isActive2);
+              {
+                setFavtip("Remove from Favorites");
+              }
+            }}
+          >
+            <FavoriteBorder />
+          </IconButton>
+        ) : (
+          <IconButton>
             <FavoriteIcon
               onClick={() => {
                 setisActive2(!isActive2);
                 setFavtip("Add to Favorites");
               }}
             />
-          )}
-        </IconButton>
+          </IconButton>
+        )}
       </Tooltip>
     </Padding>
   );
