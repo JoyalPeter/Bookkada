@@ -5,16 +5,16 @@ type Props = {
   children: JSX.Element,
 };
 
-const  RightBox: React.FC<any>= ({
+const  LeftBox: React.FC<any>= ({
     children})=>
     (   
         <Box
         sx={{
           display: 'flex',
           justifyContent: 'flex-start',
-          p: 2,
-          m: 5,
-          bgcolor: "red",
+          p: 1,
+          m: 1,
+          bgcolor: "background.paper",
           borderRadius: 1,
         }}
       >{children}</Box>
@@ -22,4 +22,4 @@ const  RightBox: React.FC<any>= ({
      );
 
 
-export default RightBox ;
+export default LeftBox ;

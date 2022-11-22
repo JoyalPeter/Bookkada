@@ -1,7 +1,10 @@
 import {Rating} from "@mui/material";
 import { Stack } from "@mui/material";
+import * as React from 'react';
 
-<Stack spacing={1}>
+export default function RatingFunc () {
+  return (
+  <Stack spacing={1}>
   <Rating
     name="half-rating-read"
     defaultValue={2.5}
@@ -9,4 +12,8 @@ import { Stack } from "@mui/material";
     size="small"
     readOnly
   />
-</Stack>;
+</Stack>
+ 
+  );
+}
+

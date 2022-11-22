@@ -1,9 +1,4 @@
-import {
-  Theme,
-  ThemeProvider,
-  Paper,
-  CssBaseline,
-} from "@mui/material";
+import { Theme, ThemeProvider, Paper, CssBaseline } from "@mui/material";
 import "./App.css";
 import Router from "./router/router";
 import useCustomTheme from "./theme/color-theme";
@@ -12,10 +7,8 @@ function App() {
   console.log(theme);
   return (
     <ThemeProvider theme={theme}>
-      <Paper>
-        <CssBaseline />
-        <Router />
-      </Paper>
+      <CssBaseline />
+      <Router />
     </ThemeProvider>
   );
 }
