@@ -1,15 +1,13 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-import Details from './pages/details';
+
+import "./App.css";
+import Router from "./router/router";
+import ContextProvider from "./store/context";
 
 function App() {
-  return (
-    <div className="App">
-      <Details/>
-
-    </div>
-  );
+  return;
+  <ContextProvider>
+    <Router />;
+  </ContextProvider>;
 }
 
 export default App;
