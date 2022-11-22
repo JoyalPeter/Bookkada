@@ -5,3 +5,8 @@ export enum Method {
   PATCH = 'PATCH',
   DELETE = 'DELETE',
 }
+
+export enum Theme {
+  LIGHT = 'light',
+  DARK = 'dark'
+}
