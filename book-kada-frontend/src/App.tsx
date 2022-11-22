@@ -3,7 +3,6 @@ import "./App.css";
 import Router from "./router/router";
 import useCustomTheme from "./theme/color-theme";
 import Toast from "./UI/Toast";
-import showToast from "./utils/Toastify";
 function App() {
   const theme: Theme = useCustomTheme();
   console.log(theme);

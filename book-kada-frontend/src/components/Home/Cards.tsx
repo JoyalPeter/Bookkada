@@ -5,7 +5,7 @@ import {
   CardActions,
   Typography,
 } from "@mui/material";
-import * as React from "react";
+import React from "react";
 import Cart from "./Shoppingcart";
 import Favorites from "./Addfavorite";
 import RatingFunc from "../../UI/Rating";

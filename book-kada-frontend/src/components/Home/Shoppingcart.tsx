@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import Padding from "../../UI/Padding";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import { useState } from "react";
