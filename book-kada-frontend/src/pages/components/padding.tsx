@@ -5,21 +5,16 @@ type Props = {
   children: JSX.Element,
 };
 
-const  RightBox: React.FC<any>= ({
+const  Padding: React.FC<any>= ({
     children})=>
     (   
         <Box
         sx={{
-          display: 'flex',
-          justifyContent: 'flex-end',
-          p: 2,
-          m: 5,
-          bgcolor: 'background.paper',
-          borderRadius: 1,
+          m: 3,
         }}
       >{children}</Box>
         
      );
 
 
-export default RightBox ;
+export default Padding ;

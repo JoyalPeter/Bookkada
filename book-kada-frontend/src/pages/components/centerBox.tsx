@@ -13,9 +13,9 @@ const  CentreBox: React.FC<any>= ({
           display: 'flex',
           justifyContent: 'center',
           p: 2,
-          m: 5,
+          // m: 5,
           bgcolor: "red",
-          borderRadius: 50,
+          borderRadius: 10,
         }}
       >{children}</Box>
         
