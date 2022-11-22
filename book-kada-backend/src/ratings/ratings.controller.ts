@@ -1,25 +1,41 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { RatingsService } from './ratings.service';
 import { CreateRatingDto } from './dto/create-rating.dto';
 import { UpdateRatingDto } from './dto/update-rating.dto';
+import { UsersService } from 'src/users/users.service';
+import { BooksService } from 'src/books/books.service';
 
 @Controller('ratings')
 export class RatingsController {
-  constructor(private readonly ratingsService: RatingsService) {}
+  constructor(
+    private readonly ratingsService: RatingsService,
+    private readonly usersService: UsersService,
+    private readonly booksService: BooksService,
+  ) {}
 
-  @Post()
-  create(@Body() createRatingDto: CreateRatingDto) {
-    return this.ratingsService.create(createRatingDto);
+  @Post('/addRating')
+  async create(@Body() createRatingDto: CreateRatingDto) {
+    const user = await this.usersService.findOne(createRatingDto.userId);
+    const book = await this.booksService.findOneById(createRatingDto.bookId);
+    return this.ratingsService.create(createRatingDto, user, book);
   }
 
-  @Get()
+  @Get('/getAllRatings')
   findAll() {
     return this.ratingsService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.ratingsService.findOne(+id);
+  @Get('/getReview/:bookId')
+  findOne(@Param('bookId') bookId: string) {
+    return this.ratingsService.findOne(+bookId);
   }
 
   @Patch(':id')

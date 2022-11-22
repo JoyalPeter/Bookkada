@@ -26,6 +26,10 @@ export class BooksService {
     return this.booksRepo.find({ where: { name: name } });
   }
 
+  findOneById(id: number) {
+    return this.booksRepo.findOne({where:{bookId:id}});
+  }
+
   async update(id: number, updateBookDto: UpdateBookDto) {
     await this.booksRepo.update(id,updateBookDto);
     return this.findAll();

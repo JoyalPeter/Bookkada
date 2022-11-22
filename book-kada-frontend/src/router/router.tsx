@@ -1,20 +1,21 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import SignIn from "../signin/signinModule";
-import AppBar from "../UI/AppBar/AppBar";
+import Home from "../pages/Home";
 
 export default function Router() {
   return (
     <BrowserRouter>
       <Routes>
         <Route
-          path="/"
+          path="/signin"
           element={
             <>
               <SignIn />
             </>
           }
         ></Route>
+        <Route path="/" element={<Home />}></Route>
       </Routes>
     </BrowserRouter>
   );

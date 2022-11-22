@@ -33,7 +33,7 @@ export class Book {
     @JoinColumn({ name: 'photos' })
     photos:Photo[];
 
-    @OneToMany(()=>Order,(order)=>order.books)
+    @OneToMany(()=>Order,(order)=>order.book)
     @JoinColumn({ name: 'orders' })
     orders:Order[];
 }

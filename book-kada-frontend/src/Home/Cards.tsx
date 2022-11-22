@@ -1,0 +1,28 @@
+import { Card, CardMedia, CardContent, CardActions, Typography } from "@mui/material";
+import * as React from 'react';
+
+export default function Cards () {
+  return (
+    <Card sx={{ maxWidth: 275, boxShadow: 5 }}>
+  <CardMedia
+    component="img"
+    height="140"
+    image="/static/images/cards/contemplative-reptile.jpg"
+    alt="book1"
+  />
+  <CardContent>
+    <Typography gutterBottom variant="h5" component="div">
+      Book1
+    </Typography>
+    <Typography variant="body2" color="text.secondary">
+      Lizards are a widespread group of squamate reptiles, with over 6,000
+      species, ranging across all continents except Antarctica
+    </Typography>
+  </CardContent>
+  <CardActions></CardActions>
+</Card>
+
+    
+  );
+}
+

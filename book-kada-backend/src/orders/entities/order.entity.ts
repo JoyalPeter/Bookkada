@@ -11,10 +11,10 @@ export class Order {
     orderDate:Date;
 
     @ManyToOne(()=>Book,(book)=>book.orders)
-    @JoinColumn({ name: 'books' })
-    books:Book;
+    @JoinColumn({ name: 'bookId' })
+    book:Book;
 
     @ManyToOne(()=>User,(user)=>user.orders)
-    @JoinColumn({ name: 'user' })
+    @JoinColumn({ name: 'userId' })
     user:User;
 }
