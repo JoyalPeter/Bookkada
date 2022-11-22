@@ -2,12 +2,7 @@ import React, { useState } from "react";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import { IconButton, Badge } from "@mui/material";
-import {
-  LightMode,
-  DarkMode,
-  Notifications,
-  AccountCircle,
-} from "@mui/icons-material";
+import { AccountCircle } from "@mui/icons-material";
 
 export interface IUseMobileMenuProps {
   anchorEl: HTMLElement | null;
