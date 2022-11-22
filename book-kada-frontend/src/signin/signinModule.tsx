@@ -11,7 +11,7 @@ import {
   Paper,
 } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import CenterBox from "../pages/components/centerBox";
+import CenterBox from "../UI/CenterBox";
 
 export default function SignIn() {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
