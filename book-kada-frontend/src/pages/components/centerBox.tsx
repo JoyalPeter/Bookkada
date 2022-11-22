@@ -1,25 +1,25 @@
-import Box, { BoxProps } from '@mui/material/Box';
-import React from 'react';
+import { SxProps, Theme } from "@mui/material";
+import Box, { BoxProps } from "@mui/material/Box";
+import React from "react";
 
 type Props = {
-  children: JSX.Element,
+  sx?: SxProps<Theme>;
+  children: React.ReactNode;
 };
 
-const  CentreBox: React.FC<any>= ({
-    children})=>
-    (   
-        <Box
-        sx={{
-          display: 'flex',
-          justifyContent: 'center',
-          p: 2,
-          // m: 5,
-          bgcolor: "red",
-          borderRadius: 10,
-        }}
-      >{children}</Box>
-        
-     );
+const CentreBox: React.FC<Props> = ({ children, sx }) => (
+  <Box
+    sx={{
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      p: 2,
+      borderRadius: 10,
+      ...sx,
+    }}
+  >
+    {children}
+  </Box>
+);
 
-
-export default CentreBox ;
+export default CentreBox;
