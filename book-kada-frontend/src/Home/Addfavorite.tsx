@@ -9,7 +9,7 @@ export default function Favorites () {
 const [isActive2, setisActive2] = useState(false)
 const [favtip, setFavtip] = useState("Add to Favorites")
   return (
-    <Padding>
+  <Padding>
   <Tooltip title={favtip}>
     <IconButton>
       {!isActive2 ? (
