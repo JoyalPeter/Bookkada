@@ -15,7 +15,7 @@ export interface IThemeContextProviderProps {
 export default function ThemeContextProvider({
   children,
 }: IThemeContextProviderProps) {
-  const [themeMode, setThemeMode] = useState(Theme.DARK);
+  const [themeMode, setThemeMode] = useState(Theme.LIGHT);
   return (
     <ThemeContext.Provider value={{ themeMode, setThemeMode }}>
       {children}

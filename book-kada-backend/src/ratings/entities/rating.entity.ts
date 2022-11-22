@@ -8,16 +8,16 @@ export class Rating {
     ratingId:number;
 
     @Column()
-    discription:string;
+    description:string;
 
     @Column()
     rating:number;
 
     @ManyToOne(()=>User,(user)=>user.ratings)
-    @JoinColumn({ name: 'user' })
+    @JoinColumn({ name: 'userId' })
     user:User;
 
     @ManyToOne(()=>Book,(book)=>book.ratings)
-    @JoinColumn({ name: 'book' })
+    @JoinColumn({ name: 'bookId' })
     book:Book;
 }
