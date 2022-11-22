@@ -1,19 +1,38 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { CreateBookDto } from 'src/books/dto/create-book.dto';
+import { CreateUserDto } from 'src/users/dto/create-user.dto';
+import { Repository } from 'typeorm';
 import { CreateRatingDto } from './dto/create-rating.dto';
 import { UpdateRatingDto } from './dto/update-rating.dto';
+import { Rating } from './entities/rating.entity';
 
 @Injectable()
 export class RatingsService {
-  create(createRatingDto: CreateRatingDto) {
-    return 'This action adds a new rating';
+  constructor(
+    @InjectRepository(Rating)
+    private ratingRepo: Repository<Rating>,
+  ) {}
+
+  create(
+    createRatingDto: CreateRatingDto,
+    user: CreateUserDto,
+    book: CreateBookDto,
+  ) {
+    return this.ratingRepo.save({
+      description: createRatingDto.description,
+      rating: createRatingDto.rating,
+      user: user,
+      book: book
+    });
   }
 
   findAll() {
-    return `This action returns all ratings`;
+    return this.ratingRepo.find({relations:["user","book"]});
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} rating`;
+    return this.ratingRepo.find({where:{book:{bookId:id}},relations:["user"]});
   }
 
   update(id: number, updateRatingDto: UpdateRatingDto) {
