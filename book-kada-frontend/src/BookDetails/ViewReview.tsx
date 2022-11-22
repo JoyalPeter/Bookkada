@@ -6,8 +6,8 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import { CardActionArea, Rating, Button, Typography } from "@mui/material";
-import CentreBox from "./centerBox";
-import LeftBox from "./leftBox";
+import CentreBox from "../UI/centerBox";
+import LeftBox from "../UI/leftBox";
 
 export interface IAppProps {}
 

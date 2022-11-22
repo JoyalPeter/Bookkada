@@ -5,12 +5,11 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import { CardActionArea, Rating, Button, Typography } from "@mui/material";
-import CentreBox from "./components/centerBox";
+import CentreBox from "../UI/CenterBox";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
-import Padding from "./components/padding";
-import LeftBox from "./components/leftBox";
-import Review from "./components/AddReview";
-import ViewReview from "./components/ViewReview";
+import Padding from "../UI/Padding";
+import LeftBox from "../UI/LeftBox";
+import ViewReview from "../BookDetails/ViewReview";
 
 interface DetailsProps {}
 
@@ -67,8 +66,6 @@ const Details: FC<DetailsProps> = ({}) => {
               </Button>
             </Box>
           </CentreBox>
-
-          <Review setAddflag={setAddflag} addflag={addflag} />
         </CardContent>
       </Card>
 
