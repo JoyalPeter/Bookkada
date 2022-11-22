@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { identity } from 'rxjs';
+import { CreateBookDto } from 'src/books/dto/create-book.dto';
+import { CreateUserDto } from 'src/users/dto/create-user.dto';
 import { Repository } from 'typeorm';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { UpdateOrderDto } from './dto/update-order.dto';
@@ -12,20 +13,34 @@ export class OrdersService {
     @InjectRepository(Order)
     private orderRepo: Repository<Order>,
   ) {}
-  create(createOrderDto: CreateOrderDto) {
+  create(
+    createOrderDto: CreateOrderDto,
+    user: CreateUserDto,
+    book: CreateBookDto,
+  ) {
     return this.orderRepo.save({
       orderDate: createOrderDto.orderDate,
-      book: createOrderDto.book,
-      user: createOrderDto.user
-     });
+      book: book,
+      user: user,
+    });
   }
 
   findAll() {
-    return this.orderRepo.find();
+    return this.orderRepo.find({ relations: ['book', 'user'] });
   }
 
-  findOne(id: number) {
-    return this.orderRepo.findOne({where:{id:id}});
+  findBooks(id: number) {
+    return this.orderRepo.find({
+      where: { book: { bookId: id } },
+      relations: ['user'],
+    });
+  }
+
+  findUsers(id: number) {
+    return this.orderRepo.find({
+      where: { user: { userId: id } },
+      relations: ['book'],
+    });
   }
 
   update(id: number, updateOrderDto: UpdateOrderDto) {
