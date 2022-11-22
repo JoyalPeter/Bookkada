@@ -1,10 +1,16 @@
-import { Card, CardMedia, CardContent, CardActions, Typography } from "@mui/material";
-import * as React from 'react';
+import {
+  Card,
+  CardMedia,
+  CardContent,
+  CardActions,
+  Typography,
+} from "@mui/material";
+import * as React from "react";
 import Cart from "./Shoppingcart";
 import Favorites from "./Addfavorite";
-import RatingFunc from "../UI/Rating";
+import RatingFunc from "../../UI/Rating";
 
-export default function Cards () {
+export default function Cards() {
   return (
     <Card sx={{ maxWidth: 275, boxShadow: 5 }}>
       <CardMedia
@@ -28,4 +34,3 @@ export default function Cards () {
     </Card>
   );
 }
-

@@ -1,9 +1,9 @@
 import React, { useState, createContext } from "react";
-import { Theme } from "../constants/enums";
+import { Themes } from "../constants/enums";
 
 export interface IThemeContext {
-  themeMode: Theme;
-  setThemeMode: React.Dispatch<React.SetStateAction<Theme>>;
+  themeMode: Themes;
+  setThemeMode: React.Dispatch<React.SetStateAction<Themes>>;
 }
 
 export const ThemeContext = createContext<IThemeContext | undefined>(undefined);
@@ -15,7 +15,7 @@ export interface IThemeContextProviderProps {
 export default function ThemeContextProvider({
   children,
 }: IThemeContextProviderProps) {
-  const [themeMode, setThemeMode] = useState(Theme.LIGHT);
+  const [themeMode, setThemeMode] = useState(Themes.LIGHT);
   return (
     <ThemeContext.Provider value={{ themeMode, setThemeMode }}>
       {children}

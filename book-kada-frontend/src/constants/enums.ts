@@ -6,7 +6,13 @@ export enum Method {
   DELETE = 'DELETE',
 }
 
-export enum Theme {
+export enum Themes {
   LIGHT = 'light',
   DARK = 'dark'
+}
+
+export enum Toast {
+  ERROR = 'error',
+  WARNING = 'warn',
+  SUCCESS = 'success'
 }
