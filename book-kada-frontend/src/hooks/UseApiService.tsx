@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Method } from "../constants/enums";
 import { ApiCall } from "../utils/ApiCall";
 
-export default async function useApiService() {
+export default function useApiService() {
   const [spinnerFlag, setSpinnerFlag] = useState(false);
 
   const makeApiCall = (
