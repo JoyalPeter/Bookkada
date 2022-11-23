@@ -4,6 +4,7 @@ import SignIn from "../components/signin/signinModule";
 import Home from "../pages/Home";
 import Cart from "../pages/Cart";
 import Details from "../pages/details";
+import Signup from "../pages/Signup";
 
 export default function Router() {
   return (
@@ -13,6 +14,7 @@ export default function Router() {
         <Route path="/signin" element={<SignIn />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/details" element={<Details />} />
+        <Route path="/signup" element={<Signup />} />
       </Routes>
     </BrowserRouter>
   );

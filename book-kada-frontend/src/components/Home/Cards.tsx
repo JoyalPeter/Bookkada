@@ -14,10 +14,7 @@ export default function Cards() {
   return (
     <>
       <Card sx={{ maxWidth: 275, boxShadow: 5 }}>
-        <ButtonBase
-          onClick={() => navigate(`details/:id`)}
-          // console.log("kitti")
-        ></ButtonBase>
+        <ButtonBase></ButtonBase>
         <CardMedia
           component="img"
           height="140"
