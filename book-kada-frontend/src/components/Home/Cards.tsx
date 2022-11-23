@@ -1,26 +1,23 @@
-import { Card, CardMedia, CardContent, CardActions, Typography, ThemeProvider, ButtonBase } from "@mui/material";
-import * as React from 'react';
+import React from "react";
+import {
+  Card,
+  CardMedia,
+  CardContent,
+  CardActions,
+  Typography,
+  ButtonBase,
+} from "@mui/material";
 import Cart from "./Shoppingcart";
 import Favorites from "./Addfavorite";
-import Ratings from "../UI/Rating";
-import Details from "../pages/details";
-import { useNavigate } from "react-router-dom";
-
-export default function Cards () {
-  const navigate = useNavigate()
-  
+import Ratings from "../../UI/Rating";
+export default function Cards() {
   return (
     <>
-      <Card
-        sx={{ maxWidth: 275, boxShadow: 5 }}
-        
-      >
-        <ButtonBase 
-        onClick={()=>navigate(`details/:id`) }
-        // console.log("kitti")
-        >
-
-        </ButtonBase>
+      <Card sx={{ maxWidth: 275, boxShadow: 5 }}>
+        <ButtonBase
+          onClick={() => navigate(`details/:id`)}
+          // console.log("kitti")
+        ></ButtonBase>
         <CardMedia
           component="img"
           height="140"
@@ -43,4 +40,3 @@ export default function Cards () {
     </>
   );
 }
-
