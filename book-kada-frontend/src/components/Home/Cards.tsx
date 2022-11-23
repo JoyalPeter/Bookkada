@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
+import {  useNavigate } from "react-router-dom";
 import {
   Card,
   CardMedia,
@@ -10,15 +11,35 @@ import {
 import Cart from "./Shoppingcart";
 import Favorites from "./Addfavorite";
 import Ratings from "../../UI/Rating";
+import { Method, Toast } from "../../constants/enums";
+import useApiService from "../../hooks/UseApiService";
+import Spinner from "../../UI/Spinner";
+import showToast from "../../utils/Toastify";
+
 export default function Cards() {
+const navigate = useNavigate()
+const {makeApiCall, spinnerFlag} = useApiService()
+
+useEffect(()=> {
+  const displayBooks =()=>{
+    makeApiCall(Method.GET, 'books/viewAllbooks').then((response) => {
+      console.log(response)
+    }).catch((error)=> showToast(Toast.ERROR, error) )
+  }
+displayBooks()
+})
+
   return (
     <>
-      <Card sx={{ maxWidth: 275, boxShadow: 5 }}>
-        <ButtonBase></ButtonBase>
+     {spinnerFlag ?  <Spinner/> : <Card sx={{ maxWidth: 275, boxShadow: 5 }}>
+        <ButtonBase
+          onClick={() => navigate(`details/:id`)}
+          // console.log("kitti")
+        ></ButtonBase>
         <CardMedia
           component="img"
           height="140"
-          image="/static/images/cards/contemplative-reptile.jpg"
+          image="https://c1.wallpaperflare.com/preview/127/366/443/library-book-bookshelf-read.jpg"
           alt="book1"
         />
         <CardContent>
@@ -33,7 +54,7 @@ export default function Cards() {
         <CardActions>
           <Cart /> <Favorites /> <Ratings />
         </CardActions>
-      </Card>
+      </Card>}
     </>
   );
 }
