@@ -2,7 +2,7 @@ import axios from 'axios'
 
 import { Method } from '../constants/enums'
 
-export function ApiCall(method: Method, path: string, accessToken: string, data?: Object) {
+export function ApiCall(method: Method, path: string, data?: Object, accessToken?: string) {
   const apiHost = 'https://api.github.com'
 
   return axios({

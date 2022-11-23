@@ -1,12 +1,10 @@
-import * as React from "react";
+import React from "react";
 import { useState } from "react";
-import Padding from "../UI/Padding";
+import Padding from "../../UI/Padding";
 import { Grid } from "@mui/material";
 import Cards from "./Cards";
 
-
 export default function UserPage() {
-  
   return (
     <Padding>
       <Grid
@@ -17,8 +15,7 @@ export default function UserPage() {
           gridTemplateColumns: "repeat(5, 1fr)",
         }}
       >
-        <Cards/>
-        
+        <Cards />
       </Grid>
     </Padding>
   );

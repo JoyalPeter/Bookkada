@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import { FC, useState } from "react";
 
 import Box from "@mui/material/Box";
@@ -6,8 +6,8 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import { CardActionArea, Rating, Button, Typography } from "@mui/material";
-import CentreBox from "../UI/centerBox";
-import LeftBox from "../UI/leftBox";
+import CentreBox from "../UI/CenterBox";
+import LeftBox from "../UI/LeftBox";
 
 export interface IAppProps {}
 
