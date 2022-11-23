@@ -7,14 +7,7 @@ export default function Router() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route
-          path="/signin"
-          element={
-            <>
-              <SignIn />
-            </>
-          }
-        ></Route>
+        <Route path="/signin" element={<SignIn />}></Route>
         <Route path="/" element={<Home />}></Route>
       </Routes>
     </BrowserRouter>
