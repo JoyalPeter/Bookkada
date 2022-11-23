@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { Method } from "../constants/enums";
 import { ApiCall } from "../utils/ApiCall";
 
-export default async function useApiService() {
-  const [spinnerFlag, setSpinnerFlag] = useState(false);
+export default function useApiService() {
+  const [loadingFlag, setloadingFlag] = useState(false);
 
   const makeApiCall = (
     method: Method,
@@ -12,7 +12,7 @@ export default async function useApiService() {
     accessToken?: string
   ) =>
     new Promise(async (resolve, reject) => {
-      setSpinnerFlag(true);
+      setloadingFlag(true);
       ApiCall(method, path, data, accessToken)
         .then((response) => {
           resolve(response.data);
@@ -22,8 +22,8 @@ export default async function useApiService() {
             reject(response.response.data.message[0]);
           else reject(response.response.data.message);
         })
-        .finally(() => setSpinnerFlag(false));
+        .finally(() => setloadingFlag(false));
     });
 
-  return { makeApiCall, spinnerFlag };
+  return { makeApiCall, loadingFlag };
 }
