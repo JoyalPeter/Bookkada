@@ -1,17 +1,12 @@
-import * as React from "react";
-import { FC, useState } from "react";
-
-import Box from "@mui/material/Box";
+import * as React from 'react';
+import { CardActionArea, Rating, Button, Typography } from "@mui/material";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
-import { CardActionArea, Rating, Button, Typography } from "@mui/material";
-import CentreBox from "../UI/CenterBox";
-import LeftBox from "../UI/LeftBox";
 
-export interface IAppProps {}
+export interface IAppProps {
+}
 
-export default function ViewReview(props: IAppProps) {
+export default function cartCard (props: IAppProps) {
   return (
     <div>
       <Card

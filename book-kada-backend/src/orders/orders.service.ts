@@ -25,7 +25,7 @@ export class OrdersService {
   }
 
   findOne(id: number) {
-    return this.orderRepo.findOne({where:{id:id}});
+    return this.orderRepo.findOne({where:{orderId:id}});
   }
 
   update(id: number, updateOrderDto: UpdateOrderDto) {
