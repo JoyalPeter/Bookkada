@@ -27,7 +27,8 @@ export default function CartCard ({sx}: IAppProps) {
           <CardActionArea>
           <CardMedia
             component="img"
-            height="500"
+            height="100%"
+            width="100%"
             image="https://c1.wallpaperflare.com/preview/127/366/443/library-book-bookshelf-read.jpg"
             alt="green iguana"
           />
