@@ -6,7 +6,6 @@ import Cart from "../pages/Cart";
 import Signup from "../pages/Signup";
 import DetailsPage from "../pages/DetailsPage";
 
-
 export default function Router() {
   return (
     <BrowserRouter>
@@ -14,7 +13,7 @@ export default function Router() {
         <Route path="/" element={<Home />} />
         <Route path="/signin" element={<SignIn />} />
         <Route path="/cart" element={<Cart />} />
-        <Route path="/details" element={<Details />} />
+        <Route path="/details" element={<DetailsPage />} />
         <Route path="/signup" element={<Signup />} />
       </Routes>
     </BrowserRouter>
