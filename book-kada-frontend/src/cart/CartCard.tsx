@@ -3,6 +3,8 @@ import { CardActionArea,Typography, Theme, SxProps, CardMedia, Grid } from "@mui
 import Card from "@mui/material/Card";
 
 import { Box } from '@mui/system';
+import RightBox from '../UI/RightBox';
+import CentreBox from '../UI/CenterBox';
 
 export interface IAppProps {
   sx?:SxProps<Theme>,
@@ -32,15 +34,21 @@ export default function CartCard ({sx}: IAppProps) {
         </CardActionArea>
         </Box>
         <Box gridColumn="span 2">
+          <CentreBox>
           <Typography variant="body2" color="text.secondary" >
             Lizards are a widespread group of squamate reptiles, with over 6,000
             species, ranging across all continents except Antarctica
           </Typography>
+          </CentreBox>
           </Box>
         <Box>
+          
           <Typography>
+          <RightBox>
               Cost
+              </RightBox>
           </Typography>
+          
         </Box>
       </Card>
     </div>
