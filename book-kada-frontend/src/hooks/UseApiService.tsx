@@ -1,0 +1,29 @@
+import React, { useState } from "react";
+import { Method } from "../constants/enums";
+import { ApiCall } from "../utils/ApiCall";
+
+export default async function useApiService() {
+  const [spinnerFlag, setSpinnerFlag] = useState(false);
+
+  const makeApiCall = (
+    method: Method,
+    path: string,
+    data?: Object,
+    accessToken?: string
+  ) =>
+    new Promise(async (resolve, reject) => {
+      setSpinnerFlag(true);
+      ApiCall(method, path, data, accessToken)
+        .then((response) => {
+          resolve(response.data);
+        })
+        .catch((response) => {
+          if (response.response.status === 422)
+            reject(response.response.data.message[0]);
+          else reject(response.response.data.message);
+        })
+        .finally(() => setSpinnerFlag(false));
+    });
+
+  return { makeApiCall, spinnerFlag };
+}

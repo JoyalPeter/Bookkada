@@ -1,9 +1,14 @@
-import axios from 'axios'
+import axios from "axios";
 
-import { Method } from '../constants/enums'
+import { Method } from "../constants/enums";
 
-export function ApiCall(method: Method, path: string, accessToken: string, data?: Object) {
-  const apiHost = 'https://api.github.com'
+export function ApiCall(
+  method: Method,
+  path: string,
+  data?: Object,
+  accessToken?: string
+) {
+  const apiHost = "https://api.github.com";
 
   return axios({
     method,
@@ -12,5 +17,7 @@ export function ApiCall(method: Method, path: string, accessToken: string, data?
     headers: {
       Authorization: `token ${accessToken}`,
     },
-  })
+  });
 }
+
+// ApiCall(Method.POST, 'add' ,)

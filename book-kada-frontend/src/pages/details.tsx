@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import React, { FC, useState } from "react";
 
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
@@ -10,6 +10,7 @@ import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import Padding from "../UI/Padding";
 import LeftBox from "../UI/LeftBox";
 import ViewReview from "../BookDetails/ViewReview";
+import PrimarySearchAppBar from "../UI/AppBar/AppBar";
 
 interface DetailsProps {}
 
@@ -17,6 +18,8 @@ const Details: FC<DetailsProps> = ({}) => {
   const [addflag, setAddflag] = useState(false);
 
   return (
+    <>
+    <PrimarySearchAppBar/>
     <Padding>
       <Card
         sx={{
@@ -59,7 +62,7 @@ const Details: FC<DetailsProps> = ({}) => {
             <Box sx={{ display: "flex", gap: 5 }}>
               <Button
                 variant="contained"
-                color="success"
+                
                 endIcon={<AddShoppingCartIcon />}
               >
                 Add To Cart
@@ -68,10 +71,12 @@ const Details: FC<DetailsProps> = ({}) => {
           </CentreBox>
         </CardContent>
       </Card>
-
+      <CentreBox>
       <h1>Reviews</h1>
+      </CentreBox>
       <ViewReview />
     </Padding>
+    </>
   );
 };
 

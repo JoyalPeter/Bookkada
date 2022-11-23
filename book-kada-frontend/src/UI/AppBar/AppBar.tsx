@@ -4,17 +4,13 @@ import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
-import Badge from "@mui/material/Badge";
-import MenuIcon from "@mui/icons-material/Menu";
 import AccountCircle from "@mui/icons-material/AccountCircle";
-import MailIcon from "@mui/icons-material/Mail";
-import NotificationsIcon from "@mui/icons-material/Notifications";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import SearchBar from "./search";
 import useMenu from "./Menu";
 import useMobileMenu from "./MobileMenu";
 import { ThemeContext } from "../../store/Theme_context";
-import { Theme } from "../../constants/enums";
+import { Themes } from "../../constants/enums";
 import { DarkMode, LightMode } from "@mui/icons-material";
 import { Labels } from "../../constants/labels";
 
@@ -44,9 +40,9 @@ export default function PrimarySearchAppBar() {
   });
 
   const handleModeChange = () => {
-    if (themeMode?.themeMode === Theme.DARK)
-      themeMode?.setThemeMode(Theme.LIGHT);
-    else themeMode?.setThemeMode(Theme.DARK);
+    if (themeMode?.themeMode === Themes.DARK)
+      themeMode?.setThemeMode(Themes.LIGHT);
+    else themeMode?.setThemeMode(Themes.DARK);
   };
 
   return (
@@ -72,7 +68,7 @@ export default function PrimarySearchAppBar() {
               onClick={handleModeChange}
               color="inherit"
             >
-              {themeMode?.themeMode === Theme.DARK ? (
+              {themeMode?.themeMode === Themes.DARK ? (
                 <LightMode />
               ) : (
                 <DarkMode />
@@ -99,7 +95,7 @@ export default function PrimarySearchAppBar() {
               onClick={handleModeChange}
               color="inherit"
             >
-              {themeMode?.themeMode === Theme.DARK ? (
+              {themeMode?.themeMode === Themes.DARK ? (
                 <LightMode />
               ) : (
                 <DarkMode />
