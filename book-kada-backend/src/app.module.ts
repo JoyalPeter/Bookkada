@@ -20,7 +20,7 @@ import { Rating } from './ratings/entities/rating.entity';
       port: 3306,
       username: 'root',
       password: 'root',
-      database: 'book-kada',
+      database: 'bookkada',
       entities: [User,Book,Order,Photo,Rating],
       synchronize: true,
     }), UsersModule, BooksModule, RatingsModule, OrdersModule, PhotosModule,],
