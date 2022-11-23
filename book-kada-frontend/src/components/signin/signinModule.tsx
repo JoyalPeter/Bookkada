@@ -8,7 +8,6 @@ import {
   Link,
   Grid,
   Box,
-  Paper,
 } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import CenterBox from "../../UI/CenterBox";

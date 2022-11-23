@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Method } from "../constants/enums";
 import { ApiCall } from "../utils/ApiCall";
 

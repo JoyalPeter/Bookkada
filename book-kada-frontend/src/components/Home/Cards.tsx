@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   Card,
@@ -21,15 +21,12 @@ export default function Cards() {
   const { makeApiCall, loadingFlag } = useApiService();
 
   useEffect(() => {
-    const displayBooks = () => {
-      makeApiCall(Method.GET, "books/viewAllbooks")
-        .then((response) => {
-          console.log(response);
-        })
-        .catch((error) => showToast(Toast.ERROR, error));
-    };
-    displayBooks();
-  });
+    makeApiCall(Method.GET, "books/viewAllbooks")
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => showToast(Toast.ERROR, error));
+  }, []);
 
   return (
     <>

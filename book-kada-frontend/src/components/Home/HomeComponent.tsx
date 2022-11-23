@@ -1,5 +1,3 @@
-import React from "react";
-import { useState } from "react";
 import Padding from "../../UI/Padding";
 import { Grid } from "@mui/material";
 import Cards from "./Cards";
