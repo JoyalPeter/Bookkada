@@ -3,8 +3,9 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import SignIn from "../components/signin/signinModule";
 import Home from "../pages/Home";
 import Cart from "../pages/Cart";
-import Details from "../pages/details";
 import Signup from "../pages/Signup";
+import DetailsPage from "../pages/DetailsPage";
+
 
 export default function Router() {
   return (
