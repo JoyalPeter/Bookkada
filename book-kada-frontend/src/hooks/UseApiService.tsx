@@ -18,6 +18,8 @@ export default function useApiService() {
           resolve(response.data);
         })
         .catch((response) => {
+          console.log(response);
+          if (!response.response) reject("Something went wrong");
           if (response.response.status === 422)
             reject(response.response.data.message);
           else reject("Something went wrong");

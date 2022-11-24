@@ -13,6 +13,7 @@ import { RatingsModule } from './resources/ratings/ratings.module';
 import { User } from './resources/users/entities/user.entity';
 import { UsersModule } from './resources/users/users.module';
 import { AuthModule } from './auth/auth.module';
+
 import * as dotenv from 'dotenv';
 
 dotenv.config();

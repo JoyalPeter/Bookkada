@@ -4,6 +4,8 @@ import Home from "../pages/Home";
 import Cart from "../pages/Cart";
 import Signup from "../pages/Signup";
 import DetailsPage from "../pages/DetailsPage";
+import AdminPage from "../pages/AdminPage";
+import AdminBooks from "../pages/AdminBooks";
 
 export default function Router() {
   return (
@@ -14,6 +16,9 @@ export default function Router() {
         <Route path="/cart" element={<Cart />} />
         <Route path="/details" element={<DetailsPage />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/admin" element={<AdminPage />} />
+        <Route path="/adminBooks" element={<AdminBooks />} />
+        
       </Routes>
     </BrowserRouter>
   );
