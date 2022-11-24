@@ -1,31 +1,29 @@
-import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import DBException from 'src/exceptions/db.exception';
-import { Repository } from 'typeorm';
-import { Order } from '../orders/entities/order.entity';
-import { Photo } from '../photos/entities/photo.entity';
-import { Rating } from '../ratings/entities/rating.entity';
-import { CreateBookDto } from './dto/create-book.dto';
-import { UpdateBookDto } from './dto/update-book.dto';
-import { Book } from './entities/book.entity';
+import { Injectable } from "@nestjs/common";
+import { InjectRepository } from "@nestjs/typeorm";
+import DBException from "src/exceptions/db.exception";
+import { Repository } from "typeorm";
+import { Order } from "../orders/entities/order.entity";
+import { Photo } from "../photos/entities/photo.entity";
+import { Rating } from "../ratings/entities/rating.entity";
+import { CreateBookDto } from "./dto/create-book.dto";
+import { UpdateBookDto } from "./dto/update-book.dto";
+import { Book } from "./entities/book.entity";
 
 @Injectable()
 export class BooksService {
   constructor(
     @InjectRepository(Book)
     private booksRepo: Repository<Book>,
-  ) { }
 
-@InjectRepository(Order)
+    @InjectRepository(Order)
     private orderRepo: Repository<Order>,
 
     @InjectRepository(Photo)
     private photosRepo: Repository<Photo>,
 
     @InjectRepository(Rating)
-    private ratingRepo: Repository<Rating>,
+    private ratingRepo: Repository<Rating>
   ) {}
-
 
   async create(createBookDto: CreateBookDto) {
     const book = this.booksRepo.create(createBookDto);
@@ -44,9 +42,11 @@ export class BooksService {
   }
 
   async findOne(bookId: number) {
-    return await this.booksRepo.find({ where: { bookId: bookId }, relations : ['ratings'],  }).catch(() => {
-      throw new DBException();
-    });
+    return await this.booksRepo
+      .find({ where: { bookId: bookId }, relations: ["ratings"] })
+      .catch(() => {
+        throw new DBException();
+      });
   }
 
   async findOneById(id: number) {
@@ -68,28 +68,31 @@ export class BooksService {
     const books = await this.booksRepo
       .findOne({
         where: { bookId: id },
-        relations: ['ratings', 'photos', 'orders'],
+        relations: ["ratings", "photos", "orders"],
       })
       .catch((e) => {
         throw new DBException();
       });
 
-    books.ratings.forEach(async (e) =>
-      await this.ratingRepo.delete(e.ratingId).catch((e) => {
-        throw new DBException();
-      }),
+    books.ratings.forEach(
+      async (e) =>
+        await this.ratingRepo.delete(e.ratingId).catch((e) => {
+          throw new DBException();
+        })
     );
 
-    books.orders.forEach(async (e) =>
-      await this.orderRepo.delete(e.orderId).catch((e) => {
-        throw new DBException();
-      }),
+    books.orders.forEach(
+      async (e) =>
+        await this.orderRepo.delete(e.orderId).catch((e) => {
+          throw new DBException();
+        })
     );
 
-    books.photos.forEach(async (e) =>
-      await this.ratingRepo.delete(e.photoId).catch((e) => {
-        throw new DBException();
-      }),
+    books.photos.forEach(
+      async (e) =>
+        await this.ratingRepo.delete(e.photoId).catch((e) => {
+          throw new DBException();
+        })
     );
 
     await this.booksRepo.delete(id).catch((e) => {
