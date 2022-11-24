@@ -9,99 +9,94 @@ import { CardActionArea, Rating, Button, Typography } from "@mui/material";
 import CentreBox from "../UI/CenterBox";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import LeftBox from "../UI/LeftBox";
-import showToast from "../utils/Toastify";
-import { Method, Toast } from "../constants/enums";
-import { useNavigate } from "react-router-dom";
-import useApiService from "../hooks/UseApiService";
-import Spinner from "../UI/Spinner";
+import Review from "./AddReview";
+import { BookDetails } from "./DetailsCard";
 
 
-export interface BookDetails {
-  name:string
-  price:string
-  description:string
-  author:string
+interface DetailsProps {
+  resp:BookDetails[]
 }
 
-export default function DetailsSubCard () {
-  const [resp,setResponse]=useState([] as BookDetails[])
-  const { makeApiCall, loadingFlag} = useApiService()
 
-
-  useEffect(()=>{
-        makeApiCall(Method.GET, "books/getBook/2").then((response : BookDetails[])=>{
-           console.log("jshhsh",response)
-
-           setResponse(response);
-          }).catch((error)=> (error)) 
-  },[]);
-  console.log(loadingFlag)
+export default function DetailsSubCard({ resp }: DetailsProps) {
+ 
+  const [addReviewFlag, setaddReviewFlag] = useState(false);
+  function addReview() {
+    setaddReviewFlag(!addReviewFlag);
+  }
+  
+ 
   return (
     <div>
-      {loadingFlag?(<Spinner/>):(
-        resp.map((item:BookDetails):JSX.Element=>(
-      <Card 
-        sx={{
-          width: 1,
-          display: "grid",
-          gap: 1,
-          gridTemplateColumns: "repeat(2, 1fr)",
-        }}
-      >
-        <CardActionArea>
-          <CardMedia
-            component="img"
-            height="500"
-            image="https://c1.wallpaperflare.com/preview/127/366/443/library-book-bookshelf-read.jpg"
-            alt="green iguana"
-          />
-        </CardActionArea>
-
-        <CardContent>
-          <LeftBox>
-            <Typography gutterBottom variant="h5" component="div">
-              Rating :{" "}
-              <Rating
-                name="half-rating"
-                defaultValue={2.5}
-                precision={0.5}
-                readOnly
+      
+      {resp.map(
+        (item: BookDetails): JSX.Element => (
+          <Card
+            sx={{
+              width: 1,
+              display: "grid",
+              gap: 1,
+              gridTemplateColumns: "repeat(2, 1fr)",
+            }}
+          >
+            <CardActionArea>
+              <CardMedia
+                component="img"
+                height="500"
+                image="https://c1.wallpaperflare.com/preview/127/366/443/library-book-bookshelf-read.jpg"
+                alt="green iguana"
               />
-            </Typography>
-          </LeftBox>
-          <Typography gutterBottom variant="h3" component="div">
-            {/* {resp[0] && resp[0].name} */}
-            {item.name}   
-          </Typography>
-          <Typography gutterBottom variant="h6" component="div">
-            {/* {resp[0] && resp[0].name} */}
-            {item.author}
-          </Typography>
-          <Typography gutterBottom variant="h5" component="div">
-            {/* {resp[0] && resp[0].name} */}
-            ${item.price}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            {/* {resp[0] && resp[0].description} */}
-            {item.description}
-          </Typography>
+            </CardActionArea>
 
-          <CentreBox>
-            <Box sx={{ display: "flex", gap: 5 }}>
-            
-              <Button
-                variant="contained"
+            <CardContent>
+              <LeftBox>
+                <Typography gutterBottom variant="h5" component="div">
+                  Rating :{" "}
+                  <Rating
+                    name="half-rating"
+                    defaultValue={item.ratings[0].rating}
+                    precision={0.5}
+                    readOnly
+                  />
+                </Typography>
+              </LeftBox>
+              <Typography gutterBottom variant="h3" component="div">
+                {/* {resp[0] && resp[0].name} */}
+                {item.name}
+              </Typography>
+              <Typography gutterBottom variant="h6" component="div">
+                {/* {resp[0] && resp[0].name} */}
+
+                {item.author}
+              </Typography>
+              <Typography gutterBottom variant="h5" component="div">
+                {/* {resp[0] && resp[0].name} */}${item.price}
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                {/* {resp[0] && resp[0].description} */}
+                {item.description}
                 
-                endIcon={<AddShoppingCartIcon />}
-              >
-                Add To Cart
-              </Button>
-            </Box>
-          </CentreBox>
-        </CardContent>
-      </Card>)))
-}
+              </Typography>
+              <CentreBox>
+                <Box sx={{ display: "flex", gap: 5 }}>
+                  <Button variant="contained" onClick={addReview}>
+                    Add Review
+                  </Button>
+                  <Button variant="contained" endIcon={<AddShoppingCartIcon />}>
+                    Add To Cart
+                  </Button>
+                </Box>
+              </CentreBox>
+              {addReviewFlag && (
+                <Review
+                  addReviewFlag={addReviewFlag}
+                  setaddReviewFlag={setaddReviewFlag}
+                />
+              )}
+            </CardContent>
+          </Card>
+        )
+      )}
     </div>
-
   );
 }

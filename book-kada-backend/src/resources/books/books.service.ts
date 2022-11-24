@@ -30,7 +30,7 @@ export class BooksService {
   }
 
   async findOne(bookId: number) {
-    return await this.booksRepo.find({ where: { bookId: bookId } }).catch(() => {
+    return await this.booksRepo.find({ where: { bookId: bookId }, relations : ['ratings'],  }).catch(() => {
       throw new DBException();
     });
   }
