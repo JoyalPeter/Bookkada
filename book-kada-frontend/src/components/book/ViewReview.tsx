@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { FC, useState } from 'react';
-
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import { Rating, Typography } from '@mui/material';
@@ -48,10 +47,14 @@ export default function ViewReview(props: IAppProps) {
             }}
           >
             <CentreBox>
-              <CardContent>{item.user.name}</CardContent>
+              <CardContent>
+                <Typography gutterBottom variant="h5">
+                  {item.user.name}
+                </Typography>
+              </CardContent>
             </CentreBox>
             <CardContent>
-              <Typography variant="body2" color="text.secondary">
+              <Typography gutterBottom variant="h5">
                 {item.description}
               </Typography>
             </CardContent>
