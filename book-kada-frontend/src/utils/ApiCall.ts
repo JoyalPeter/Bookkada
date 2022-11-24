@@ -8,7 +8,7 @@ export function ApiCall(
   data?: Object,
   accessToken?: string
 ) {
-  const apiHost = "https://api.github.com";
+  const apiHost = "http://localhost:5000";
 
   return axios({
     method,
