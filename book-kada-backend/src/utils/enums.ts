@@ -3,3 +3,8 @@ export const errorMessages = {
   notEmail: 'Email is not valid',
   passWordLength: 'Password length should be between 5-24',
 };
+
+export enum Roles {
+  USER = 'user',
+  ADMIN = 'admin'
+}

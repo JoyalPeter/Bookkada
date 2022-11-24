@@ -1,5 +1,5 @@
 import { SxProps, Theme } from "@mui/material";
-import Box, { BoxProps } from "@mui/material/Box";
+import Box from "@mui/material/Box";
 import React from "react";
 
 type Props = {

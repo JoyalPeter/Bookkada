@@ -1,8 +1,8 @@
-import { Theme, ThemeProvider, Paper, CssBaseline } from "@mui/material";
-import "./App.css";
-import Router from "./router/router";
-import useCustomTheme from "./theme/color-theme";
-import Toast from "./UI/Toast";
+import { Theme, ThemeProvider, Paper, CssBaseline } from '@mui/material';
+import './App.css';
+import Router from './router/Router';
+import useCustomTheme from './theme/ColorTheme';
+import Toast from './UI/Toast';
 function App() {
   const theme: Theme = useCustomTheme();
   console.log(theme);

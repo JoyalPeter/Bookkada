@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import { Method } from "../constants/enums";
+import { Method } from "../constants/Enums";
 
 export function ApiCall(
   method: Method,

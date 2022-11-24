@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import { Method } from "../constants/enums";
-import { ApiCall } from "../utils/ApiCall";
+import { useState } from 'react';
+import { Method } from '../constants/Enums';
+import { ApiCall } from '../utils/ApiCall';
 
 export default function useApiService() {
   const [loadingFlag, setloadingFlag] = useState(false);
@@ -9,7 +9,7 @@ export default function useApiService() {
     method: Method,
     path: string,
     data?: Object,
-    accessToken?: string
+    accessToken?: string,
   ) =>
     new Promise<any>(async (resolve, reject) => {
       setloadingFlag(true);
@@ -21,8 +21,8 @@ export default function useApiService() {
           console.log(response);
           if (!response.response) reject("Something went wrong");
           if (response.response.status === 422)
-            reject(response.response.data.message[0]);
-          else reject("Something went wrong");
+            reject(response.response.data.message);
+          else reject('Something went wrong');
         })
         .finally(() => setloadingFlag(false));
     });

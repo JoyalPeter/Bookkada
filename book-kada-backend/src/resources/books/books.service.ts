@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import DBException from 'src/utils/DBException';
+import DBException from 'src/exceptions/db.exception';
 import { Repository } from 'typeorm';
 import { Order } from '../orders/entities/order.entity';
 import { Photo } from '../photos/entities/photo.entity';
@@ -14,8 +14,9 @@ export class BooksService {
   constructor(
     @InjectRepository(Book)
     private booksRepo: Repository<Book>,
+  ) { }
 
-    @InjectRepository(Order)
+@InjectRepository(Order)
     private orderRepo: Repository<Order>,
 
     @InjectRepository(Photo)
@@ -24,6 +25,7 @@ export class BooksService {
     @InjectRepository(Rating)
     private ratingRepo: Repository<Rating>,
   ) {}
+
 
   async create(createBookDto: CreateBookDto) {
     const book = this.booksRepo.create(createBookDto);
