@@ -1,11 +1,11 @@
-import { Card, CardContent } from '@mui/material';
-import { useEffect, useState } from 'react';
-import ListItems from '../components/Admin/ListItems';
-import { Method, Toast } from '../constants/Enums';
-import { BookData } from '../constants/Interfaces';
-import useApiService from '../hooks/UseApiService';
-import Spinner from '../UI/Spinner';
-import showToast from '../utils/Toastify';
+import { Card, CardContent } from "@mui/material";
+import { useEffect, useState } from "react";
+import ListItems from "../components/admin/ListItems";
+import { Method, Toast } from "../constants/Enums";
+import { BookData } from "../constants/Interfaces";
+import useApiService from "../hooks/UseApiService";
+import Spinner from "../UI/Spinner";
+import showToast from "../utils/Toastify";
 
 export interface IAdminBooksProps {}
 
@@ -14,7 +14,7 @@ export default function AdminBooks(props: IAdminBooksProps) {
   const [data, setData] = useState([] as BookData[]);
 
   useEffect(() => {
-    makeApiCall(Method.GET, 'books/viewAllBooks')
+    makeApiCall(Method.GET, "books/viewAllBooks")
       .then((response: BookData[]) => {
         setData(response);
       })
