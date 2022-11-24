@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {  useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
   Card,
   CardMedia,
@@ -18,7 +18,7 @@ import Spinner from "../../UI/Spinner";
 import showToast from "../../utils/Toastify";
 import { BookDataProps } from "./HomeComponent";
 
-export default function Cards() {
+export default function Cards(props: BookDataProps) {
   const navigate = useNavigate();
   const { makeApiCall, loadingFlag } = useApiService();
 
