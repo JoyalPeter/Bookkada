@@ -1,4 +1,4 @@
-import { errorMessages } from 'src/utils/errorMessages';
+import { errorMessages } from 'src/utils/enums';
 import { IsNotEmpty } from 'class-validator';
 
 export class CreateRatingDto {

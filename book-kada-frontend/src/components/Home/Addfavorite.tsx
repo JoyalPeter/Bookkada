@@ -1,4 +1,3 @@
-import React from "react";
 import { useState } from "react";
 import { Tooltip, IconButton } from "@mui/material";
 import { FavoriteBorder } from "@mui/icons-material";

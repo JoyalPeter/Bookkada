@@ -1,18 +1,18 @@
-import React, { useContext, useState } from "react";
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
-import AccountCircle from "@mui/icons-material/AccountCircle";
-import MoreIcon from "@mui/icons-material/MoreVert";
-import SearchBar from "./search";
-import useMenu from "./Menu";
-import useMobileMenu from "./MobileMenu";
-import { ThemeContext } from "../../store/Theme_context";
-import { Themes } from "../../constants/enums";
-import { DarkMode, LightMode } from "@mui/icons-material";
-import { Labels } from "../../constants/labels";
+import { useContext, useState } from 'react';
+import AppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
+import Toolbar from '@mui/material/Toolbar';
+import IconButton from '@mui/material/IconButton';
+import Typography from '@mui/material/Typography';
+import AccountCircle from '@mui/icons-material/AccountCircle';
+import MoreIcon from '@mui/icons-material/MoreVert';
+import SearchBar from './Search';
+import useMenu from './Menu';
+import useMobileMenu from './MobileMenu';
+import { ThemeContext } from '../../store/Theme_context';
+import { Themes } from '../../constants/Enums';
+import { DarkMode, LightMode } from '@mui/icons-material';
+import { Labels } from '../../constants/Labels';
 
 export default function PrimarySearchAppBar() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -53,13 +53,13 @@ export default function PrimarySearchAppBar() {
             variant="h6"
             noWrap
             component="div"
-            sx={{ display: { xs: "none", sm: "block" } }}
+            sx={{ display: { xs: 'none', sm: 'block' } }}
           >
             {Labels.title}
           </Typography>
           <SearchBar></SearchBar>
           <Box sx={{ flexGrow: 1 }} />
-          <Box sx={{ display: { xs: "none", md: "flex" } }}>
+          <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
             <IconButton
               size="large"
               aria-label="mode"
@@ -86,7 +86,7 @@ export default function PrimarySearchAppBar() {
               <AccountCircle />
             </IconButton>
           </Box>
-          <Box sx={{ display: { xs: "flex", md: "none" } }}>
+          <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
             <IconButton
               size="large"
               aria-label="mode"

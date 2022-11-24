@@ -1,13 +1,12 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import SignIn from "../components/signin/signinModule";
-import Home from "../pages/Home";
-import Cart from "../pages/Cart";
-import Signup from "../pages/Signup";
-import DetailsPage from "../pages/DetailsPage";
-import AdminPage from "../pages/AdminPage";
-import AdminBooks from "../pages/AdminBooks";
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import SignIn from '../components/signin/SigninModule';
+import Home from '../pages/Home';
+import Cart from '../pages/Cart';
+import Signup from '../pages/Signup';
+import DetailsPage from '../pages/DetailsPage';
+import AdminPage from '../pages/AdminPage';
+import AdminBooks from '../pages/AdminBooks';
 import UserPage from "../pages/AdminBooks";
-
 
 export default function Router() {
   return (
@@ -19,7 +18,7 @@ export default function Router() {
         <Route path="/details" element={<DetailsPage />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/admin" element={<AdminPage />} />
-        <Route path="/adminBooks" element={<UserPage />} />
+        <Route path="/adminBooks" element={<AdminBooks />} />
       </Routes>
     </BrowserRouter>
   );

@@ -1,5 +1,4 @@
-
-import React, {useEffect,useState} from "react";
+import React, { useEffect, useState } from "react";
 
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
@@ -12,23 +11,18 @@ import LeftBox from "../UI/LeftBox";
 import Review from "./AddReview";
 import { BookDetails } from "./DetailsCard";
 
-
 interface DetailsProps {
-  resp:BookDetails[]
+  resp: BookDetails[];
 }
 
-
 export default function DetailsSubCard({ resp }: DetailsProps) {
- 
   const [addReviewFlag, setaddReviewFlag] = useState(false);
   function addReview() {
     setaddReviewFlag(!addReviewFlag);
   }
-  
- 
+
   return (
     <div>
-      
       {resp.map(
         (item: BookDetails): JSX.Element => (
           <Card
@@ -75,7 +69,6 @@ export default function DetailsSubCard({ resp }: DetailsProps) {
               <Typography variant="body2" color="text.secondary">
                 {/* {resp[0] && resp[0].description} */}
                 {item.description}
-                
               </Typography>
               <CentreBox>
                 <Box sx={{ display: "flex", gap: 5 }}>

@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import DBException from 'src/utils/DBException';
+import DBException from 'src/exceptions/db.exception';
 import { Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -11,7 +11,7 @@ export class UsersService {
   constructor(
     @InjectRepository(User)
     private userRepo: Repository<User>,
-  ) {}
+  ) { }
 
   async create(createUserDto: CreateUserDto) {
     const user = this.userRepo.create(createUserDto);
@@ -28,6 +28,12 @@ export class UsersService {
 
   async findOne(id: number) {
     return await this.userRepo.findOne({ where: { userId: id } }).catch(() => {
+      throw new DBException();
+    });
+  }
+
+  async getUserByEmail(email: string) {
+    return await this.userRepo.findOne({ where: { email } }).catch(() => {
       throw new DBException();
     });
   }

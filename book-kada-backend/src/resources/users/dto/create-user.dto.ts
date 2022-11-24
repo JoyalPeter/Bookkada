@@ -1,5 +1,5 @@
 import { IsEmail, IsNotEmpty, Length } from 'class-validator';
-import { errorMessages } from 'src/utils/errorMessages';
+import { errorMessages, Roles } from 'src/utils/enums';
 
 export class CreateUserDto {
 
@@ -15,5 +15,5 @@ export class CreateUserDto {
   password: string;
 
   @IsNotEmpty({ message: errorMessages.mandatoryEmpty })
-  role: number; //enum can be used as type
+  role: Roles; //enum can be used as type
 }

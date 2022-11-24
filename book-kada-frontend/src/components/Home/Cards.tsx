@@ -1,27 +1,21 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   Card,
   CardMedia,
   CardContent,
   CardActions,
   Typography,
-} from "@mui/material";
-import Cart from "./Shoppingcart";
-import Favorites from "./Addfavorite";
-import Ratings from "../../UI/Rating";
-import { Method, Toast } from "../../constants/enums";
-import useApiService from "../../hooks/UseApiService";
-import Spinner from "../../UI/Spinner";
-import showToast from "../../utils/Toastify";
-import { BookDataProps } from "./HomeComponent";
-
+} from '@mui/material';
+import Cart from './Shoppingcart';
+import Favorites from './Addfavorite';
+import Ratings from '../../UI/Rating';
+import { BookDataProps } from './HomeComponent';
 
 export default function Cards(props: BookDataProps) {
   const navigate = useNavigate();
   return (
     <>
-       
       <Card sx={{ maxWidth: 275, boxShadow: 5, m: 1, maxHeight: 500 }}>
         <CardMedia
           component="img"
@@ -29,7 +23,7 @@ export default function Cards(props: BookDataProps) {
           image="https://c1.wallpaperflare.com/preview/127/366/443/library-book-bookshelf-read.jpg"
           alt="name"
         />
-        <CardContent onClick={() => navigate(`details`)}>
+        <CardContent onClick={() => navigate(`details${props.bookId}`)}>
           <>
             <Typography gutterBottom variant="h5" component="div">
               <b>{props.name}</b>
@@ -42,8 +36,8 @@ export default function Cards(props: BookDataProps) {
               {props.price}
             </Typography>
             <Typography
-              fontFamily={"monospace"}
-              fontWeight={"light"}
+              fontFamily={'monospace'}
+              fontWeight={'light'}
               variant="subtitle2"
               color="text.secondary"
               component="div"
@@ -56,7 +50,6 @@ export default function Cards(props: BookDataProps) {
           <Cart /> <Favorites /> <Ratings />
         </CardActions>
       </Card>
-       
     </>
   );
 }
