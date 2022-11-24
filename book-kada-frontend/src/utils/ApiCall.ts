@@ -20,4 +20,3 @@ export function ApiCall(
   });
 }
 
-// ApiCall(Method.POST, 'add' ,)
