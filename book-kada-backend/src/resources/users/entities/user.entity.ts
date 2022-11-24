@@ -5,7 +5,6 @@ import { Rating } from "src/resources/ratings/entities/rating.entity";
 import { Roles } from 'src/utils/enums';
 import { BeforeInsert, Column, Entity, JoinColumn, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Exclude } from 'class-transformer';
-import DBException from 'src/Exceptions/DBException';
 
 @Entity('users')
 export class User {
