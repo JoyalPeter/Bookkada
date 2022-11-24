@@ -7,6 +7,7 @@ import DetailsSubCard from './DetailsSubCard';
 import { Method } from '../../constants/Enums';
 import useApiService from '../../hooks/UseApiService';
 import Spinner from '../../UI/Spinner';
+import { useParams } from 'react-router-dom';
 
 interface DetailsProps {}
 
@@ -26,11 +27,11 @@ export interface BookDetails {
 const DetailsCard: FC<DetailsProps> = ({}) => {
   const [resp, setResponse] = useState([] as BookDetails[]);
   const { makeApiCall, loadingFlag } = useApiService();
-
+  const { id } = useParams();
   useEffect(() => {
-    makeApiCall(Method.GET, 'books/getBook/2')
+    makeApiCall(Method.GET, `books/getBook/${id}`)
       .then((response: BookDetails[]) => {
-        console.log('details card', response);
+        console.log('details', response);
 
         setResponse(response);
       })
