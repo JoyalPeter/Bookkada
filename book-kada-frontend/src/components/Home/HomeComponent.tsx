@@ -5,7 +5,9 @@ import { Grid } from '@mui/material';
 import useApiService from '../../hooks/UseApiService';
 import { Method, Toast } from '../../constants/Enums';
 import showToast from '../../utils/Toastify';
-import ResponsiveGrid from '../../UI/Transition';
+import Spinner from '../../UI/Spinner';
+import { useNavigate } from 'react-router-dom';
+import Cards from './Cards';
 
 export interface BookDataProps {
   bookId: number;
@@ -16,7 +18,9 @@ export interface BookDataProps {
 }
 
 export default function UserPage() {
-  const { makeApiCall } = useApiService();
+  const navigate = useNavigate();
+  const { makeApiCall, loadingFlag } = useApiService();
+
   const [data, setData] = useState([] as BookDataProps[]);
 
   useEffect(() => {
@@ -32,21 +36,27 @@ export default function UserPage() {
   return (
     <>
       <Padding>
-        <ResponsiveGrid />
         <Grid
           container
+          paddingTop={1}
+          alignItems="center"
           rowSpacing={2}
-          sx={{
-            display: 'grid',
-            gap: 1,
-            gridTemplateColumns: 'repeat(5, 1fr)',
-          }}
+          columnSpacing={{ xs: 1, sm: 2, md: 2 }}
+          spacing={{ xs: 2, md: 3 }}
+          columns={{ xs: 4, sm: 8, md: 12 }}
         >
-          {/* {data.map(
+          {loadingFlag && <Spinner />}
+          {data.map(
             (element: BookDataProps): JSX.Element => (
-              <Cards bookId={element.bookId} name={element.name} price={element.price} description={element.description} author={element.author}/>
-            )
-          )} */}
+              <Cards
+                bookId={element.bookId}
+                name={element.name}
+                price={element.price}
+                description={element.description}
+                author={element.author}
+              />
+            ),
+          )}
         </Grid>
       </Padding>
     </>

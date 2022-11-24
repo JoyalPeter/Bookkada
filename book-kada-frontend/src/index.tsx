@@ -2,7 +2,7 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import ContextProvider from "./store/Context";
+import ContextProvider from "./store/context";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement

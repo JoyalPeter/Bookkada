@@ -25,9 +25,9 @@ export class BooksController {
     return await this.booksService.findAll();
   }
 
-  @Get('/getBook/:name')
-  async findOne(@Param('name') name: string) {
-    return await this.booksService.findOne(name);
+  @Get('/getBook/:bookId')
+  async findOne(@Param('bookId') bookId: string) {
+    return await this.booksService.findOne(+bookId);
   }
 
   @Patch('/updateBook/:id')
