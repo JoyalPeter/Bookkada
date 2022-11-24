@@ -1,15 +1,14 @@
 import * as React from 'react';
-import DetailsCard from '../BookDetails/DetailsCard';
+import DetailsCard from '../components/book/DetailsCard';
 import PrimarySearchAppBar from '../UI/AppBar/AppBar';
 
-export interface IAppProps {
-}
+export interface IAppProps {}
 
-export default function App (props: IAppProps) {
+export default function App(props: IAppProps) {
   return (
     <div>
-      <PrimarySearchAppBar/>
-      <DetailsCard/>
+      <PrimarySearchAppBar />
+      <DetailsCard />
     </div>
   );
 }

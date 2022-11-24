@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import NoUserException from 'src/Exceptions/NoUserException';
-import PasswordExceptionError from 'src/Exceptions/PasswordErrorException';
+import NoUserException from 'src/exceptions/nouser.exception';
+import PasswordExceptionError from 'src/exceptions/passwordmatch.exception';
 import { UsersService } from 'src/resources/users/users.service';
 import { JWTPayload } from './jwt.payload';
 @Injectable()

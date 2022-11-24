@@ -1,5 +1,5 @@
-import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   Card,
   CardMedia,
@@ -7,22 +7,22 @@ import {
   CardActions,
   Typography,
   ButtonBase,
-} from "@mui/material";
-import Cart from "./Shoppingcart";
-import Favorites from "./Addfavorite";
-import Ratings from "../../UI/Rating";
-import { Method, Toast } from "../../constants/enums";
-import useApiService from "../../hooks/UseApiService";
-import Spinner from "../../UI/Spinner";
-import showToast from "../../utils/Toastify";
-import { BookDataProps } from "./HomeComponent";
+} from '@mui/material';
+import Cart from './Shoppingcart';
+import Favorites from './Addfavorite';
+import Ratings from '../../UI/Rating';
+import { Method, Toast } from '../../constants/Enums';
+import useApiService from '../../hooks/UseApiService';
+import Spinner from '../../UI/Spinner';
+import showToast from '../../utils/Toastify';
+import { BookDataProps } from './HomeComponent';
 
 export default function Cards(props: BookDataProps) {
   const navigate = useNavigate();
   const { makeApiCall, loadingFlag } = useApiService();
 
   useEffect(() => {
-    makeApiCall(Method.GET, "books/viewAllbooks")
+    makeApiCall(Method.GET, 'books/viewAllbooks')
       .then((response) => {
         console.log(response);
       })
@@ -60,7 +60,7 @@ export default function Cards(props: BookDataProps) {
               <Typography
                 fontSize={14}
                 fontWeight={75}
-                fontFamily={"Arial"}
+                fontFamily={'Arial'}
                 variant="body2"
                 color="text.secondary"
               >

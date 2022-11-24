@@ -1,11 +1,11 @@
-import { useEffect } from "react";
-import { useState } from "react";
-import Padding from "../../UI/Padding";
-import { Grid } from "@mui/material";
-import useApiService from "../../hooks/UseApiService";
-import { Method, Toast } from "../../constants/enums";
-import showToast from "../../utils/Toastify";
-import ResponsiveGrid from "../../UI/Transition";
+import { useEffect } from 'react';
+import { useState } from 'react';
+import Padding from '../../UI/Padding';
+import { Grid } from '@mui/material';
+import useApiService from '../../hooks/UseApiService';
+import { Method, Toast } from '../../constants/Enums';
+import showToast from '../../utils/Toastify';
+import ResponsiveGrid from '../../UI/Transition';
 
 export interface BookDataProps {
   bookId: number;
@@ -20,7 +20,7 @@ export default function UserPage() {
   const [data, setData] = useState([] as BookDataProps[]);
 
   useEffect(() => {
-    makeApiCall(Method.GET, "books/viewAllBooks")
+    makeApiCall(Method.GET, 'books/viewAllBooks')
       .then((response: BookDataProps[]) => {
         console.log(response);
         setData(response);
@@ -37,9 +37,9 @@ export default function UserPage() {
           container
           rowSpacing={2}
           sx={{
-            display: "grid",
+            display: 'grid',
             gap: 1,
-            gridTemplateColumns: "repeat(5, 1fr)",
+            gridTemplateColumns: 'repeat(5, 1fr)',
           }}
         >
           {/* {data.map(

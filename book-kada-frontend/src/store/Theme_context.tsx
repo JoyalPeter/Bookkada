@@ -1,5 +1,5 @@
-import React, { useState, createContext } from "react";
-import { Themes } from "../constants/enums";
+import React, { useState, createContext } from 'react';
+import { Themes } from '../constants/Enums';
 
 export interface IThemeContext {
   themeMode: Themes;
