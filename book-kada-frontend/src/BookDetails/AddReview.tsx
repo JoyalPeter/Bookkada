@@ -1,19 +1,42 @@
-import * as React from 'react';
-import { Rating, Button, TextField,Typography} from "@mui/material";
-import { FC, useState } from "react";
-import { BookDetails } from './DetailsCard';
-
+import * as React from "react";
+import { Rating, Button, TextField, Typography } from "@mui/material";
+import { FC, useEffect, useState } from "react";
+import { BookDetails } from "./DetailsCard";
+import { Method } from "../constants/enums";
+import useApiService from "../hooks/UseApiService";
 
 export interface IAppProps {
   addReviewFlag: Boolean;
   setaddReviewFlag: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export default function Review({addReviewFlag, setaddReviewFlag }: IAppProps) {
-  const [ratingvalue, setRatingValue] = useState(0);
+export interface ReviewDetails{
+  description:string;
+  rating:number;
+  userId:number;
+  bookId:number;
+}
+
+export default function Review({ addReviewFlag, setaddReviewFlag }: IAppProps) {
+  const [ratingvalue, setRatingValue] = React.useState<number | null>(2);
   const [reviewdata, setReviewData] = useState("");
+  const [addreview, setAddReview] = useState([] as ReviewDetails[]);
+  const { makeApiCall, loadingFlag } = useApiService();
   function reviewSubmit() {
     setaddReviewFlag(!addReviewFlag);
+    
+    console.log(ratingvalue);
+
+      makeApiCall(Method.POST, "ratings/addRating", {description:reviewdata,rating:ratingvalue,userId:1,bookId:2})
+        .then((addreview: ReviewDetails[]) => {
+          console.log("add review", addreview);
+
+          setAddReview(addreview);
+        })
+        .catch((error) => error);
+    
+
+    console.log(addreview);
   }
   return (
     <div>
@@ -31,11 +54,11 @@ export default function Review({addReviewFlag, setaddReviewFlag }: IAppProps) {
         />
         Rating :{" "}
         <Rating
-          name="half-rating"
+          name="simple-controlled"
           defaultValue={2.5}
           precision={0.5}
-          onChange={(event, newRatingValue) => {
-            setRatingValue(ratingvalue);
+          onChange={(event, newValue) => {
+            setRatingValue(newValue);
           }}
         />
         <Button variant="contained" onClick={reviewSubmit}>
