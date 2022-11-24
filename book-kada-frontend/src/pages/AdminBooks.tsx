@@ -1,6 +1,6 @@
 import { Card, CardContent } from "@mui/material";
 import { useEffect, useState } from "react";
-import ListItems from "../components/admin/ListItems";
+import ListItems from "../components/Admin/ListItems";
 import { Method, Toast } from "../constants/Enums";
 import { BookData } from "../constants/Interfaces";
 import useApiService from "../hooks/UseApiService";
