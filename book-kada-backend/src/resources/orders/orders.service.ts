@@ -1,24 +1,24 @@
-import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import DBException from 'src/exceptions/db.exception';
-import { Repository } from 'typeorm';
-import { CreateBookDto } from '../books/dto/create-book.dto';
-import { CreateUserDto } from '../users/dto/create-user.dto';
-import { CreateOrderDto } from './dto/create-order.dto';
-import { UpdateOrderDto } from './dto/update-order.dto';
-import { Order } from './entities/order.entity';
+import { Injectable } from "@nestjs/common";
+import { InjectRepository } from "@nestjs/typeorm";
+import DBException from "src/exceptions/db.exception";
+import { Repository } from "typeorm";
+import { CreateBookDto } from "../books/dto/create-book.dto";
+import { CreateUserDto } from "../users/dto/create-user.dto";
+import { CreateOrderDto } from "./dto/create-order.dto";
+import { UpdateOrderDto } from "./dto/update-order.dto";
+import { Order } from "./entities/order.entity";
 
 @Injectable()
 export class OrdersService {
   constructor(
     @InjectRepository(Order)
-    private orderRepo: Repository<Order>,
-  ) { }
+    private orderRepo: Repository<Order>
+  ) {}
 
   async create(
     createOrderDto: CreateOrderDto,
     user: CreateUserDto,
-    book: CreateBookDto,
+    book: CreateBookDto
   ) {
     return await this.orderRepo
       .save({
@@ -33,7 +33,7 @@ export class OrdersService {
 
   async findAll() {
     return await this.orderRepo
-      .find({ relations: ['book', 'user'] })
+      .find({ relations: ["book", "user"] })
       .catch(() => {
         throw new DBException();
       });
@@ -43,7 +43,7 @@ export class OrdersService {
     return await this.orderRepo
       .find({
         where: { book: { bookId: id } },
-        relations: ['user'],
+        relations: ["user"],
       })
       .catch(() => {
         throw new DBException();
@@ -54,7 +54,7 @@ export class OrdersService {
     return await this.orderRepo
       .find({
         where: { user: { userId: id } },
-        relations: ['book'],
+        relations: ["book"],
       })
       .catch(() => {
         throw new DBException();
