@@ -2,7 +2,7 @@ import * as React from "react";
 import { Rating, Button, TextField, Typography } from "@mui/material";
 import { FC, useEffect, useState } from "react";
 import { BookDetails } from "./DetailsCard";
-import { Method } from "../constants/enums";
+import { Method } from "../constants/Enums";
 import useApiService from "../hooks/UseApiService";
 
 export interface IAppProps {
