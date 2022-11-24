@@ -25,7 +25,7 @@ export default function useSignupValidate() {
 
         if (emailRegex.test(email!) || !email) {
             setErrorTexts((errorTexts) => {
-                errorTexts.emailError = "Username cannot be empty";
+                errorTexts.emailError = "email not valid";
                 return { ...errorTexts };
             });
             return false;

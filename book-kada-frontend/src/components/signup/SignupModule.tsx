@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   Avatar,
   Button,
@@ -8,12 +8,12 @@ import {
   Typography,
   Container,
   Link,
-} from "@mui/material";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import CenterBox from "../../UI/CenterBox";
-import { useNavigate } from "react-router-dom";
-import useApiService from "../../hooks/UseApiService";
-import useSignupValidate from "./SignupValdations";
+} from '@mui/material';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import CenterBox from '../../UI/CenterBox';
+import { useNavigate } from 'react-router-dom';
+import useApiService from '../../hooks/UseApiService';
+import useSignupValidate from './SignupValdations';
 
 export default function SignUpModule() {
   const navigate = useNavigate();
@@ -23,16 +23,17 @@ export default function SignUpModule() {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    const firstname = data.get("firstname");
-    const email = data.get("email");
-    const password = data.get("password");
+    const firstname = data.get('firstname');
+    const email = data.get('email');
+    const password = data.get('password');
+
     // validateSignup();
   };
 
   return (
     <Container component="main" maxWidth="xs">
       <CenterBox sx={{ marginTop: 20 }}>
-        <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+        <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
