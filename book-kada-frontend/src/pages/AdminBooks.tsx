@@ -16,11 +16,11 @@ export default function AdminBooks (props: IAdminBooksProps) {
     const [data, setData] = useState([] as BookData[]); 
     
     useEffect(() => {
-      makeApiCall(Method.GET, "/books/viewAllBooks")
+      makeApiCall(Method.GET, "books/viewAllBooks")
         .then((response: BookData[]) => {
           setData(response);
         })
-        .catch((error:string) => showToast(Toast.ERROR, error));
+        .catch((error: string) => showToast(Toast.ERROR, error));
     }, []);
 
     

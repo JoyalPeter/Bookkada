@@ -7,7 +7,7 @@ import showToast from "../../utils/Toastify";
 export interface ListItemsProps {
   index: number;
   bookData: BookData;
-  setData:any
+  setData:Function
 }
 
 export default function ListItems(props: ListItemsProps) {
@@ -17,7 +17,7 @@ export default function ListItems(props: ListItemsProps) {
     const body={
         
     }
-    makeApiCall(Method.PATCH, `/books/updateBook/${id}`,body)
+    makeApiCall(Method.PATCH, `books/updateBook/${id}`,body)
       .then((response: BookData[]) => {
         props.setData(response);
       })
@@ -26,7 +26,7 @@ export default function ListItems(props: ListItemsProps) {
 
   function deleteBook(id:number) {
 
-    makeApiCall(Method.DELETE, `/books/deleteBook/${id}`)
+    makeApiCall(Method.DELETE, `books/deleteBook/${id}`)
       .then((response: BookData[]) => {
         props.setData(response);
       })
@@ -39,7 +39,7 @@ export default function ListItems(props: ListItemsProps) {
         <h1>
           {props.index + 1}. {props.bookData.name} {props.bookData.author}
           <Button>Edit</Button>
-          <Button>Delete</Button>
+          <Button onClick={() => deleteBook(props.bookData.bookId)}>Delete</Button>
         </h1>
       </CardContent>
     </Card>

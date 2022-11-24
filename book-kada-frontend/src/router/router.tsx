@@ -7,7 +7,6 @@ import DetailsPage from "../pages/DetailsPage";
 import AdminPage from "../pages/AdminPage";
 import AdminBooks from "../pages/AdminBooks";
 
-
 export default function Router() {
   return (
     <BrowserRouter>
