@@ -11,7 +11,7 @@ export default function useApiService() {
     data?: Object,
     accessToken?: string
   ) =>
-    new Promise(async (resolve, reject) => {
+    new Promise<any>(async (resolve, reject) => {
       setloadingFlag(true);
       ApiCall(method, path, data, accessToken)
         .then((response) => {
@@ -20,7 +20,7 @@ export default function useApiService() {
         .catch((response) => {
           if (response.response.status === 422)
             reject(response.response.data.message[0]);
-          else reject(response.response.data.message);
+          else reject("Something went wrong");
         })
         .finally(() => setloadingFlag(false));
     });
