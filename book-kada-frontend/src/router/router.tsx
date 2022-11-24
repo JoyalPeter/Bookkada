@@ -6,7 +6,6 @@ import Cart from "../pages/Cart";
 import Signup from "../pages/Signup";
 import DetailsPage from "../pages/DetailsPage";
 
-
 export default function Router() {
   return (
     <BrowserRouter>

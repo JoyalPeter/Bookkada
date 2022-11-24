@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   Card,
@@ -7,6 +7,7 @@ import {
   CardActions,
   Typography,
   ButtonBase,
+  useMediaQuery,
 } from "@mui/material";
 import Cart from "./Shoppingcart";
 import Favorites from "./Addfavorite";
@@ -15,8 +16,9 @@ import { Method, Toast } from "../../constants/enums";
 import useApiService from "../../hooks/UseApiService";
 import Spinner from "../../UI/Spinner";
 import showToast from "../../utils/Toastify";
+import { BookDataProps } from "./HomeComponent";
 
-export default function Cards() {
+export default function Cards(props: BookDataProps) {
   const navigate = useNavigate();
   const { makeApiCall, loadingFlag } = useApiService();
 
@@ -48,13 +50,27 @@ export default function Cards() {
             alt="book1"
           />
           <CardContent>
-            <Typography gutterBottom variant="h5" component="div">
-              Book1
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-              Lizards are a widespread group of squamate reptiles, with over
-              6,000 species, ranging across all continents except Antarctica
-            </Typography>
+            <>
+              <Typography gutterBottom variant="h5" component="div">
+                <b>{props.name}</b>
+              </Typography>
+              <Typography gutterBottom variant="subtitle1" component="div">
+                <b>{props.author}</b>
+              </Typography>
+              <Typography variant="body1" color="text.secondary" fontSize={16}>
+                <b>$</b>
+                {props.price}
+              </Typography>
+              <Typography
+                fontSize={14}
+                fontWeight={75}
+                fontFamily={"Arial"}
+                variant="body2"
+                color="text.secondary"
+              >
+                <b>{props.description}</b>
+              </Typography>
+            </>
           </CardContent>
           <CardActions>
             <Cart /> <Favorites /> <Ratings />
