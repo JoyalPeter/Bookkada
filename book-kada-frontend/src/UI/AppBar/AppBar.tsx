@@ -9,7 +9,7 @@ import MoreIcon from '@mui/icons-material/MoreVert';
 import SearchBar from './Search';
 import useMenu from './Menu';
 import useMobileMenu from './MobileMenu';
-import { ThemeContext } from '../../store/Theme_context';
+import { ThemeContext } from '../../store/Theme_Context';
 import { Themes } from '../../constants/Enums';
 import { DarkMode, LightMode } from '@mui/icons-material';
 import { Labels } from '../../constants/Labels';

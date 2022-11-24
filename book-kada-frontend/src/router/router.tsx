@@ -6,6 +6,7 @@ import Signup from '../pages/Signup';
 import DetailsPage from '../pages/DetailsPage';
 import AdminPage from '../pages/AdminPage';
 import AdminBooks from '../pages/AdminBooks';
+import UserPage from "../pages/AdminBooks";
 
 export default function Router() {
   return (

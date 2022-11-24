@@ -1,7 +1,7 @@
 import { Card, CardContent } from '@mui/material';
 import { useEffect, useState } from 'react';
 import ListItems from '../components/Admin/ListItems';
-import { Method, Toast } from '../constants/enums';
+import { Method, Toast } from '../constants/Enums';
 import { BookData } from '../constants/Interfaces';
 import useApiService from '../hooks/UseApiService';
 import Spinner from '../UI/Spinner';
