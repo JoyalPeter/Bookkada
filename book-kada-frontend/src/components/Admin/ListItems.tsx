@@ -8,9 +8,9 @@ import {
   Typography,
 } from "@mui/material";
 import Ratings from "../../UI/Rating";
-import Favorites from "../Home/Addfavorite";
-import { BookDataProps } from "../Home/HomeComponent";
-import Cart from "../Home/Shoppingcart";
+import Favorites from "../home/Addfavorite";
+import { BookDataProps } from "../home/HomeComponent";
+import Cart from "../home/Shoppingcart";
 import EditIcon from "@mui/icons-material/Edit";
 
 
