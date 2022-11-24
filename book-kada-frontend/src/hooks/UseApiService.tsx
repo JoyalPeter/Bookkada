@@ -11,7 +11,7 @@ export default function useApiService() {
     data?: Object,
     accessToken?: string
   ) =>
-    new Promise(async (resolve, reject) => {
+    new Promise<any>(async (resolve, reject) => {
       setloadingFlag(true);
       ApiCall(method, path, data, accessToken)
         .then((response) => {

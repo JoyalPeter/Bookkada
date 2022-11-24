@@ -14,32 +14,31 @@ export interface BookDataProps {
   name: string;
   price: number;
   description: string;
-  author:string;
+  author: string;
 }
-
 
 export default function UserPage() {
   const navigate = useNavigate();
   const { makeApiCall } = useApiService();
   const [data, setData] = useState([] as BookDataProps[]);
- 
 
   useEffect(() => {
     makeApiCall(Method.GET, "books/viewAllBooks")
       .then((response: BookDataProps[]) => {
         console.log(response);
         setData(response);
-        console.log(data)
+        console.log(data);
       })
       .catch((error) => showToast(Toast.ERROR, error));
-    }, []);
+  }, []);
 
   return (
     <>
       <Padding>
-        <ResponsiveGrid/>
+        <ResponsiveGrid />
         <Grid
-          container rowSpacing={2}
+          container
+          rowSpacing={2}
           sx={{
             display: "grid",
             gap: 1,
