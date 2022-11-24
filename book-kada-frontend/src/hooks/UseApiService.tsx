@@ -19,7 +19,7 @@ export default function useApiService() {
         })
         .catch((response) => {
           if (response.response.status === 422)
-            reject(response.response.data.message[0]);
+            reject(response.response.data.message);
           else reject("Something went wrong");
         })
         .finally(() => setloadingFlag(false));

@@ -3,6 +3,6 @@ import { Errors } from "../constants/enums";
 
 export default class NoUserException extends HttpException {
     constructor() {
-        super(Errors.NOUSERROR, HttpStatus.NOT_FOUND);
+        super(Errors.NOUSERROR, HttpStatus.UNPROCESSABLE_ENTITY);
     }
 }

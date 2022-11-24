@@ -1,7 +1,5 @@
 {
   "compilerOptions": {
-      "noUnusedLocals": true,                /* Report errors on unused locals. */
-  "noUnusedParameters": true  ,
     "target": "es5",
     "lib": [
       "dom",

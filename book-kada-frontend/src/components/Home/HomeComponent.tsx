@@ -5,7 +5,6 @@ import { Grid } from "@mui/material";
 import useApiService from "../../hooks/UseApiService";
 import { Method, Toast } from "../../constants/enums";
 import showToast from "../../utils/Toastify";
-import { useNavigate } from "react-router-dom";
 import ResponsiveGrid from "../../UI/Transition";
 
 export interface BookDataProps {
@@ -17,7 +16,6 @@ export interface BookDataProps {
 }
 
 export default function UserPage() {
-  const navigate = useNavigate();
   const { makeApiCall } = useApiService();
   const [data, setData] = useState([] as BookDataProps[]);
 

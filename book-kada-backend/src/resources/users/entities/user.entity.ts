@@ -5,6 +5,7 @@ import { Rating } from "src/resources/ratings/entities/rating.entity";
 import { Roles } from 'src/utils/enums';
 import { BeforeInsert, Column, Entity, JoinColumn, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Exclude } from 'class-transformer';
+import DBException from 'src/Exceptions/DBException';
 
 @Entity('users')
 export class User {
@@ -42,7 +43,7 @@ export class User {
         this.password = await bcrypt.hash(this.password, salt);
     }
     async validatePassword(password: string): Promise<boolean> {
-        return await bcrypt.compareSync(password, this.password);
+        return await bcrypt.compareSync(password, this.password)
     }
     constructor(userId: number, name: string, pass: string) {
         this.userId = userId;

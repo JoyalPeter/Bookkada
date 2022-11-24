@@ -3,6 +3,6 @@ import { Errors } from "../constants/enums";
 
 export default class PasswordExceptionError extends HttpException {
     constructor() {
-        super(Errors.NOUSERROR, HttpStatus.UNAUTHORIZED);
+        super(Errors.PASSWORDERROR, HttpStatus.UNPROCESSABLE_ENTITY);
     }
 }
