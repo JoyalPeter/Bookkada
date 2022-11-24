@@ -29,8 +29,8 @@ export class BooksService {
     });
   }
 
-  async findOne(name: string) {
-    return await this.booksRepo.find({ where: { name: name } }).catch(() => {
+  async findOne(bookId: number) {
+    return await this.booksRepo.find({ where: { bookId: bookId } }).catch(() => {
       throw new DBException();
     });
   }

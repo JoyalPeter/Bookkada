@@ -1,5 +1,5 @@
 
-import React, { FC, useState } from "react";
+import React, {useEffect,useState} from "react";
 
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
@@ -9,14 +9,38 @@ import { CardActionArea, Rating, Button, Typography } from "@mui/material";
 import CentreBox from "../UI/CenterBox";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import LeftBox from "../UI/LeftBox";
+import showToast from "../utils/Toastify";
+import { Method, Toast } from "../constants/enums";
+import { useNavigate } from "react-router-dom";
+import useApiService from "../hooks/UseApiService";
+import Spinner from "../UI/Spinner";
 
-export interface IAppProps {
+
+export interface BookDetails {
+  name:string
+  price:string
+  description:string
+  author:string
 }
 
-export default function DetailsSubCard (props: IAppProps) {
+export default function DetailsSubCard () {
+  const [resp,setResponse]=useState([] as BookDetails[])
+  const { makeApiCall, loadingFlag} = useApiService()
+
+
+  useEffect(()=>{
+        makeApiCall(Method.GET, "books/getBook/2").then((response : BookDetails[])=>{
+           console.log("jshhsh",response)
+
+           setResponse(response);
+          }).catch((error)=> (error)) 
+  },[]);
+  console.log(loadingFlag)
   return (
     <div>
-        <Card
+      {loadingFlag?(<Spinner/>):(
+        resp.map((item:BookDetails):JSX.Element=>(
+      <Card 
         sx={{
           width: 1,
           display: "grid",
@@ -45,16 +69,26 @@ export default function DetailsSubCard (props: IAppProps) {
               />
             </Typography>
           </LeftBox>
+          <Typography gutterBottom variant="h3" component="div">
+            {/* {resp[0] && resp[0].name} */}
+            {item.name}   
+          </Typography>
+          <Typography gutterBottom variant="h6" component="div">
+            {/* {resp[0] && resp[0].name} */}
+            {item.author}
+          </Typography>
           <Typography gutterBottom variant="h5" component="div">
-            Lizard
+            {/* {resp[0] && resp[0].name} */}
+            ${item.price}
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            Lizards are a widespread group of squamate reptiles, with over 6,000
-            species, ranging across all continents except Antarctica
+            {/* {resp[0] && resp[0].description} */}
+            {item.description}
           </Typography>
 
           <CentreBox>
             <Box sx={{ display: "flex", gap: 5 }}>
+            
               <Button
                 variant="contained"
                 
@@ -65,7 +99,9 @@ export default function DetailsSubCard (props: IAppProps) {
             </Box>
           </CentreBox>
         </CardContent>
-      </Card>
+      </Card>)))
+}
     </div>
+
   );
 }
