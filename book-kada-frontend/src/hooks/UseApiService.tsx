@@ -3,7 +3,7 @@ import { Method } from "../constants/enums";
 import { ApiCall } from "../utils/ApiCall";
 
 export default function useApiService() {
-  const [spinnerFlag, setSpinnerFlag] = useState(false);
+  const [loadingFlag, setloadingFlag] = useState(false);
 
   const makeApiCall = (
     method: Method,
@@ -11,8 +11,8 @@ export default function useApiService() {
     data?: Object,
     accessToken?: string
   ) =>
-    new Promise<any>(async (resolve, reject) => {
-      setSpinnerFlag(true);
+    new Promise(async (resolve, reject) => {
+      setloadingFlag(true);
       ApiCall(method, path, data, accessToken)
         .then((response) => {
           resolve(response.data);
@@ -22,8 +22,8 @@ export default function useApiService() {
             reject(response.response.data.message[0]);
           else reject("Something went wrong");
         })
-        .finally(() => setSpinnerFlag(false));
+        .finally(() => setloadingFlag(false));
     });
 
-  return { makeApiCall, spinnerFlag };
+  return { makeApiCall, loadingFlag };
 }

@@ -18,21 +18,31 @@ import Spinner from "../../UI/Spinner";
 import showToast from "../../utils/Toastify";
 import { BookDataProps } from "./HomeComponent";
 
-export default function Cards(props:BookDataProps) {
-const navigate = useNavigate()
-const {  spinnerFlag } = useApiService();
-// const matches = useMediaQuery("(min-width:600px)");
+export default function Cards() {
+  const navigate = useNavigate();
+  const { makeApiCall, loadingFlag } = useApiService();
+
+  useEffect(() => {
+    const displayBooks = () => {
+      makeApiCall(Method.GET, "books/viewAllbooks")
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => showToast(Toast.ERROR, error));
+    };
+    displayBooks();
+  });
 
   return (
     <>
-        
-      {spinnerFlag ? (
+      {loadingFlag ? (
         <Spinner />
       ) : (
-        <Card
-          onClick={() => navigate(`details/${props.bookId}`)}
-          sx={{ maxWidth: 275, boxShadow: 5 }}
-        >
+        <Card sx={{ maxWidth: 275, boxShadow: 5 }}>
+          <ButtonBase
+            onClick={() => navigate(`details/:id`)}
+            // console.log("kitti")
+          ></ButtonBase>
           <CardMedia
             component="img"
             height="140"
