@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { emailRegex } from '../../constants/regex';
+import { emailRegex } from '../../constants/Regex';
 
 export default function useSignupValidate() {
     const [errorTexts, setErrorTexts] = useState({

@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import DBException from 'src/Exceptions/DBException';
+import DBException from 'src/exceptions/db.exception';
 import { Repository } from 'typeorm';
 import { Book } from '../books/entities/book.entity';
 import { CreatePhotoDto } from './dto/create-photo.dto';

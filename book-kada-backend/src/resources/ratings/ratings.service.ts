@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import DBException from 'src/Exceptions/DBException';
+import DBException from 'src/exceptions/db.exception';
 import { Repository } from 'typeorm';
 import { CreateBookDto } from '../books/dto/create-book.dto';
 import { CreateUserDto } from '../users/dto/create-user.dto';
