@@ -1,8 +1,8 @@
-import { HttpException, HttpStatus } from "@nestjs/common";
-import { Errors } from "../constants/enums";
+import { HttpException, HttpStatus } from '@nestjs/common';
+import { Errors } from '../constants/enums';
 
 export default class NoUserException extends HttpException {
-    constructor() {
-        super(Errors.NOUSERROR, HttpStatus.UNPROCESSABLE_ENTITY);
-    }
+  constructor() {
+    super(Errors.NOUSERROR, HttpStatus.UNPROCESSABLE_ENTITY);
+  }
 }

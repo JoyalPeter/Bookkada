@@ -2,7 +2,7 @@ import { createTheme, Theme, ThemeOptions } from '@mui/material/styles';
 import { purple, grey, yellow } from '@mui/material/colors';
 
 import React, { useContext } from 'react';
-import { ThemeContext } from '../store/Theme_context';
+import { ThemeContext } from '../store/Theme_Context';
 import { Themes } from '../constants/Enums';
 
 export default function useCustomTheme(): Theme {
