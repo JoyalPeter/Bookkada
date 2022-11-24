@@ -1,23 +1,28 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { AuthGuard } from '@nestjs/passport';
+import { ApiBearerAuth } from '@nestjs/swagger';
 
 @Controller('users')
 export class UsersController {
-  constructor(private readonly usersService: UsersService) {}
+  constructor(private readonly usersService: UsersService) { }
 
-  @Post('/createUser')
+  @Post('signup')
   async create(@Body() createUserDto: CreateUserDto) {
-    return await this.usersService.create(createUserDto);
+    await this.usersService.create(createUserDto);
+    return "user created successfully"
   }
 
-  @Get('/findAllUsers')
+  @Get()
   async findAll() {
     return await this.usersService.findAll();
   }
 
-  @Get('/getUser/:id')
+  @Get(':id')
+  @ApiBearerAuth()
+  @UseGuards(AuthGuard('jwt'))
   async findOne(@Param('id') id: string) {
     return await this.usersService.findOne(+id);
   }

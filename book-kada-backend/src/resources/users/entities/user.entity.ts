@@ -2,7 +2,9 @@ import * as bcrypt from 'bcrypt';
 import { Book } from "src/resources/books/entities/book.entity";
 import { Order } from "src/resources/orders/entities/order.entity";
 import { Rating } from "src/resources/ratings/entities/rating.entity";
+import { Roles } from 'src/utils/enums';
 import { BeforeInsert, Column, Entity, JoinColumn, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Exclude } from 'class-transformer';
 
 @Entity('users')
 export class User {
@@ -15,11 +17,12 @@ export class User {
     @Column({ unique: true })
     readonly email: string;
 
+    @Exclude()
     @Column({ type: 'varchar', length: 70, nullable: true })
     password: string;
 
     @Column()
-    role: number; //enum can be used as type
+    role: Roles;
 
     @OneToMany(() => Book, (book) => book.users)
     @JoinColumn({ name: 'books' })
@@ -46,5 +49,4 @@ export class User {
         this.name = name;
         this.password = pass;
     }
-
 }

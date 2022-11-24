@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import DBException from 'src/utils/DBException';
+import DBException from 'src/Exceptions/DBException';
 import { Repository } from 'typeorm';
 import { CreateBookDto } from '../books/dto/create-book.dto';
 import { CreateUserDto } from '../users/dto/create-user.dto';
@@ -13,7 +13,7 @@ export class OrdersService {
   constructor(
     @InjectRepository(Order)
     private orderRepo: Repository<Order>,
-  ) {}
+  ) { }
 
   async create(
     createOrderDto: CreateOrderDto,

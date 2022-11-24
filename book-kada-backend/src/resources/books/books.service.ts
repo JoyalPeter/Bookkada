@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import DBException from 'src/utils/DBException';
+import DBException from 'src/Exceptions/DBException';
 import { Repository } from 'typeorm';
 import { CreateBookDto } from './dto/create-book.dto';
 import { UpdateBookDto } from './dto/update-book.dto';
@@ -11,7 +11,7 @@ export class BooksService {
   constructor(
     @InjectRepository(Book)
     private booksRepo: Repository<Book>,
-  ) {}
+  ) { }
 
   async create(createBookDto: CreateBookDto) {
     const book = this.booksRepo.create(createBookDto);
