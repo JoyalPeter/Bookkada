@@ -29,7 +29,7 @@ export default function Cards(props: BookDataProps) {
           image="https://c1.wallpaperflare.com/preview/127/366/443/library-book-bookshelf-read.jpg"
           alt="name"
         />
-        <CardContent onClick={() => navigate(`details`)}>
+        <CardContent onClick={() => navigate(`details${props.bookId}`)}>
           <>
             <Typography gutterBottom variant="h5" component="div">
               <b>{props.name}</b>
