@@ -1,8 +1,7 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useState } from "react";
 import Padding from "../../UI/Padding";
 import { Grid } from "@mui/material";
-import Cards from "./Cards";
 import useApiService from "../../hooks/UseApiService";
 import { Method, Toast } from "../../constants/enums";
 import showToast from "../../utils/Toastify";
@@ -20,8 +19,10 @@ export interface BookDataProps {
 }
 
 export default function UserPage() {
+
   const navigate = useNavigate();
   const { makeApiCall, loadingFlag } = useApiService();
+
   const [data, setData] = useState([] as BookDataProps[]);
 
   useEffect(() => {

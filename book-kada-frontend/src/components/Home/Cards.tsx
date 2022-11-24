@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   Card,
@@ -6,6 +6,7 @@ import {
   CardContent,
   CardActions,
   Typography,
+  ButtonBase,
 } from "@mui/material";
 import Cart from "./Shoppingcart";
 import Favorites from "./Addfavorite";

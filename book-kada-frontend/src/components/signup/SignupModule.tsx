@@ -11,15 +11,22 @@ import {
 } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import CenterBox from "../../UI/CenterBox";
+import { useNavigate } from "react-router-dom";
+import useApiService from "../../hooks/UseApiService";
+import useSignupValidate from "./SignupValdations";
 
 export default function SignUpModule() {
+  const navigate = useNavigate();
+  const { validateSignup, errorTexts } = useSignupValidate();
+  const { makeApiCall, loadingFlag } = useApiService();
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
+    const firstname = data.get("firstname");
+    const email = data.get("email");
+    const password = data.get("password");
+    // validateSignup();
   };
 
   return (
@@ -36,22 +43,12 @@ export default function SignUpModule() {
             <Grid item xs={12} sm={6}>
               <TextField
                 autoComplete="given-name"
-                name="firstName"
+                name="firstname"
                 required
                 fullWidth
-                id="firstName"
-                label="First Name"
+                id="name"
+                label="Name"
                 autoFocus
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                required
-                fullWidth
-                id="lastName"
-                label="Last Name"
-                name="lastName"
-                autoComplete="family-name"
               />
             </Grid>
             <Grid item xs={12}>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Method } from "../constants/enums";
 import { ApiCall } from "../utils/ApiCall";
 
@@ -21,7 +21,7 @@ export default function useApiService() {
           console.log(response);
           if (!response.response) reject("Something went wrong");
           if (response.response.status === 422)
-            reject(response.response.data.message[0]);
+            reject(response.response.data.message);
           else reject("Something went wrong");
         })
         .finally(() => setloadingFlag(false));

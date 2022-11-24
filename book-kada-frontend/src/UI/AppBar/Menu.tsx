@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 
@@ -14,7 +14,6 @@ export interface IUseMenuProps {
 export default function useMenu({
   anchorEl,
   setAnchorEl,
-  mobileMoreAnchorEl,
   setMobileMoreAnchorEl,
 }: IUseMenuProps) {
   const isMenuOpen = Boolean(anchorEl);

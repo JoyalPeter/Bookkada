@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
-import { IconButton, Badge } from "@mui/material";
+import { IconButton } from "@mui/material";
 import { AccountCircle } from "@mui/icons-material";
 
 export interface IUseMobileMenuProps {
@@ -14,7 +14,6 @@ export interface IUseMobileMenuProps {
 }
 
 export default function useMobileMenu({
-  anchorEl,
   setAnchorEl,
   mobileMoreAnchorEl,
   setMobileMoreAnchorEl,
