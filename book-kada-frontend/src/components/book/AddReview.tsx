@@ -1,5 +1,9 @@
 import * as React from "react";
 import { Rating, Button, TextField, Typography } from "@mui/material";
+import { ReviewDetails } from "./ViewReview";
+import { useContext } from "react";
+import { UserContext } from "../../store/User_Context";
+import { ViewResponseContext } from "../../store/Review_Context";
 import { FC, useEffect, useState } from "react";
 import { BookDetails } from "./DetailsCard";
 import { Method } from "../../constants/Enums";
@@ -10,7 +14,7 @@ export interface IAppProps {
   setaddReviewFlag: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export interface ReviewDetails {
+export interface AddReviewDetails {
   description: string;
   rating: number;
   userId: number;
@@ -20,7 +24,7 @@ export interface ReviewDetails {
 export default function Review({ addReviewFlag, setaddReviewFlag }: IAppProps) {
   const [ratingvalue, setRatingValue] = React.useState<number | null>(2);
   const [reviewdata, setReviewData] = useState("");
-  const [addreview, setAddReview] = useState([] as ReviewDetails[]);
+  const reviewDetails = useContext(ViewResponseContext);
   const { makeApiCall, loadingFlag } = useApiService();
   function reviewSubmit() {
     setaddReviewFlag(!addReviewFlag);
@@ -33,14 +37,12 @@ export default function Review({ addReviewFlag, setaddReviewFlag }: IAppProps) {
       userId: 1,
       bookId: 2,
     })
-      .then((addreview: ReviewDetails[]) => {
-        console.log("add review", addreview);
-
-        setAddReview(addreview);
+      .then((response: ReviewDetails[]) => {
+        console.log("add review", response);
+        reviewDetails?.setViewResponse(response);
       })
       .catch((error) => error);
-
-    console.log(addreview);
+    // console.log(addreview);
   }
   return (
     <div>
