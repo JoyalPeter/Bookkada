@@ -1,9 +1,10 @@
 import * as React from "react";
 import { Rating, Button, TextField, Typography } from "@mui/material";
-import { FC, useEffect, useState } from "react";
-import { BookDetails } from "./DetailsCard";
-import { Method } from "../constants/enums";
-import useApiService from "../hooks/UseApiService";
+import {  useState } from "react";
+
+import showToast from "../../utils/Toastify";
+import useApiService from "../../hooks/UseApiService";
+import { Method, Toast } from '../../constants/Enums';
 
 export interface IAppProps {
   addReviewFlag: Boolean;
@@ -33,7 +34,7 @@ export default function Review({ addReviewFlag, setaddReviewFlag }: IAppProps) {
 
           setAddReview(addreview);
         })
-        .catch((error) => error);
+        .catch((error: string) => showToast(Toast.ERROR, error))
     
 
     console.log(addreview);

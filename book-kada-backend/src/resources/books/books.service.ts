@@ -14,9 +14,8 @@ export class BooksService {
   constructor(
     @InjectRepository(Book)
     private booksRepo: Repository<Book>,
-  ) { }
 
-@InjectRepository(Order)
+    @InjectRepository(Order)
     private orderRepo: Repository<Order>,
 
     @InjectRepository(Photo)
