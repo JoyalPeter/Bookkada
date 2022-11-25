@@ -1,7 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import DBException from "src/exceptions/db.exception";
-import { Repository } from "typeorm";
+import { Like, Repository } from "typeorm";
 import { Order } from "../orders/entities/order.entity";
 import { Photo } from "../photos/entities/photo.entity";
 import { Rating } from "../ratings/entities/rating.entity";
@@ -62,6 +62,10 @@ export class BooksService {
     return await this.findAll().catch(() => {
       throw new DBException();
     });
+  }
+
+  async search(key:string){
+    return await this.booksRepo.find({ where: { name: Like(`%${key}%`) } });
   }
 
   async remove(id: number) {

@@ -1,21 +1,24 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Method } from "../constants/Enums";
 import { ApiCall } from "../utils/ApiCall";
 import { useNavigate } from "react-router-dom";
 import useLogout from "./UseLogout";
+import { UserContext } from "../store/User_Context";
 
 export default function useApiService() {
   const [loadingFlag, setloadingFlag] = useState(false);
+  const userDetails = useContext(UserContext);
   const { logout } = useLogout();
-  const makeApiCall = (
-    method: Method,
-    path: string,
-    data?: Object,
-    accessToken?: string
-  ) =>
+  const makeApiCall = (method: Method, path: string, data?: Object) =>
     new Promise<any>(async (resolve, reject) => {
       setloadingFlag(true);
-      ApiCall(method, path, data, accessToken)
+      ApiCall(
+        method,
+        path,
+        data,
+        userDetails?.token,
+        userDetails?.userDetails.userId
+      )
         .then((response) => {
           resolve(response.data);
         })

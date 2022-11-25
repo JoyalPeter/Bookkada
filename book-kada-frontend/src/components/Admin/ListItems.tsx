@@ -1,48 +1,94 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-import { Button, Card, CardContent } from '@mui/material';
-import { Method, Toast } from '../../constants/Enums';
-import { BookData } from '../../constants/Interfaces';
-import useApiService from '../../hooks/UseApiService';
-import showToast from '../../utils/Toastify';
+import { Button, Card, CardContent } from "@mui/material";
+import { Method, Toast } from "../../constants/Enums";
+import { BookData } from "../../constants/Interfaces";
+import useApiService from "../../hooks/UseApiService";
+import showToast from "../../utils/Toastify";
 
-export interface ListItemsProps {
-  index: number;
+interface IListItems {
   bookData: BookData;
   setData: Function;
 }
 
-export default function ListItems(props: ListItemsProps) {
-  const { makeApiCall, loadingFlag } = useApiService();
+export default function ListItems(props: IListItems) {
   const navigate = useNavigate();
-  function edit(id: number) {
-    const body = {};
-    makeApiCall(Method.PATCH, `books/updateBook/${id}`, body)
-      .then((response: BookData[]) => {
-        props.setData(response);
-      })
-      .catch((error: string) => showToast(Toast.ERROR, error));
-  }
+  const [adminFlag, setAdminFlag] = useState(true);
+  const { makeApiCall, loadingFlag } = useApiService();
+  const [editFlag, setEditFlag] = useState(false);
 
   function deleteBook(id: number) {
     makeApiCall(Method.DELETE, `books/deleteBook/${id}`)
       .then((response: BookData[]) => {
         props.setData(response);
+        showToast(Toast.SUCCESS, "Delete Successful");
       })
       .catch((error: string) => showToast(Toast.ERROR, error));
   }
+  
   return (
-    <Card>
-      <CardContent>
-        <h1>
-          {props.index + 1}. {props.bookData.name} {props.bookData.author}
-          <Button>Edit</Button>
-          <Button onClick={() => deleteBook(props.bookData.bookId)}>
-            Delete
-          </Button>
-        </h1>
-      </CardContent>
-    </Card>
+    <>
+      <Card sx={{ maxWidth: 275, boxShadow: 5, m: 1, maxHeight: 500 }}>
+        <CardMedia
+          component="img"
+          height="150"
+          image="https://c1.wallpaperflare.com/preview/127/366/443/library-book-bookshelf-read.jpg"
+          alt="name"
+        />
+        <CardContent
+          onClick={() => {
+            if (!adminFlag) navigate(`details${props.bookData.bookId}`);
+          }}
+        >
+          <>
+            <Typography gutterBottom variant="h5" component="div">
+              <b>{props.bookData.name}</b>
+            </Typography>
+            <Typography gutterBottom variant="subtitle1" component="div">
+              <b>{props.bookData.author}</b>
+            </Typography>
+            <Typography variant="body1" color="text.secondary" fontSize={16}>
+              <b>$</b>
+              {props.bookData.price}
+            </Typography>
+            <Typography
+              fontFamily={"monospace"}
+              fontWeight={"light"}
+              variant="subtitle2"
+              color="text.secondary"
+              component="div"
+            >
+              {props.bookData.description}
+            </Typography>
+          </>
+        </CardContent>
+        <CardActions>
+          {adminFlag ? (
+            <>
+              <Button variant="contained" onClick={() => setEditFlag(true)}>
+                Edit
+              </Button>
+              <Button variant="contained" onClick={() => deleteBook(props.bookData.bookId)}>
+                Delete
+              </Button>
+            </>
+          ) : (
+            <>
+              <Cart />
+              <Favorites />
+              <Ratings />
+            </>
+          )}
+        </CardActions>
+      </Card>
+      {editFlag && (
+        <EditModal
+          setEditFlag={setEditFlag}
+          bookData={props.bookData}
+          setData={props.setData}
+        />
+      )}
+    </>
   );
 }

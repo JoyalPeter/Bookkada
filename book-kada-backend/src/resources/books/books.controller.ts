@@ -39,4 +39,9 @@ export class BooksController {
   remove(@Param("id") id: string) {
     return this.booksService.remove(+id);
   }
+
+  @Get("/search/:searchKey")
+  search(@Param("searchKey") searchKey: string){
+    return this.booksService.search(searchKey)
+  }
 }

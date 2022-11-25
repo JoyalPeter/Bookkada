@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useEffect } from "react";
 import { useState } from "react";
 import Padding from "../../UI/Padding";
 import { Grid } from "@mui/material";
@@ -8,7 +8,7 @@ import showToast from "../../utils/Toastify";
 import Spinner from "../../UI/Spinner";
 import { useNavigate } from "react-router-dom";
 import Cards from "./Cards";
-import { UserContext } from "../../store/User_Context";
+import { BookData } from "../../constants/Interfaces";
 
 export interface BookDataProps {
   bookId: number;
@@ -21,12 +21,12 @@ export interface BookDataProps {
 export default function UserPage() {
   const navigate = useNavigate();
   const { makeApiCall, loadingFlag } = useApiService();
-  const userDetails = useContext(UserContext);
-  const [data, setData] = useState([] as BookDataProps[]);
-  console.log(userDetails);
+
+  const [data, setData] = useState([] as BookData[]);
+
   useEffect(() => {
     makeApiCall(Method.GET, "books/viewAllBooks")
-      .then((response: BookDataProps[]) => {
+      .then((response: BookData[]) => {
         setData(response);
       })
       .catch((error) => showToast(Toast.ERROR, error));
