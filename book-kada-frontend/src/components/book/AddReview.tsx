@@ -1,12 +1,13 @@
 import * as React from "react";
 import { Rating, Button, TextField, Typography } from "@mui/material";
-import { useState } from "react";
-import { Method } from "../../constants/Enums";
-import useApiService from "../../hooks/UseApiService";
 import { ReviewDetails } from "./ViewReview";
 import { useContext } from "react";
 import { UserContext } from "../../store/User_Context";
 import { ViewResponseContext } from "../../store/Review_Context";
+import { FC, useEffect, useState } from "react";
+import { BookDetails } from "./DetailsCard";
+import { Method } from "../../constants/Enums";
+import useApiService from "../../hooks/UseApiService";
 
 export interface IAppProps {
   addReviewFlag: Boolean;
