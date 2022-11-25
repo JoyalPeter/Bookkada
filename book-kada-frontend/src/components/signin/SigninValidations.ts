@@ -1,21 +1,22 @@
 import { useState } from 'react';
+import { emailRegex } from '../../constants/Regex';
 
 export default function useSigninValidate() {
     const [errorTexts, setErrorTexts] = useState({
-        usernameError: "",
+        emailError: "",
         passwordError: "",
     });
 
-    const validateSignin = (username: string | null, password: string | null): boolean => {
-        if (username === "" || !username) {
+    const validateSignin = (email: string | null, password: string | null): boolean => {
+        if (!emailRegex.test(email!) || !email) {
             setErrorTexts((errorTexts) => {
-                errorTexts.usernameError = "Username cannot be empty";
+                errorTexts.emailError = "Username cannot be empty";
                 return { ...errorTexts };
             });
             return false;
         } else {
             setErrorTexts((errorTexts) => {
-                errorTexts.usernameError = "";
+                errorTexts.emailError = "";
                 return { ...errorTexts };
             });
         }

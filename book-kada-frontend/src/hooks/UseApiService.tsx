@@ -1,15 +1,17 @@
-import { useState } from 'react';
-import { Method } from '../constants/Enums';
-import { ApiCall } from '../utils/ApiCall';
+import { useState } from "react";
+import { Method } from "../constants/Enums";
+import { ApiCall } from "../utils/ApiCall";
+import { useNavigate } from "react-router-dom";
+import useLogout from "./UseLogout";
 
 export default function useApiService() {
   const [loadingFlag, setloadingFlag] = useState(false);
-
+  const { logout } = useLogout();
   const makeApiCall = (
     method: Method,
     path: string,
     data?: Object,
-    accessToken?: string,
+    accessToken?: string
   ) =>
     new Promise<any>(async (resolve, reject) => {
       setloadingFlag(true);
@@ -20,9 +22,14 @@ export default function useApiService() {
         .catch((response) => {
           console.log(response);
           if (!response.response) reject("Something went wrong");
-          if (response.response.status === 422)
+          else if (response.response.status === 400)
             reject(response.response.data.message);
-          else reject('Something went wrong');
+          else if (response.response.status === 422)
+            reject(response.response.data.message[0]);
+          else if (response.response.status === 401) {
+            logout();
+            reject("You are not logged in");
+          } else reject("Something went wrong");
         })
         .finally(() => setloadingFlag(false));
     });
