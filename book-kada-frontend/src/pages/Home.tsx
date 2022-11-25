@@ -9,7 +9,6 @@ export default function Home() {
     <>
       <AppBar />
       <UserPage />
-      <Link href="/signin">{"signin"}</Link>
     </>
   );
 }

@@ -34,7 +34,7 @@ export default function SignUpModule() {
         name: firstname,
         email,
         password: password,
-        role: Role.client,
+        role: Role.CLIENT,
       })
         .then((response) => {
           localStorage.setItem("userId", JSON.stringify(response));
