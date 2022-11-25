@@ -1,5 +1,12 @@
-import { DarkMode, LibraryAdd, LightMode, ShoppingCartSharp,Login, Logout  } from '@mui/icons-material';
-import { Labels } from '../../constants/Labels';
+import {
+  DarkMode,
+  LibraryAdd,
+  LightMode,
+  ShoppingCartSharp,
+  Login,
+  Logout,
+} from "@mui/icons-material";
+import { Labels } from "../../constants/Labels";
 import { useContext, useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -16,6 +23,7 @@ import { Role, Themes } from "../../constants/Enums";
 import { UserContext } from "../../store/User_Context";
 import useLogout from "../../hooks/UseLogout";
 import { useNavigate } from "react-router-dom";
+import { ShoppingCartContext } from "../../store/Shoppingcart_Context";
 
 export default function PrimarySearchAppBar() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -25,6 +33,7 @@ export default function PrimarySearchAppBar() {
   const { logout } = useLogout();
   const userDetails = useContext(UserContext);
   const themeMode = useContext(ThemeContext);
+  const shoppingcartData = useContext(ShoppingCartContext);
   const { menuId, renderMenu } = useMenu({
     anchorEl,
     setAnchorEl,
@@ -80,7 +89,23 @@ export default function PrimarySearchAppBar() {
                 <DarkMode />
               )}
             </IconButton>
-            {/* {userDetails?.userDetails.Role !== -1 ? ( */}
+            {userDetails?.userDetails.role !== Role.ADMIN ? (
+              <IconButton
+                size="large"
+                aria-label="cart of current user"
+                aria-controls={menuId}
+                aria-haspopup="true"
+                onClick={() => navigate("/cart")}
+                color="inherit"
+              >
+                <Typography>
+                  {(shoppingcartData?.cartItems !== 0 ||
+                    shoppingcartData !== null) &&
+                    shoppingcartData?.cartItems}
+                </Typography>
+                <ShoppingCartSharp />
+              </IconButton>
+            ) : (
               <IconButton
                 size="large"
                 aria-label="cart of current user"
@@ -91,18 +116,7 @@ export default function PrimarySearchAppBar() {
               >
                 <LibraryAdd />
               </IconButton>
-            {/* ) : ( */}
-              <IconButton
-                size="large"
-                aria-label="cart of current user"
-                aria-controls={menuId}
-                aria-haspopup="true"
-                onClick={() => navigate("/cart")}
-                color="inherit"
-              >
-                <ShoppingCartSharp />
-              </IconButton>
-            {/* )} */}
+            )}
 
             <IconButton
               size="large"
@@ -115,7 +129,6 @@ export default function PrimarySearchAppBar() {
             >
               <AccountCircle />
             </IconButton>
-          
 
             {userDetails?.userDetails.userId !== -1 ? (
               <IconButton
