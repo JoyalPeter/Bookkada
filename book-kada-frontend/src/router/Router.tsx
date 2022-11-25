@@ -17,7 +17,7 @@ export default function Router() {
         <ProtectedRoute>
           <Route path="/cart" element={<Cart />} />
         </ProtectedRoute>
-        <Route path="/details" element={<DetailsPage />} />
+        <Route path="/details/:id" element={<DetailsPage />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/admin" element={<AdminPage />} />
         <Route path="/adminBooks" element={<AdminBooks />} />

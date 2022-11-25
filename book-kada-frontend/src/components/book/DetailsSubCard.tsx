@@ -17,10 +17,12 @@ interface DetailsProps {
 
 export default function DetailsSubCard({ resp }: DetailsProps) {
   const [addReviewFlag, setaddReviewFlag] = useState(false);
+  let reviewSum = 0;
+  let reviewAvg = 0;
+  let totalNumberOfReview = 0;
   function addReview() {
     setaddReviewFlag(!addReviewFlag);
   }
-
   return (
     <div>
       {resp.map(
