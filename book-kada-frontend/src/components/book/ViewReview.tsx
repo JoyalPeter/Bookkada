@@ -1,12 +1,15 @@
-import React, { useEffect } from 'react';
-import { FC, useState } from 'react';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import { Rating, Typography } from '@mui/material';
-import CentreBox from '../../UI/CenterBox';
-import { Method } from '../../constants/Enums';
-import useApiService from '../../hooks/UseApiService';
-import Spinner from '../../UI/Spinner';
+import React, { useContext, useEffect } from "react";
+import { FC, useState } from "react";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import { Rating, Typography } from "@mui/material";
+import CentreBox from "../../UI/CenterBox";
+import { Method } from "../../constants/Enums";
+import useApiService from "../../hooks/UseApiService";
+import Spinner from "../../UI/Spinner";
+import { useParams } from "react-router-dom";
+import { UserContext } from "../../store/User_Context";
+import { ViewResponseContext } from "../../store/Review_Context";
 
 interface IAppProps {}
 
@@ -21,14 +24,14 @@ export interface ReviewDetails {
 }
 
 export default function ViewReview(props: IAppProps) {
-  const [viewresp, setViewResponse] = useState([] as ReviewDetails[]);
+  const reviewDetails = useContext(ViewResponseContext);
   const { makeApiCall, loadingFlag } = useApiService();
+  const { id } = useParams();
   useEffect(() => {
-    makeApiCall(Method.GET, 'ratings/getReview/2')
-      .then((reviewResponse: ReviewDetails[]) => {
-        console.log('view review', reviewResponse);
-
-        setViewResponse(reviewResponse);
+    makeApiCall(Method.GET, `ratings/getReview/${id}`)
+      .then((response: ReviewDetails[]) => {
+        reviewDetails?.setViewResponse(response);
+        console.log(reviewDetails?.viewResponse);
       })
       .catch((error: any) => error);
   }, []);
@@ -37,13 +40,13 @@ export default function ViewReview(props: IAppProps) {
       {loadingFlag ? (
         <Spinner />
       ) : (
-        viewresp.map((item: ReviewDetails, index) => (
+        reviewDetails?.viewResponse.map((item: ReviewDetails) => (
           <Card
             sx={{
               width: 1,
-              display: 'grid',
+              display: "grid",
               gap: 1,
-              gridTemplateColumns: 'repeat(3, 1fr)',
+              gridTemplateColumns: "repeat(3, 1fr)",
             }}
           >
             <CentreBox>
@@ -61,7 +64,7 @@ export default function ViewReview(props: IAppProps) {
             <CardContent>
               <CentreBox>
                 <Typography gutterBottom variant="h5" component="div">
-                  Rating :{' '}
+                  Rating :{" "}
                   <Rating
                     name="half-rating"
                     defaultValue={item.rating}

@@ -1,24 +1,29 @@
-import { useContext, useState } from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import AccountCircle from '@mui/icons-material/AccountCircle';
-import MoreIcon from '@mui/icons-material/MoreVert';
-import SearchBar from './Search';
-import useMenu from './Menu';
-import useMobileMenu from './MobileMenu';
-import { ThemeContext } from '../../store/Theme_Context';
-import { Themes } from '../../constants/Enums';
-import { DarkMode, LightMode } from '@mui/icons-material';
+import { DarkMode, LibraryAdd, LightMode, ShoppingCartSharp,Login, Logout  } from '@mui/icons-material';
 import { Labels } from '../../constants/Labels';
+import { useContext, useState } from "react";
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import Toolbar from "@mui/material/Toolbar";
+import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
+import AccountCircle from "@mui/icons-material/AccountCircle";
+import MoreIcon from "@mui/icons-material/MoreVert";
+import SearchBar from "./Search";
+import useMenu from "./Menu";
+import useMobileMenu from "./MobileMenu";
+import { ThemeContext } from "../../store/Theme_Context";
+import { Role, Themes } from "../../constants/Enums";
+import { UserContext } from "../../store/User_Context";
+import useLogout from "../../hooks/UseLogout";
+import { useNavigate } from "react-router-dom";
 
 export default function PrimarySearchAppBar() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
     useState<null | HTMLElement>(null);
 
+  const { logout } = useLogout();
+  const userDetails = useContext(UserContext);
   const themeMode = useContext(ThemeContext);
   const { menuId, renderMenu } = useMenu({
     anchorEl,
@@ -45,6 +50,7 @@ export default function PrimarySearchAppBar() {
     else themeMode?.setThemeMode(Themes.DARK);
   };
 
+  const navigate = useNavigate();
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -53,13 +59,13 @@ export default function PrimarySearchAppBar() {
             variant="h6"
             noWrap
             component="div"
-            sx={{ display: { xs: 'none', sm: 'block' } }}
+            sx={{ display: { xs: "none", sm: "block" } }}
           >
             {Labels.title}
           </Typography>
           <SearchBar></SearchBar>
           <Box sx={{ flexGrow: 1 }} />
-          <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+          <Box sx={{ display: { xs: "none", md: "flex" } }}>
             <IconButton
               size="large"
               aria-label="mode"
@@ -74,6 +80,30 @@ export default function PrimarySearchAppBar() {
                 <DarkMode />
               )}
             </IconButton>
+            {/* {userDetails?.userDetails.Role !== -1 ? ( */}
+              <IconButton
+                size="large"
+                aria-label="cart of current user"
+                aria-controls={menuId}
+                aria-haspopup="true"
+                onClick={() => navigate("/adminBooks")}
+                color="inherit"
+              >
+                <LibraryAdd />
+              </IconButton>
+            {/* ) : ( */}
+              <IconButton
+                size="large"
+                aria-label="cart of current user"
+                aria-controls={menuId}
+                aria-haspopup="true"
+                onClick={() => navigate("/cart")}
+                color="inherit"
+              >
+                <ShoppingCartSharp />
+              </IconButton>
+            {/* )} */}
+
             <IconButton
               size="large"
               edge="end"
@@ -85,8 +115,33 @@ export default function PrimarySearchAppBar() {
             >
               <AccountCircle />
             </IconButton>
+          
+
+            {userDetails?.userDetails.userId !== -1 ? (
+              <IconButton
+                size="large"
+                edge="end"
+                aria-label="account of current user"
+                aria-controls={menuId}
+                aria-haspopup="true"
+                onClick={handleProfileMenuOpen}
+                color="inherit"
+              >
+                <AccountCircle />
+              </IconButton>
+            ) : (
+              <IconButton
+                size="large"
+                aria-label="logout"
+                aria-haspopup="true"
+                onClick={() => navigate("/signin")}
+                color="inherit"
+              >
+                <Login /> <Typography>Login</Typography>
+              </IconButton>
+            )}
           </Box>
-          <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
+          <Box sx={{ display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="large"
               aria-label="mode"
@@ -101,16 +156,28 @@ export default function PrimarySearchAppBar() {
                 <DarkMode />
               )}
             </IconButton>
-            <IconButton
-              size="large"
-              aria-label="show more"
-              aria-controls={mobileMenuId}
-              aria-haspopup="true"
-              onClick={handleMobileMenuOpen}
-              color="inherit"
-            >
-              <MoreIcon />
-            </IconButton>
+            {userDetails?.userDetails.userId !== -1 ? (
+              <IconButton
+                size="large"
+                aria-label="show more"
+                aria-controls={mobileMenuId}
+                aria-haspopup="true"
+                onClick={handleMobileMenuOpen}
+                color="inherit"
+              >
+                <MoreIcon />
+              </IconButton>
+            ) : (
+              <IconButton
+                size="large"
+                aria-label="logout"
+                aria-haspopup="true"
+                onClick={() => navigate("/signin")}
+                color="inherit"
+              >
+                <Login /> <Typography>Login</Typography>
+              </IconButton>
+            )}
           </Box>
         </Toolbar>
       </AppBar>

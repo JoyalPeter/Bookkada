@@ -16,3 +16,8 @@ export enum Toast {
   WARNING = 'warn',
   SUCCESS = 'success'
 }
+
+export enum Role {
+  CLIENT = "client",
+  ADMIN = "admin"
+}

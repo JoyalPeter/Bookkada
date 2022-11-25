@@ -23,7 +23,7 @@ export default function useSignupValidate() {
             });
         }
 
-        if (emailRegex.test(email!) || !email) {
+        if (!emailRegex.test(email!) || !email) {
             setErrorTexts((errorTexts) => {
                 errorTexts.emailError = "email not valid";
                 return { ...errorTexts };

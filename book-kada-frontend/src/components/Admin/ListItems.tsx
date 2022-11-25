@@ -1,21 +1,11 @@
-import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import {
-  Card,
-  CardMedia,
-  CardContent,
-  CardActions,
-  Typography,
-  Button,
-} from '@mui/material';
-import Ratings from '../../UI/Rating';
-import Favorites from '../Home/Addfavorite';
-import Cart from '../Home/Shoppingcart';
-import { BookData } from '../../constants/Interfaces';
-import EditModal from './EditModal';
-import useApiService from '../../hooks/UseApiService';
-import { Method, Toast } from '../../constants/Enums';
-import showToast from '../../utils/Toastify';
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+
+import { Button, Card, CardContent } from "@mui/material";
+import { Method, Toast } from "../../constants/Enums";
+import { BookData } from "../../constants/Interfaces";
+import useApiService from "../../hooks/UseApiService";
+import showToast from "../../utils/Toastify";
 
 interface IListItems {
   bookData: BookData;

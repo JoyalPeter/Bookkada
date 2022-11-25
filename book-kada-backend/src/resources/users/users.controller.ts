@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, ValidationPipe } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -10,7 +10,7 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) { }
 
   @Post('signup')
-  async create(@Body() createUserDto: CreateUserDto) {
+  async create(@Body(new ValidationPipe({ errorHttpStatusCode: 422 })) createUserDto: CreateUserDto) {
     await this.usersService.create(createUserDto);
     return "user created successfully"
   }
