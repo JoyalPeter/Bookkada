@@ -51,6 +51,10 @@ export class RatingsService {
       });
   }
 
+  async getAvg() {
+    return await this.ratingRepo.createQueryBuilder('rating').select('AVG(rating.rating)', 'avgRating').getRawOne();
+  }
+
   async update(id: number, updateRatingDto: UpdateRatingDto) {
     return await `This action updates a #${id} rating`;
   }
