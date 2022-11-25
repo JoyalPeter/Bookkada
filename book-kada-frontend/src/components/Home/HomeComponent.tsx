@@ -27,9 +27,7 @@ export default function UserPage() {
   useEffect(() => {
     makeApiCall(Method.GET, "books/viewAllBooks")
       .then((response: BookDataProps[]) => {
-        console.log(response);
         setData(response);
-        console.log(data);
       })
       .catch((error) => showToast(Toast.ERROR, error));
   }, []);
