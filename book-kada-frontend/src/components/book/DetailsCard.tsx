@@ -25,12 +25,12 @@ export interface BookDetails {
 }
 
 const DetailsCard: FC<DetailsProps> = ({}) => {
-  const [resp, setResponse] = useState([] as BookDetails[]);
+  const [resp, setResponse] = useState<BookDetails | null>(null);
   const { makeApiCall, loadingFlag } = useApiService();
   const { id } = useParams();
   useEffect(() => {
     makeApiCall(Method.GET, `books/getBook/${id}`)
-      .then((response: BookDetails[]) => {
+      .then((response: BookDetails) => {
         console.log("details", response);
 
         setResponse(response);

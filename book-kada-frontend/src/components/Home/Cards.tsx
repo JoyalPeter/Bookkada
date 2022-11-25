@@ -15,6 +15,7 @@ import Cart from "./Shoppingcart";
 
 export default function Cards(props: BookData) {
   const navigate = useNavigate();
+  const quantity = 0;
   return (
     <>
       <Card sx={{ maxWidth: 275, boxShadow: 5, m: 1, maxHeight: 500 }}>
@@ -25,7 +26,7 @@ export default function Cards(props: BookData) {
           alt="name"
         />
         <CardActionArea>
-          <CardContent onClick={() => navigate(`details${props.bookId}`)}>
+          <CardContent onClick={() => navigate(`details/${props.bookId}`)}>
             <>
               <Typography gutterBottom variant="h5" component="div">
                 <b>{props.name}</b>

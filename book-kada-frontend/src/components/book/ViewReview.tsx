@@ -40,42 +40,45 @@ export default function ViewReview(props: IAppProps) {
       {loadingFlag ? (
         <Spinner />
       ) : (
-        reviewDetails?.viewResponse.map((item: ReviewDetails) => (
-          <Card
-            sx={{
-              width: 1,
-              display: "grid",
-              gap: 1,
-              gridTemplateColumns: "repeat(3, 1fr)",
-            }}
-          >
-            <CentreBox>
+        reviewDetails?.viewResponse.map(
+          (item: ReviewDetails, index: number) => (
+            <Card
+              key={index}
+              sx={{
+                width: 1,
+                display: "grid",
+                gap: 1,
+                gridTemplateColumns: "repeat(3, 1fr)",
+              }}
+            >
+              <CentreBox>
+                <CardContent>
+                  <Typography gutterBottom variant="h5">
+                    {item.user.name}
+                  </Typography>
+                </CardContent>
+              </CentreBox>
               <CardContent>
                 <Typography gutterBottom variant="h5">
-                  {item.user.name}
+                  {item.description}
                 </Typography>
               </CardContent>
-            </CentreBox>
-            <CardContent>
-              <Typography gutterBottom variant="h5">
-                {item.description}
-              </Typography>
-            </CardContent>
-            <CardContent>
-              <CentreBox>
-                <Typography gutterBottom variant="h5" component="div">
-                  Rating :{" "}
-                  <Rating
-                    name="half-rating"
-                    defaultValue={item.rating}
-                    precision={0.5}
-                    readOnly
-                  />
-                </Typography>
-              </CentreBox>
-            </CardContent>
-          </Card>
-        ))
+              <CardContent>
+                <CentreBox>
+                  <Typography gutterBottom variant="h5" component="div">
+                    Rating :{" "}
+                    <Rating
+                      name="half-rating"
+                      defaultValue={item.rating}
+                      precision={0.5}
+                      readOnly
+                    />
+                  </Typography>
+                </CentreBox>
+              </CardContent>
+            </Card>
+          )
+        )
       )}
     </div>
   );
