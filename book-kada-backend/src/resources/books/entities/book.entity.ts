@@ -26,6 +26,9 @@ export class Book {
   description: string;
 
   @Column()
+  rating: number;
+
+  @Column()
   author: string;
 
   // @Column()
