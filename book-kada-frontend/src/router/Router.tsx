@@ -8,7 +8,6 @@ import AdminPage from "../pages/AdminPage";
 import AdminBooks from "../pages/AdminBooks";
 import ProtectedRoute from "../utils/ProtectedRoute";
 import NotFound from "../pages/NotFound";
-import NoAccess from "../pages/NoAccess";
 
 export default function Router() {
   return (
@@ -28,7 +27,6 @@ export default function Router() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/admin" element={<AdminPage />} />
         <Route path="/adminBooks" element={<AdminBooks />} />
-        <Route path="/noaccess" element={<NoAccess />} />
         <Route path="/*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
