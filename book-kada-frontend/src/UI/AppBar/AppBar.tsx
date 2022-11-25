@@ -11,8 +11,10 @@ import useMenu from './Menu';
 import useMobileMenu from './MobileMenu';
 import { ThemeContext } from '../../store/Theme_Context';
 import { Themes } from '../../constants/Enums';
-import { DarkMode, LightMode } from '@mui/icons-material';
+import { DarkMode, LibraryAdd, LightMode, ShoppingCartSharp } from '@mui/icons-material';
 import { Labels } from '../../constants/Labels';
+import { useNavigate } from 'react-router-dom';
+import { UserContext } from '../../store/User_Context';
 
 export default function PrimarySearchAppBar() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -44,7 +46,7 @@ export default function PrimarySearchAppBar() {
       themeMode?.setThemeMode(Themes.LIGHT);
     else themeMode?.setThemeMode(Themes.DARK);
   };
-
+const navigate = useNavigate()
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -53,13 +55,13 @@ export default function PrimarySearchAppBar() {
             variant="h6"
             noWrap
             component="div"
-            sx={{ display: { xs: 'none', sm: 'block' } }}
+            sx={{ display: { xs: "none", sm: "block" } }}
           >
             {Labels.title}
           </Typography>
           <SearchBar></SearchBar>
           <Box sx={{ flexGrow: 1 }} />
-          <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+          <Box sx={{ display: { xs: "none", md: "flex" } }}>
             <IconButton
               size="large"
               aria-label="mode"
@@ -74,6 +76,30 @@ export default function PrimarySearchAppBar() {
                 <DarkMode />
               )}
             </IconButton>
+            {/* {userDetails?.userDetails.Role !== -1 ? ( */}
+              <IconButton
+                size="large"
+                aria-label="cart of current user"
+                aria-controls={menuId}
+                aria-haspopup="true"
+                onClick={() => navigate("/adminBooks")}
+                color="inherit"
+              >
+                <LibraryAdd />
+              </IconButton>
+            {/* ) : ( */}
+              <IconButton
+                size="large"
+                aria-label="cart of current user"
+                aria-controls={menuId}
+                aria-haspopup="true"
+                onClick={() => navigate("/cart")}
+                color="inherit"
+              >
+                <ShoppingCartSharp />
+              </IconButton>
+            {/* )} */}
+
             <IconButton
               size="large"
               edge="end"
@@ -86,7 +112,8 @@ export default function PrimarySearchAppBar() {
               <AccountCircle />
             </IconButton>
           </Box>
-          <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
+
+          <Box sx={{ display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="large"
               aria-label="mode"
