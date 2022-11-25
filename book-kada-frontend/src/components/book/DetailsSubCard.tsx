@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 
-import Box from "@mui/material/Box";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
-import { CardActionArea, Rating, Button, Typography } from "@mui/material";
-import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
-import Review from "./AddReview";
-import { BookDetails } from "./DetailsCard";
-import CentreBox from "../../UI/CenterBox";
-import LeftBox from "../../UI/LeftBox";
+import Box from '@mui/material/Box';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import { CardActionArea, Rating, Button, Typography } from '@mui/material';
+import CentreBox from '../../UI/CenterBox';
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import LeftBox from '../../UI/LeftBox';
+import Review from './AddReview';
+import { BookDetails } from './DetailsCard';
 
 interface DetailsProps {
   resp: BookDetails[];
@@ -28,9 +28,9 @@ export default function DetailsSubCard({ resp }: DetailsProps) {
           <Card
             sx={{
               width: 1,
-              display: "grid",
+              display: 'grid',
               gap: 1,
-              gridTemplateColumns: "repeat(2, 1fr)",
+              gridTemplateColumns: 'repeat(2, 1fr)',
             }}
           >
             <CardActionArea>
@@ -45,7 +45,7 @@ export default function DetailsSubCard({ resp }: DetailsProps) {
             <CardContent>
               <LeftBox>
                 <Typography gutterBottom variant="h5" component="div">
-                  Rating :{" "}
+                  Rating :{' '}
                   <Rating
                     name="half-rating"
                     defaultValue={item.ratings[0].rating}
@@ -71,7 +71,7 @@ export default function DetailsSubCard({ resp }: DetailsProps) {
                 {item.description}
               </Typography>
               <CentreBox>
-                <Box sx={{ display: "flex", gap: 5 }}>
+                <Box sx={{ display: 'flex', gap: 5 }}>
                   <Button variant="contained" onClick={addReview}>
                     Add Review
                   </Button>
@@ -88,7 +88,7 @@ export default function DetailsSubCard({ resp }: DetailsProps) {
               )}
             </CardContent>
           </Card>
-        )
+        ),
       )}
     </div>
   );

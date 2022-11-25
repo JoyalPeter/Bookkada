@@ -1,13 +1,14 @@
-import { useEffect } from 'react';
-import { useState } from 'react';
-import Padding from '../../UI/Padding';
-import { Grid } from '@mui/material';
-import useApiService from '../../hooks/UseApiService';
-import { Method, Toast } from '../../constants/Enums';
-import showToast from '../../utils/Toastify';
-import Spinner from '../../UI/Spinner';
-import { useNavigate } from 'react-router-dom';
-import Cards from './Cards';
+import { useEffect } from "react";
+import { useState } from "react";
+import Padding from "../../UI/Padding";
+import { Grid } from "@mui/material";
+import useApiService from "../../hooks/UseApiService";
+import { Method, Toast } from "../../constants/Enums";
+import showToast from "../../utils/Toastify";
+import Spinner from "../../UI/Spinner";
+import { useNavigate } from "react-router-dom";
+import Cards from "./Cards";
+import { BookData } from "../../constants/Interfaces";
 
 export interface BookDataProps {
   bookId: number;
@@ -21,14 +22,12 @@ export default function UserPage() {
   const navigate = useNavigate();
   const { makeApiCall, loadingFlag } = useApiService();
 
-  const [data, setData] = useState([] as BookDataProps[]);
+  const [data, setData] = useState([] as BookData[]);
 
   useEffect(() => {
-    makeApiCall(Method.GET, 'books/viewAllBooks')
-      .then((response: BookDataProps[]) => {
-        console.log(response);
+    makeApiCall(Method.GET, "books/viewAllBooks")
+      .then((response: BookData[]) => {
         setData(response);
-        console.log(data);
       })
       .catch((error) => showToast(Toast.ERROR, error));
   }, []);
@@ -55,7 +54,7 @@ export default function UserPage() {
                 description={element.description}
                 author={element.author}
               />
-            ),
+            )
           )}
         </Grid>
       </Padding>

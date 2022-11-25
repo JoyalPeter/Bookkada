@@ -6,38 +6,42 @@ import {
   Patch,
   Param,
   Delete,
-} from '@nestjs/common';
-import { BooksService } from 'src/resources/books/books.service';
-import { CreateBookDto } from 'src/resources/books/dto/create-book.dto';
-import { UpdateBookDto } from 'src/resources/books/dto/update-book.dto';
+} from "@nestjs/common";
+import { BooksService } from "src/resources/books/books.service";
+import { CreateBookDto } from "src/resources/books/dto/create-book.dto";
+import { UpdateBookDto } from "src/resources/books/dto/update-book.dto";
 
-
-@Controller('books')
+@Controller("books")
 export class BooksController {
   constructor(private readonly booksService: BooksService) {}
 
-  @Post('/addBook')
+  @Post("/addBook")
   create(@Body() createBookDto: CreateBookDto) {
     return this.booksService.create(createBookDto);
   }
 
-  @Get('/viewAllBooks')
+  @Get("/viewAllBooks")
   findAll() {
     return this.booksService.findAll();
   }
 
-  @Get('/getBook/:id')
-  findOne(@Param('id') id: string) {
+  @Get("/getBook/:id")
+  findOne(@Param("id") id: string) {
     return this.booksService.findOne(+id);
   }
 
-  @Patch('/updateBook/:id')
-  update(@Param('id') id: string, @Body() updateBookDto: UpdateBookDto) {
+  @Patch("/updateBook/:id")
+  update(@Param("id") id: string, @Body() updateBookDto: UpdateBookDto) {
     return this.booksService.update(+id, updateBookDto);
   }
 
-  @Delete('/deleteBook/:id')
-  remove(@Param('id') id: string) {
+  @Delete("/deleteBook/:id")
+  remove(@Param("id") id: string) {
     return this.booksService.remove(+id);
+  }
+
+  @Get("/search/:searchKey")
+  search(@Param("searchKey") searchKey: string){
+    return this.booksService.search(searchKey)
   }
 }

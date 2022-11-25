@@ -1,21 +1,23 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import Modal from '@mui/material/Modal';
-import CloseIcon from '@mui/icons-material/Close';
-import { TextField } from '@mui/material';
-import { useState } from 'react';
-import { BookData } from '../../constants/Interfaces';
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+import Modal from "@mui/material/Modal";
+import CloseIcon from "@mui/icons-material/Close";
+import { TextField } from "@mui/material";
+import { useState } from "react";
+import { BookData } from "../../constants/Interfaces";
+import showToast from "../../utils/Toastify";
+import { Method, Toast } from "../../constants/Enums";
+import useApiService from "../../hooks/UseApiService";
 
 const style = {
-  position: 'absolute' as 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
+  position: "absolute" as "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
   width: 400,
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
+  bgcolor: "background.paper",
+  border: "2px solid #000",
   boxShadow: 24,
   p: 4,
 };
@@ -23,6 +25,7 @@ const style = {
 interface IEditModal {
   setEditFlag: Function;
   bookData: BookData;
+  setData: Function;
 }
 
 export default function EditModal(props: IEditModal) {
@@ -31,7 +34,28 @@ export default function EditModal(props: IEditModal) {
   const [author, setAuthor] = useState(props.bookData.author);
   const [price, setPrice] = useState(props.bookData.price);
   const [description, setDescription] = useState(props.bookData.description);
-  const handleClose = () => setOpen(false);
+  const { makeApiCall, loadingFlag } = useApiService();
+
+  const handleClose = () => {
+    setOpen(false);
+    props.setEditFlag(false);
+  };
+
+  function edit(id: number) {
+    const body = {
+      name: name,
+      price: price,
+      author: author,
+      description: description,
+    };
+    makeApiCall(Method.PATCH, `books/updateBook/${id}`, body)
+      .then((response: BookData[]) => {
+        props.setData(response);
+        props.setEditFlag(false);
+        showToast(Toast.SUCCESS, "Edit Successful");
+      })
+      .catch((error: string) => showToast(Toast.ERROR, error));
+  }
 
   return (
     <>
@@ -75,7 +99,12 @@ export default function EditModal(props: IEditModal) {
                 onChange={(e) => setDescription(e.target.value)}
               />
             </Box>
-            <Button variant="contained" onClick={()=>props.setEditFlag(false)}>Submit</Button>
+            <Button
+              variant="contained"
+              onClick={() => edit(props.bookData.bookId)}
+            >
+              Submit
+            </Button>
           </Typography>
         </Box>
       </Modal>

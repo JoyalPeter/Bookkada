@@ -7,12 +7,14 @@ import {
   CardActions,
   Typography,
 } from '@mui/material';
-import Cart from './Shoppingcart';
-import Favorites from './Addfavorite';
 import Ratings from '../../UI/Rating';
-import { BookDataProps } from './HomeComponent';
+import { BookData } from '../../constants/Interfaces';
+import Favorites from './Addfavorite';
+import Cart from './Shoppingcart';
 
-export default function Cards(props: BookDataProps) {
+
+
+export default function Cards(props: BookData) {
   const navigate = useNavigate();
   return (
     <>

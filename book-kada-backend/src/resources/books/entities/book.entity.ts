@@ -1,7 +1,7 @@
-import { Order } from 'src/resources/orders/entities/order.entity';
-import { Photo } from 'src/resources/photos/entities/photo.entity';
-import { Rating } from 'src/resources/ratings/entities/rating.entity';
-import { User } from 'src/resources/users/entities/user.entity';
+import { Order } from "src/resources/orders/entities/order.entity";
+import { Photo } from "src/resources/photos/entities/photo.entity";
+import { Rating } from "src/resources/ratings/entities/rating.entity";
+import { User } from "src/resources/users/entities/user.entity";
 import {
   Column,
   Entity,
@@ -9,7 +9,7 @@ import {
   ManyToMany,
   OneToMany,
   PrimaryGeneratedColumn,
-} from 'typeorm';
+} from "typeorm";
 
 @Entity()
 export class Book {
@@ -32,18 +32,18 @@ export class Book {
   // category:string;
 
   @ManyToMany(() => User, (user) => user.books)
-  @JoinColumn({ name: 'users' })
+  @JoinColumn({ name: "users" })
   users: User[]; // for checkout functionalilty
 
   @OneToMany(() => Rating, (rating) => rating.book)
-  @JoinColumn({ name: 'ratings' })
+  @JoinColumn({ name: "ratings" })
   ratings: Rating[];
 
   @OneToMany(() => Photo, (photo) => photo.book)
-  @JoinColumn({ name: 'photos' })
+  @JoinColumn({ name: "photos" })
   photos: Photo[];
 
   @OneToMany(() => Order, (order) => order.book)
-  @JoinColumn({ name: 'orders' })
+  @JoinColumn({ name: "orders" })
   orders: Order[];
 }
