@@ -18,6 +18,6 @@ export enum Toast {
 }
 
 export enum Role {
-  client = "client",
-  admin = "admin"
+  CLIENT = "client",
+  ADMIN = "admin"
 }

@@ -7,6 +7,8 @@ import DetailsPage from "../pages/DetailsPage";
 import AdminPage from "../pages/AdminPage";
 import AdminBooks from "../pages/AdminBooks";
 import ProtectedRoute from "../utils/ProtectedRoute";
+import NotFound from "../pages/NotFound";
+import NoAccess from "../pages/NoAccess";
 
 export default function Router() {
   return (
@@ -14,13 +16,21 @@ export default function Router() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/signin" element={<SignIn />} />
-        <ProtectedRoute>
-          <Route path="/cart" element={<Cart />} />
-        </ProtectedRoute>
+        <Route
+          path="/cart"
+          element={
+            <ProtectedRoute>
+              <Cart />
+            </ProtectedRoute>
+          }
+        />
         <Route path="/details/:id" element={<DetailsPage />} />
+
         <Route path="/signup" element={<Signup />} />
         <Route path="/admin" element={<AdminPage />} />
         <Route path="/adminBooks" element={<AdminBooks />} />
+        <Route path="/noaccess" element={<NoAccess />} />
+        <Route path="/*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );
