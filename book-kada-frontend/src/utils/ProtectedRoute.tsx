@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import useLogout from "../hooks/UseLogout";
 
 export interface IProtectedRouteProps {
@@ -7,7 +7,10 @@ export interface IProtectedRouteProps {
 
 export default function ProtectedRoute({ children }: IProtectedRouteProps) {
   const { logout } = useLogout();
-  if (localStorage.getItem("userId") === null) logout();
+
+  useEffect(() => {
+    if (localStorage.getItem("token") === null) logout();
+  });
 
   return <>{children}</>;
 }
