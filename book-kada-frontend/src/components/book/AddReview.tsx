@@ -1,9 +1,9 @@
-import * as React from 'react';
-import { Rating, Button, TextField, Typography } from '@mui/material';
-import { FC, useEffect, useState } from 'react';
-import { BookDetails } from './DetailsCard';
-import { Method } from '../../constants/Enums';
-import useApiService from '../../hooks/UseApiService';
+import * as React from "react";
+import { Rating, Button, TextField, Typography } from "@mui/material";
+import { FC, useEffect, useState } from "react";
+import { BookDetails } from "./DetailsCard";
+import { Method } from "../../constants/Enums";
+import useApiService from "../../hooks/UseApiService";
 
 export interface IAppProps {
   addReviewFlag: Boolean;
@@ -19,7 +19,7 @@ export interface ReviewDetails {
 
 export default function Review({ addReviewFlag, setaddReviewFlag }: IAppProps) {
   const [ratingvalue, setRatingValue] = React.useState<number | null>(2);
-  const [reviewdata, setReviewData] = useState('');
+  const [reviewdata, setReviewData] = useState("");
   const [addreview, setAddReview] = useState([] as ReviewDetails[]);
   const { makeApiCall, loadingFlag } = useApiService();
   function reviewSubmit() {
@@ -27,14 +27,14 @@ export default function Review({ addReviewFlag, setaddReviewFlag }: IAppProps) {
 
     console.log(ratingvalue);
 
-    makeApiCall(Method.POST, 'ratings/addRating', {
+    makeApiCall(Method.POST, "ratings/addRating", {
       description: reviewdata,
       rating: ratingvalue,
       userId: 1,
       bookId: 2,
     })
       .then((addreview: ReviewDetails[]) => {
-        console.log('add review', addreview);
+        console.log("add review", addreview);
 
         setAddReview(addreview);
       })
@@ -48,15 +48,15 @@ export default function Review({ addReviewFlag, setaddReviewFlag }: IAppProps) {
         gutterBottom
         variant="h6"
         component="div"
-        sx={{ display: 'flex', gap: 3 }}
+        sx={{ display: "flex", gap: 3 }}
       >
-        Review :{' '}
+        Review :{" "}
         <TextField
           variant="outlined"
           size="small"
           onChange={(e) => setReviewData(e.target.value)}
         />
-        Rating :{' '}
+        Rating :{" "}
         <Rating
           name="simple-controlled"
           defaultValue={2.5}

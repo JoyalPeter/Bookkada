@@ -5,6 +5,7 @@ import { Role } from "../constants/Enums";
 export interface UserContextProps {
   userDetails: userDetailsProps;
   setUserDetails: React.Dispatch<React.SetStateAction<userDetailsProps>>;
+  token: string | null;
   setToken: React.Dispatch<React.SetStateAction<string | null>>;
 }
 
@@ -46,7 +47,9 @@ export default function UserContextProvider({
   }, [token]);
 
   return (
-    <UserContext.Provider value={{ userDetails, setUserDetails, setToken }}>
+    <UserContext.Provider
+      value={{ userDetails, setUserDetails, token, setToken }}
+    >
       {children}
     </UserContext.Provider>
   );
