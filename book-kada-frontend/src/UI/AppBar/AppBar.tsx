@@ -1,3 +1,5 @@
+import { DarkMode, LibraryAdd, LightMode, ShoppingCartSharp,Login, Logout  } from '@mui/icons-material';
+import { Labels } from '../../constants/Labels';
 import { useContext, useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -11,8 +13,6 @@ import useMenu from "./Menu";
 import useMobileMenu from "./MobileMenu";
 import { ThemeContext } from "../../store/Theme_Context";
 import { Role, Themes } from "../../constants/Enums";
-import { DarkMode, LightMode, Login, Logout } from "@mui/icons-material";
-import { Labels } from "../../constants/Labels";
 import { UserContext } from "../../store/User_Context";
 import useLogout from "../../hooks/UseLogout";
 import { useNavigate } from "react-router-dom";
@@ -80,6 +80,42 @@ export default function PrimarySearchAppBar() {
                 <DarkMode />
               )}
             </IconButton>
+            {/* {userDetails?.userDetails.Role !== -1 ? ( */}
+              <IconButton
+                size="large"
+                aria-label="cart of current user"
+                aria-controls={menuId}
+                aria-haspopup="true"
+                onClick={() => navigate("/adminBooks")}
+                color="inherit"
+              >
+                <LibraryAdd />
+              </IconButton>
+            {/* ) : ( */}
+              <IconButton
+                size="large"
+                aria-label="cart of current user"
+                aria-controls={menuId}
+                aria-haspopup="true"
+                onClick={() => navigate("/cart")}
+                color="inherit"
+              >
+                <ShoppingCartSharp />
+              </IconButton>
+            {/* )} */}
+
+            <IconButton
+              size="large"
+              edge="end"
+              aria-label="account of current user"
+              aria-controls={menuId}
+              aria-haspopup="true"
+              onClick={handleProfileMenuOpen}
+              color="inherit"
+            >
+              <AccountCircle />
+            </IconButton>
+          
 
             {userDetails?.userDetails.userId !== -1 ? (
               <IconButton
