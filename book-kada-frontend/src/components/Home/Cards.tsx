@@ -12,7 +12,6 @@ import Cart from "./Shoppingcart";
 import Favorites from "./Addfavorite";
 import Ratings from "../../UI/Rating";
 import { BookDataProps } from "./HomeComponent";
-import { hover } from "@testing-library/user-event/dist/hover";
 
 export default function Cards(props: BookDataProps) {
   const navigate = useNavigate();
