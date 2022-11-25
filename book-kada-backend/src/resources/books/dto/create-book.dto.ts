@@ -1,5 +1,5 @@
-import { errorMessages } from 'src/utils/errorMessages';
-import { IsNotEmpty } from 'class-validator';
+import { errorMessages } from "src/utils/enums";
+import { IsNotEmpty } from "class-validator";
 
 export class CreateBookDto {
   @IsNotEmpty({ message: errorMessages.mandatoryEmpty })

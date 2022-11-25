@@ -11,15 +11,39 @@ import {
 } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import CenterBox from "../../UI/CenterBox";
+import { useNavigate } from "react-router-dom";
+import useApiService from "../../hooks/UseApiService";
+import useSignupValidate from "./SignupValdations";
+import { Method, Role, Toast } from "../../constants/Enums";
+import showToast from "../../utils/Toastify";
+import Spinner from "../../UI/Spinner";
 
 export default function SignUpModule() {
+  const navigate = useNavigate();
+  const { validateSignup, errorTexts } = useSignupValidate();
+  const { makeApiCall, loadingFlag } = useApiService();
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
+    const firstname = data.get("firstname") as string | null;
+    const email = data.get("email") as string | null;
+    const password = data.get("password") as string | null;
+    if (validateSignup(firstname, email, password)) {
+      makeApiCall(Method.POST, "users/signup", {
+        name: firstname,
+        email,
+        password: password,
+        role: Role.client,
+      })
+        .then((response) => {
+          localStorage.setItem("userId", JSON.stringify(response));
+          setTimeout(() => navigate("/signin"), 50);
+        })
+        .catch((error) => {
+          showToast(Toast.ERROR, error);
+        });
+    }
   };
 
   return (
@@ -33,25 +57,17 @@ export default function SignUpModule() {
         </Typography>
         <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
           <Grid container spacing={2}>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12}>
               <TextField
                 autoComplete="given-name"
-                name="firstName"
+                name="firstname"
                 required
                 fullWidth
-                id="firstName"
-                label="First Name"
+                id="first name"
+                error={errorTexts.nameError !== "" ? true : false}
+                helperText={errorTexts.nameError}
+                label="Name"
                 autoFocus
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                required
-                fullWidth
-                id="lastName"
-                label="Last Name"
-                name="lastName"
-                autoComplete="family-name"
               />
             </Grid>
             <Grid item xs={12}>
@@ -60,6 +76,8 @@ export default function SignUpModule() {
                 fullWidth
                 id="email"
                 label="Email Address"
+                error={errorTexts.emailError !== "" ? true : false}
+                helperText={errorTexts.emailError}
                 name="email"
                 autoComplete="email"
               />
@@ -72,19 +90,25 @@ export default function SignUpModule() {
                 label="Password"
                 type="password"
                 id="password"
+                error={errorTexts.passwordError !== "" ? true : false}
+                helperText={errorTexts.passwordError}
                 autoComplete="new-password"
               />
             </Grid>
             <Grid item xs={12}></Grid>
           </Grid>
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            sx={{ mt: 3, mb: 2 }}
-          >
-            Sign Up
-          </Button>
+          {loadingFlag ? (
+            <Spinner />
+          ) : (
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+            >
+              Sign Up
+            </Button>
+          )}
           <Grid container justifyContent="flex-end">
             <Grid item>
               <Link href="/signin" variant="body2">

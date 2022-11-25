@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   Card,
@@ -6,50 +6,27 @@ import {
   CardContent,
   CardActions,
   Typography,
-  ButtonBase,
-  useMediaQuery,
+  CardActionArea,
 } from "@mui/material";
 import Cart from "./Shoppingcart";
 import Favorites from "./Addfavorite";
 import Ratings from "../../UI/Rating";
-import { Method, Toast } from "../../constants/enums";
-import useApiService from "../../hooks/UseApiService";
-import Spinner from "../../UI/Spinner";
-import showToast from "../../utils/Toastify";
 import { BookDataProps } from "./HomeComponent";
+import { hover } from "@testing-library/user-event/dist/hover";
 
 export default function Cards(props: BookDataProps) {
   const navigate = useNavigate();
-  const { makeApiCall, loadingFlag } = useApiService();
-
-  useEffect(() => {
-    const displayBooks = () => {
-      makeApiCall(Method.GET, "books/viewAllbooks")
-        .then((response) => {
-          console.log(response);
-        })
-        .catch((error) => showToast(Toast.ERROR, error));
-    };
-    displayBooks();
-  });
-
   return (
     <>
-      {loadingFlag ? (
-        <Spinner />
-      ) : (
-        <Card sx={{ maxWidth: 275, boxShadow: 5 }}>
-          <ButtonBase
-            onClick={() => navigate(`details/:id`)}
-            // console.log("kitti")
-          ></ButtonBase>
-          <CardMedia
-            component="img"
-            height="140"
-            image="https://c1.wallpaperflare.com/preview/127/366/443/library-book-bookshelf-read.jpg"
-            alt="book1"
-          />
-          <CardContent>
+      <Card sx={{ maxWidth: 275, boxShadow: 5, m: 1, maxHeight: 500 }}>
+        <CardMedia
+          component="img"
+          height="150"
+          image="https://c1.wallpaperflare.com/preview/127/366/443/library-book-bookshelf-read.jpg"
+          alt="name"
+        />
+        <CardActionArea>
+          <CardContent onClick={() => navigate(`details${props.bookId}`)}>
             <>
               <Typography gutterBottom variant="h5" component="div">
                 <b>{props.name}</b>
@@ -62,21 +39,22 @@ export default function Cards(props: BookDataProps) {
                 {props.price}
               </Typography>
               <Typography
-                fontSize={14}
-                fontWeight={75}
-                fontFamily={"Arial"}
-                variant="body2"
+                fontFamily={"monospace"}
+                fontWeight={"light"}
+                variant="subtitle2"
                 color="text.secondary"
+                component="div"
+                noWrap
               >
-                <b>{props.description}</b>
+                {props.description}
               </Typography>
             </>
           </CardContent>
-          <CardActions>
-            <Cart /> <Favorites /> <Ratings />
-          </CardActions>
-        </Card>
-      )}
+        </CardActionArea>
+        <CardActions>
+          <Cart /> <Favorites /> <Ratings />
+        </CardActions>
+      </Card>
     </>
   );
 }

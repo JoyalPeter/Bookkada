@@ -12,7 +12,9 @@ import { Rating } from './resources/ratings/entities/rating.entity';
 import { RatingsModule } from './resources/ratings/ratings.module';
 import { User } from './resources/users/entities/user.entity';
 import { UsersModule } from './resources/users/users.module';
-import * as dotenv from 'dotenv'
+import { AuthModule } from './auth/auth.module';
+
+import * as dotenv from 'dotenv';
 
 dotenv.config();
 
@@ -33,8 +35,9 @@ dotenv.config();
     RatingsModule,
     OrdersModule,
     PhotosModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule { }

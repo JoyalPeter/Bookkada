@@ -1,13 +1,13 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useEffect, useState } from 'react';
 
-import CentreBox from "../UI/CenterBox";
-import Padding from "../UI/Padding";
-import ViewReview from "../BookDetails/ViewReview";
-import DetailsSubCard from "./DetailsSubCard";
-import { Method } from "../constants/enums";
-import useApiService from "../hooks/UseApiService";
-import Spinner from "../UI/Spinner";
-import { useParams } from "react-router-dom";
+import CentreBox from '../../UI/CenterBox';
+import Padding from '../../UI/Padding';
+import ViewReview from './ViewReview';
+import DetailsSubCard from './DetailsSubCard';
+import { Method } from '../../constants/Enums';
+import useApiService from '../../hooks/UseApiService';
+import Spinner from '../../UI/Spinner';
+import { useParams } from 'react-router-dom';
 
 interface DetailsProps {}
 
@@ -31,7 +31,7 @@ const DetailsCard: FC<DetailsProps> = ({}) => {
   useEffect(() => {
     makeApiCall(Method.GET, `books/getBook/${id}`)
       .then((response: BookDetails[]) => {
-        console.log("details", response);
+        console.log('details', response);
 
         setResponse(response);
       })

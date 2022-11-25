@@ -1,9 +1,8 @@
-import React from "react";
 import Padding from "../../UI/Padding";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import { useState } from "react";
 import { Tooltip, IconButton } from "@mui/material";
-import { ShoppingCart } from "@mui/icons-material";
+import  ShoppingCart  from "@mui/icons-material/ShoppingCart";
 
 export default function Cart() {
   const [isActive, setisActive] = useState(false);
