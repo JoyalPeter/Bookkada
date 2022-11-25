@@ -20,7 +20,7 @@ export class RatingsController {
     private readonly ratingsService: RatingsService,
     private readonly usersService: UsersService,
     private readonly booksService: BooksService,
-  ) {}
+  ) { }
 
   @Post('/addRating')
   async create(@Body() createRatingDto: CreateRatingDto) {
