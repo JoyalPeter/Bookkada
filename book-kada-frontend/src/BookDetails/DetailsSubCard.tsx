@@ -21,10 +21,18 @@ interface DetailsProps {
 export default function DetailsSubCard({ resp }: DetailsProps) {
  
   const [addReviewFlag, setaddReviewFlag] = useState(false);
+  let reviewSum = 0;
+  let reviewAvg = 0;
+  let totalNumberOfReview = 0;
   function addReview() {
     setaddReviewFlag(!addReviewFlag);
   }
-  
+  if (resp[0]) {
+    console.log("rating", resp[0].ratings);
+    totalNumberOfReview = resp[0].ratings.length;
+    resp[0].ratings.map((item) => (reviewSum = reviewSum + item.rating));
+    reviewAvg = reviewSum / totalNumberOfReview;
+  }
  
   return (
     <div>
