@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { useState } from "react";
 import Padding from "../../UI/Padding";
 import { Grid } from "@mui/material";
@@ -7,6 +7,8 @@ import { Method, Toast } from "../../constants/Enums";
 import showToast from "../../utils/Toastify";
 import Spinner from "../../UI/Spinner";
 import Cards from "./Cards";
+import { BookContext } from "../../store/Book_Context";
+
 export interface BookDataProps {
   bookId: number;
   name: string;
@@ -16,15 +18,14 @@ export interface BookDataProps {
   rating?: number;
 }
 
-export default function UserPage() {
+export default function HomePage() {
   const { makeApiCall, loadingFlag } = useApiService();
-
-  const [data, setData] = useState([] as BookDataProps[]);
+  const bookContext = useContext(BookContext);
 
   useEffect(() => {
     makeApiCall(Method.GET, "books/viewAllBooks")
       .then((response: BookDataProps[]) => {
-        setData(response);
+        bookContext?.setAllBooks(response);
       })
       .catch((error) => showToast(Toast.ERROR, error));
   }, []);
@@ -42,17 +43,9 @@ export default function UserPage() {
           columns={{ xs: 4, sm: 8, md: 12 }}
         >
           {loadingFlag && <Spinner />}
-          {data.map(
+          {bookContext?.allBooks.map(
             (element: BookDataProps, index: number): JSX.Element => (
-              <Cards
-                key={index}
-                bookId={element.bookId}
-                name={element.name}
-                price={element.price}
-                rating={element.rating}
-                description={element.description}
-                author={element.author}
-              />
+              <Cards bookData={element} />
             )
           )}
         </Grid>

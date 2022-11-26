@@ -19,13 +19,27 @@ import SearchBar from "./Search";
 import useMenu from "./Menu";
 import useMobileMenu from "./MobileMenu";
 import { ThemeContext } from "../../store/Theme_Context";
-import { Role, Themes } from "../../constants/Enums";
+import { ModalUse, Role, Themes } from "../../constants/Enums";
 import { UserContext } from "../../store/User_Context";
 import useLogout from "../../hooks/UseLogout";
 import { useNavigate } from "react-router-dom";
 import { ShoppingCartContext } from "../../store/Shoppingcart_Context";
+import DetailsModal from "../../components/Admin/DetailsModal";
+import { BookContext } from "../../store/Book_Context";
 
-export default function PrimarySearchAppBar() {
+interface IPrimarySearchAppBar {
+
+}
+export default function PrimarySearchAppBar(props: IPrimarySearchAppBar) {
+  const emptyBook = {
+    bookId: 0,
+    price: 0,
+    description: "",
+    author: "",
+    name: "",
+  };
+  const bookContext = useContext(BookContext);
+  const [addFlag, setAddFlag] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
     useState<null | HTMLElement>(null);
@@ -111,7 +125,7 @@ export default function PrimarySearchAppBar() {
                 aria-label="cart of current user"
                 aria-controls={menuId}
                 aria-haspopup="true"
-                onClick={() => navigate("/adminBooks")}
+                onClick={() => setAddFlag(true)}
                 color="inherit"
               >
                 <LibraryAdd />
@@ -196,6 +210,13 @@ export default function PrimarySearchAppBar() {
       </AppBar>
       {renderMobileMenu}
       {renderMenu}
+      {addFlag && (
+        <DetailsModal
+          setFlag={setAddFlag}
+          bookData={emptyBook}
+          modalUse={ModalUse.ADD}
+        />
+      )}
     </Box>
   );
 }

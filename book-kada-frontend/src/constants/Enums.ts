@@ -21,3 +21,8 @@ export enum Role {
   CLIENT = "client",
   ADMIN = "admin"
 }
+
+export enum ModalUse{
+  ADD = "add",
+  EDIT ="edit"
+}
