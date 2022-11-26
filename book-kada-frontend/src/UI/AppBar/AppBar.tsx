@@ -1,26 +1,14 @@
-import {
-  DarkMode,
-  LibraryAdd,
-  LightMode,
-  ShoppingCartSharp,
-  Login,
-  MoreVert,
-  AccountCircle,
-} from "@mui/icons-material";
-import { AppBar, Box, Toolbar, IconButton, Typography } from "@mui/material";
+import { AppBar, Box, Toolbar, Typography } from "@mui/material";
 import { Labels } from "../../constants/Labels";
 import { useContext, useState } from "react";
 import SearchBar from "./Search";
 import useMenu from "./Menu";
 import useMobileMenu from "./MobileMenu";
 import { ThemeContext } from "../../store/Theme_Context";
-import { ModalUse, Role, Themes } from "../../constants/Enums";
-import { UserContext } from "../../store/User_Context";
-import useLogout from "../../hooks/UseLogout";
-import { useNavigate } from "react-router-dom";
-import { ShoppingCartContext } from "../../store/Shoppingcart_Context";
+import { ModalUse, Themes } from "../../constants/Enums";
 import DetailsModal from "../../components/Admin/DetailsModal";
-import { BookContext } from "../../store/Book_Context";
+import MainAppBar from "./MainAppBar";
+import MobileAppBar from "./MobileAppBar";
 
 interface IPrimarySearchAppBar {}
 export default function PrimarySearchAppBar(props: IPrimarySearchAppBar) {
@@ -31,16 +19,11 @@ export default function PrimarySearchAppBar(props: IPrimarySearchAppBar) {
     author: "",
     name: "",
   };
-  const bookContext = useContext(BookContext);
   const [addFlag, setAddFlag] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
     useState<null | HTMLElement>(null);
-
-  const { logout } = useLogout();
-  const userDetails = useContext(UserContext);
   const themeMode = useContext(ThemeContext);
-  const shoppingcartData = useContext(ShoppingCartContext);
   const { menuId, renderMenu } = useMenu({
     anchorEl,
     setAnchorEl,
@@ -66,7 +49,6 @@ export default function PrimarySearchAppBar(props: IPrimarySearchAppBar) {
     else themeMode?.setThemeMode(Themes.DARK);
   };
 
-  const navigate = useNavigate();
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -81,141 +63,21 @@ export default function PrimarySearchAppBar(props: IPrimarySearchAppBar) {
           </Typography>
           <SearchBar></SearchBar>
           <Box sx={{ flexGrow: 1 }} />
-          <Box sx={{ display: { xs: "none", md: "flex" } }}>
-            <IconButton
-              size="large"
-              aria-label="mode"
-              aria-controls={mobileMenuId}
-              aria-haspopup="true"
-              onClick={handleModeChange}
-              color="inherit"
-            >
-              {themeMode?.themeMode === Themes.DARK ? (
-                <LightMode />
-              ) : (
-                <DarkMode />
-              )}
-            </IconButton>
-            {userDetails?.userDetails.role !== Role.ADMIN ? (
-              <IconButton
-                size="large"
-                aria-label="cart of current user"
-                aria-controls={menuId}
-                aria-haspopup="true"
-                onClick={() => navigate("/cart")}
-                color="inherit"
-              >
-                <Typography>
-                  {(shoppingcartData?.cartItems !== 0 ||
-                    shoppingcartData !== null) &&
-                    shoppingcartData?.cartItems}
-                </Typography>
-                <ShoppingCartSharp />
-              </IconButton>
-            ) : (
-              <IconButton
-                size="large"
-                aria-label="cart of current user"
-                aria-controls={menuId}
-                aria-haspopup="true"
-                onClick={() => setAddFlag(true)}
-                color="inherit"
-              >
-                <LibraryAdd />
-              </IconButton>
-            )}
+          <MainAppBar
+            menuId={menuId}
+            mobileMenuId={mobileMenuId}
+            handleModeChange={handleModeChange}
+            setAddFlag={setAddFlag}
+            handleProfileMenuOpen={handleProfileMenuOpen}
+          />
 
-            {userDetails?.userDetails.userId === -1 ? (
-              <IconButton
-                size="large"
-                aria-label="logout"
-                aria-haspopup="true"
-                onClick={() => navigate("/signin")}
-                color="inherit"
-              >
-                <Login /> <Typography>Login</Typography>
-              </IconButton>
-            ) : (
-              <IconButton
-                size="large"
-                edge="end"
-                aria-label="account of current user"
-                aria-controls={menuId}
-                aria-haspopup="true"
-                onClick={handleProfileMenuOpen}
-                color="inherit"
-              >
-                <AccountCircle />
-              </IconButton>
-            )}
-          </Box>
-          <Box sx={{ display: { xs: "flex", md: "none" } }}>
-            {userDetails?.userDetails.role !== Role.ADMIN ? (
-              <IconButton
-                size="large"
-                aria-label="cart of current user"
-                aria-controls={menuId}
-                aria-haspopup="true"
-                onClick={() => navigate("/cart")}
-                color="inherit"
-              >
-                <Typography>
-                  {(shoppingcartData?.cartItems !== 0 ||
-                    shoppingcartData !== null) &&
-                    shoppingcartData?.cartItems}
-                </Typography>
-                <ShoppingCartSharp />
-              </IconButton>
-            ) : (
-              <IconButton
-                size="large"
-                aria-label="cart of current user"
-                aria-controls={menuId}
-                aria-haspopup="true"
-                onClick={() => setAddFlag(true)}
-                color="inherit"
-              >
-                <LibraryAdd />
-              </IconButton>
-            )}
-
-            <IconButton
-              size="large"
-              aria-label="mode"
-              aria-controls={mobileMenuId}
-              aria-haspopup="true"
-              onClick={handleModeChange}
-              color="inherit"
-            >
-              {themeMode?.themeMode === Themes.DARK ? (
-                <LightMode />
-              ) : (
-                <DarkMode />
-              )}
-            </IconButton>
-            {userDetails?.userDetails.userId !== -1 ? (
-              <IconButton
-                size="large"
-                aria-label="show more"
-                aria-controls={mobileMenuId}
-                aria-haspopup="true"
-                onClick={handleMobileMenuOpen}
-                color="inherit"
-              >
-                <MoreVert />
-              </IconButton>
-            ) : (
-              <IconButton
-                size="large"
-                aria-label="logout"
-                aria-haspopup="true"
-                onClick={() => navigate("/signin")}
-                color="inherit"
-              >
-                <Login /> <Typography>Login</Typography>
-              </IconButton>
-            )}
-          </Box>
+          <MobileAppBar
+            menuId={menuId}
+            mobileMenuId={mobileMenuId}
+            handleModeChange={handleModeChange}
+            setAddFlag={setAddFlag}
+            handleMobileMenuOpen={handleMobileMenuOpen}
+          />
         </Toolbar>
       </AppBar>
       {renderMobileMenu}
