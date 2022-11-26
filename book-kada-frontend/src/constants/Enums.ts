@@ -22,7 +22,13 @@ export enum Role {
   ADMIN = "admin"
 }
 
-export enum ModalUse{
+export enum ModalUse {
   ADD = "add",
-  EDIT ="edit"
+  EDIT = "edit"
+}
+
+export enum CartActions {
+  ADD,
+  REDUCE,
+  REMOVE
 }

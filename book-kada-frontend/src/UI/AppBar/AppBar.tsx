@@ -1,4 +1,4 @@
-import { AppBar, Box, Toolbar, Typography } from "@mui/material";
+import { AppBar, Box, Link, Toolbar, Typography } from "@mui/material";
 import { Labels } from "../../constants/Labels";
 import { useContext, useState } from "react";
 import SearchBar from "./Search";
@@ -47,14 +47,17 @@ export default function PrimarySearchAppBar(props: IPrimarySearchAppBar) {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ display: { xs: "none", sm: "block" } }}
-          >
-            {Labels.title}
-          </Typography>
+          <Link href="/">
+            <Typography
+              variant="h6"
+              noWrap
+              color="white"
+              component="div"
+              sx={{ display: { xs: "none", sm: "block" } }}
+            >
+              {Labels.title}
+            </Typography>
+          </Link>
           <SearchBar></SearchBar>
           <Box sx={{ flexGrow: 1 }} />
           <MainAppBar

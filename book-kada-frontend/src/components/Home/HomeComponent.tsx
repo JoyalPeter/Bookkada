@@ -8,6 +8,7 @@ import showToast from "../../utils/Toastify";
 import Spinner from "../../UI/Spinner";
 import Cards from "./Cards";
 import { BookContext } from "../../store/Book_Context";
+import { BookDetails } from "../book/DetailsCard";
 
 export interface BookDataProps {
   bookId: number;
@@ -24,7 +25,7 @@ export default function HomePage() {
 
   useEffect(() => {
     makeApiCall(Method.GET, "books/viewAllBooks")
-      .then((response: BookDataProps[]) => {
+      .then((response: BookDetails[]) => {
         bookContext?.setAllBooks(response);
       })
       .catch((error) => showToast(Toast.ERROR, error));
@@ -44,8 +45,8 @@ export default function HomePage() {
         >
           {loadingFlag && <Spinner />}
           {bookContext?.allBooks.map(
-            (element: BookDataProps, index: number): JSX.Element => (
-              <Cards key={index} bookData={element} />
+            (element: BookDetails, index: number): JSX.Element => (
+              <Cards key={index} book={element} />
             )
           )}
         </Grid>

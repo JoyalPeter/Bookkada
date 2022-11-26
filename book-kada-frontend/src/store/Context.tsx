@@ -11,14 +11,16 @@ export interface IContextProps {
 
 export default function ContextProvider({ children }: IContextProps) {
   return (
-    <ViewResponseProvider>
-      <CartContextProvider>
-        <ThemeContextProvider>
-          <UserContextProvider>
-            <BooksContextProvider>{children}</BooksContextProvider>
-          </UserContextProvider>
-        </ThemeContextProvider>
-      </CartContextProvider>
-    </ViewResponseProvider>
+    <CartContextProvider>
+      <ViewResponseProvider>
+        <CartContextProvider>
+          <ThemeContextProvider>
+            <UserContextProvider>
+              <BooksContextProvider>{children}</BooksContextProvider>
+            </UserContextProvider>
+          </ThemeContextProvider>
+        </CartContextProvider>
+      </ViewResponseProvider>
+    </CartContextProvider>
   );
 }
