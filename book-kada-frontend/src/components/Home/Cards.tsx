@@ -30,12 +30,9 @@ export default function Cards(props: ICards) {
   const navigate = useNavigate();
   const bookContext = useContext(BookContext);
   const userContext = useContext(UserContext);
-  const [adminFlag, setAdminFlag] = useState(
-    userContext?.userDetails.role === Role.ADMIN
-  );
+
   const { makeApiCall, loadingFlag } = useApiService();
   const [editFlag, setEditFlag] = useState(false);
-
 
   function deleteBook(id: number) {
     makeApiCall(Method.DELETE, `books/deleteBook/${id}`)
@@ -57,7 +54,7 @@ export default function Cards(props: ICards) {
         <CardActionArea>
           <CardContent
             onClick={() => {
-              if (!adminFlag) navigate(`details${props.bookData.bookId}`);
+              navigate(`details/${props.bookData.bookId}`);
             }}
           >
             <>
@@ -85,7 +82,7 @@ export default function Cards(props: ICards) {
           </CardContent>
         </CardActionArea>
         <CardActions>
-          {adminFlag ? (
+          {userContext?.userDetails.role === Role.ADMIN ? (
             <>
               <Button variant="contained" onClick={() => setEditFlag(true)}>
                 Edit
@@ -99,7 +96,7 @@ export default function Cards(props: ICards) {
             </>
           ) : (
             <>
-              <Cart /> <Favorites />
+              <Cart />
               <Rating
                 name="half-rating"
                 defaultValue={props.bookData.rating!}

@@ -45,7 +45,7 @@ export default function HomePage() {
           {loadingFlag && <Spinner />}
           {bookContext?.allBooks.map(
             (element: BookDataProps, index: number): JSX.Element => (
-              <Cards bookData={element} />
+              <Cards key={index} bookData={element} />
             )
           )}
         </Grid>

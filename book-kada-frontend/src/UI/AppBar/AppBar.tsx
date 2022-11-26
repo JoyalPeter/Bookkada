@@ -27,9 +27,7 @@ import { ShoppingCartContext } from "../../store/Shoppingcart_Context";
 import DetailsModal from "../../components/Admin/DetailsModal";
 import { BookContext } from "../../store/Book_Context";
 
-interface IPrimarySearchAppBar {
-
-}
+interface IPrimarySearchAppBar {}
 export default function PrimarySearchAppBar(props: IPrimarySearchAppBar) {
   const emptyBook = {
     bookId: 0,
@@ -132,19 +130,17 @@ export default function PrimarySearchAppBar(props: IPrimarySearchAppBar) {
               </IconButton>
             )}
 
-            <IconButton
-              size="large"
-              edge="end"
-              aria-label="account of current user"
-              aria-controls={menuId}
-              aria-haspopup="true"
-              onClick={handleProfileMenuOpen}
-              color="inherit"
-            >
-              <AccountCircle />
-            </IconButton>
-
-            {userDetails?.userDetails.userId !== -1 ? (
+            {userDetails?.userDetails.userId === -1 ? (
+              <IconButton
+                size="large"
+                aria-label="logout"
+                aria-haspopup="true"
+                onClick={() => navigate("/signin")}
+                color="inherit"
+              >
+                <Login /> <Typography>Login</Typography>
+              </IconButton>
+            ) : (
               <IconButton
                 size="large"
                 edge="end"
@@ -155,16 +151,6 @@ export default function PrimarySearchAppBar(props: IPrimarySearchAppBar) {
                 color="inherit"
               >
                 <AccountCircle />
-              </IconButton>
-            ) : (
-              <IconButton
-                size="large"
-                aria-label="logout"
-                aria-haspopup="true"
-                onClick={() => navigate("/signin")}
-                color="inherit"
-              >
-                <Login /> <Typography>Login</Typography>
               </IconButton>
             )}
           </Box>
