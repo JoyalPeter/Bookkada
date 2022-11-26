@@ -54,8 +54,8 @@ export class RatingsService {
   async getAvg(id: number) {
     return await this.ratingRepo.
       createQueryBuilder('ratingtable')
+      .where('ratingtable.bookId = :bookId', { bookId: id })
       .select('AVG(ratingtable.rating)', 'rating')
-      .where('ratingtable.ratingId = :ratingId', { ratingId: id })
       .getRawOne();
   }
 

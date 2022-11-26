@@ -45,10 +45,10 @@ export default function DetailsModal(props: IDetailsModal) {
 
   function editBook(id: number) {
     const body = {
-      name: name,
-      price: price,
-      author: author,
-      description: description,
+      name,
+      price,
+      author,
+      description,
     };
     makeApiCall(Method.PATCH, `books/updateBook/${id}`, body)
       .then((response: BookDataProps[]) => {
@@ -65,7 +65,7 @@ export default function DetailsModal(props: IDetailsModal) {
       price: price,
       author: author,
       description: description,
-      rating:0
+      rating: 0,
     };
     makeApiCall(Method.POST, `books/addBook`, body)
       .then((response: BookDataProps[]) => {
@@ -85,54 +85,53 @@ export default function DetailsModal(props: IDetailsModal) {
       >
         <Box sx={style}>
           <CloseIcon onClick={handleClose} />
-          
-            <Typography id="modal-modal-title" variant="h6" component="h2">
-              Enter Details
-            </Typography>
-            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-              <Box>
-                Name :
-                <TextField
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                />
-              </Box>
-              <Box>
-                Author :
-                <TextField
-                  value={author}
-                  onChange={(e) => setAuthor(e.target.value)}
-                />
-              </Box>
-              <Box>
-                Price :
-                <TextField
-                  type="number"
-                  value={price}
-                  onChange={(e) => setPrice(+e.target.value)}
-                />
-              </Box>
-              <Box>
-                Discription :
-                <TextField
-                  value={description}
-                  onChange={(e) => setDescription(e.target.value)}
-                />
-              </Box>
-              <Button
-                variant="contained"
-                onClick={() => {
-                  if (props.modalUse === ModalUse.EDIT) {
-                    editBook(props.bookData.bookId);
-                  } else {
-                    addBook();
-                  }
-                }}
-              >
-                Submit
-              </Button>
-            </Typography>
-        
+
+          <Typography id="modal-modal-title" variant="h6" component="h2">
+            Enter Details
+          </Typography>
+          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+            <Box>
+              Name :
+              <TextField
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
+            </Box>
+            <Box>
+              Author :
+              <TextField
+                value={author}
+                onChange={(e) => setAuthor(e.target.value)}
+              />
+            </Box>
+            <Box>
+              Price :
+              <TextField
+                type="number"
+                value={price}
+                onChange={(e) => setPrice(+e.target.value)}
+              />
+            </Box>
+            <Box>
+              Discription :
+              <TextField
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+              />
+            </Box>
+            <Button
+              variant="contained"
+              onClick={() => {
+                if (props.modalUse === ModalUse.EDIT) {
+                  editBook(props.bookData.bookId);
+                } else {
+                  addBook();
+                }
+              }}
+            >
+              Submit
+            </Button>
+          </Typography>
         </Box>
       </Modal>
     </>
