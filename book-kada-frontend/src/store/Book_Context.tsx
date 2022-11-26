@@ -8,8 +8,8 @@ export interface IBookContext {
   setReviews: React.Dispatch<React.SetStateAction<ReviewDetails[]>>;
   bookDetails: BookDetails | null;
   setBookDetails: React.Dispatch<React.SetStateAction<BookDetails | null>>;
-  allBooks: BookDataProps[];
-  setAllBooks: React.Dispatch<React.SetStateAction<BookDataProps[]>>;
+  allBooks: BookDetails[];
+  setAllBooks: React.Dispatch<React.SetStateAction<BookDetails[]>>;
 }
 
 export interface IBookContextProviderProps {
@@ -20,12 +20,11 @@ export const BookContext = createContext<IBookContext | undefined>(undefined);
 export default function ViewResponseProvider({
   children,
 }: IBookContextProviderProps) {
-
   const [bookDetails, setBookDetails] = useState<BookDetails | null>(null);
 
   const [reviews, setReviews] = useState([] as ReviewDetails[]);
 
-  const [allBooks, setAllBooks] = useState([] as BookDataProps[]);
+  const [allBooks, setAllBooks] = useState([] as BookDetails[]);
 
   return (
     <BookContext.Provider
