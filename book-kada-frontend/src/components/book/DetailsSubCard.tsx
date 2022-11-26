@@ -45,7 +45,7 @@ export default function DetailsSubCard({ bookDetails }: DetailsProps) {
             Rating :{" "}
             <Rating
               name="half-rating"
-              defaultValue={bookDetails?.rating}
+              value={bookDetails?.rating}
               precision={0.5}
               readOnly
             />
