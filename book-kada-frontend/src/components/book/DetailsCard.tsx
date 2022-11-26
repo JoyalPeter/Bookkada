@@ -39,7 +39,7 @@ const DetailsCard: FC<DetailsProps> = ({}) => {
   }, []);
   console.log(loadingFlag);
 
-  return (
+return (
     <>
       <Padding>
         {loadingFlag ? (
