@@ -31,17 +31,11 @@ export default function PrimarySearchAppBar(props: IPrimarySearchAppBar) {
     setMobileMoreAnchorEl,
   });
 
-  const {
-    mobileMenuId,
-    handleProfileMenuOpen,
-    handleMobileMenuOpen,
-    renderMobileMenu,
-  } = useMobileMenu({
-    anchorEl,
-    setAnchorEl,
-    mobileMoreAnchorEl,
-    setMobileMoreAnchorEl,
-  });
+  const { mobileMenuId, handleProfileMenuOpen, renderMobileMenu } =
+    useMobileMenu({
+      anchorEl,
+      setAnchorEl,
+    });
 
   const handleModeChange = () => {
     if (themeMode?.themeMode === Themes.DARK)
@@ -76,7 +70,7 @@ export default function PrimarySearchAppBar(props: IPrimarySearchAppBar) {
             mobileMenuId={mobileMenuId}
             handleModeChange={handleModeChange}
             setAddFlag={setAddFlag}
-            handleMobileMenuOpen={handleMobileMenuOpen}
+            handleProfileMenuOpen={handleProfileMenuOpen}
           />
         </Toolbar>
       </AppBar>
