@@ -43,8 +43,9 @@ export default function Review({ addReviewFlag, setaddReviewFlag }: IAppProps) {
         console.log("add review", response);
         bookContext?.setReviews(response);
         makeApiCall(Method.GET, `books/getBook/${id}`)
-          .then((response: BookDetails) => {
-            bookContext?.setBookDetails(response);
+          .then((bookdetails: BookDetails) => {
+            bookContext?.setBookDetails(bookdetails);
+            console.log("hi");
           })
           .catch((error) => error);
       })
