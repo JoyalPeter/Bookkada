@@ -38,7 +38,7 @@ export default function SignUpModule() {
       })
         .then((response) => {
           showToast(Toast.SUCCESS, "Signed up successfully");
-          setTimeout(() => navigate("/signin"), 50);
+          setTimeout(() => navigate("/signin", { replace: true }), 50);
         })
         .catch((error) => {
           showToast(Toast.ERROR, error);
