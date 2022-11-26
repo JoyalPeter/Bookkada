@@ -3,12 +3,13 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import CloseIcon from "@mui/icons-material/Close";
-import { TextField } from "@mui/material";
-import { useState } from "react";
+import { FormGroup, TextField } from "@mui/material";
+import { useContext, useState } from "react";
 import showToast from "../../utils/Toastify";
-import { Method, Toast } from "../../constants/Enums";
+import { Method, ModalUse, Toast } from "../../constants/Enums";
 import useApiService from "../../hooks/UseApiService";
 import { BookDataProps } from "../Home/HomeComponent";
+import { BookContext } from "../../store/Book_Context";
 
 const style = {
   position: "absolute" as "absolute",
@@ -22,13 +23,14 @@ const style = {
   p: 4,
 };
 
-interface IEditModal {
-  setEditFlag: Function;
+interface IDetailsModal {
+  setFlag: Function;
   bookData: BookDataProps;
-  setData: Function;
+  modalUse: string;
 }
 
-export default function EditModal(props: IEditModal) {
+export default function DetailsModal(props: IDetailsModal) {
+  const bookContext = useContext(BookContext);
   const [open, setOpen] = useState(true);
   const [name, setName] = useState(props.bookData.name);
   const [author, setAuthor] = useState(props.bookData.author);
@@ -38,21 +40,38 @@ export default function EditModal(props: IEditModal) {
 
   const handleClose = () => {
     setOpen(false);
-    props.setEditFlag(false);
+    props.setFlag(false);
   };
 
-  function edit(id: number) {
+  function editBook(id: number) {
+    const body = {
+      name,
+      price,
+      author,
+      description,
+    };
+    makeApiCall(Method.PATCH, `books/updateBook/${id}`, body)
+      .then((response: BookDataProps[]) => {
+        bookContext?.setAllBooks(response);
+        props.setFlag(false);
+        showToast(Toast.SUCCESS, "Edit Successful");
+      })
+      .catch((error: string) => showToast(Toast.ERROR, error));
+  }
+
+  function addBook() {
     const body = {
       name: name,
       price: price,
       author: author,
       description: description,
+      rating: 0,
     };
-    makeApiCall(Method.PATCH, `books/updateBook/${id}`, body)
+    makeApiCall(Method.POST, `books/addBook`, body)
       .then((response: BookDataProps[]) => {
-        props.setData(response);
-        props.setEditFlag(false);
-        showToast(Toast.SUCCESS, "Edit Successful");
+        bookContext?.setAllBooks(response);
+        props.setFlag(false);
+        showToast(Toast.SUCCESS, "Added Successfully");
       })
       .catch((error: string) => showToast(Toast.ERROR, error));
   }
@@ -66,8 +85,9 @@ export default function EditModal(props: IEditModal) {
       >
         <Box sx={style}>
           <CloseIcon onClick={handleClose} />
+
           <Typography id="modal-modal-title" variant="h6" component="h2">
-            Edit Details
+            Enter Details
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
             <Box>
@@ -101,7 +121,13 @@ export default function EditModal(props: IEditModal) {
             </Box>
             <Button
               variant="contained"
-              onClick={() => edit(props.bookData.bookId)}
+              onClick={() => {
+                if (props.modalUse === ModalUse.EDIT) {
+                  editBook(props.bookData.bookId);
+                } else {
+                  addBook();
+                }
+              }}
             >
               Submit
             </Button>

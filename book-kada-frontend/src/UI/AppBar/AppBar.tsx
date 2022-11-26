@@ -4,28 +4,35 @@ import {
   LightMode,
   ShoppingCartSharp,
   Login,
-  Logout,
+  MoreVert,
+  AccountCircle,
 } from "@mui/icons-material";
+import { AppBar, Box, Toolbar, IconButton, Typography } from "@mui/material";
 import { Labels } from "../../constants/Labels";
 import { useContext, useState } from "react";
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
-import AccountCircle from "@mui/icons-material/AccountCircle";
-import MoreIcon from "@mui/icons-material/MoreVert";
 import SearchBar from "./Search";
 import useMenu from "./Menu";
 import useMobileMenu from "./MobileMenu";
 import { ThemeContext } from "../../store/Theme_Context";
-import { Role, Themes } from "../../constants/Enums";
+import { ModalUse, Role, Themes } from "../../constants/Enums";
 import { UserContext } from "../../store/User_Context";
 import useLogout from "../../hooks/UseLogout";
 import { useNavigate } from "react-router-dom";
 import { ShoppingCartContext } from "../../store/Shoppingcart_Context";
+import DetailsModal from "../../components/Admin/DetailsModal";
+import { BookContext } from "../../store/Book_Context";
 
-export default function PrimarySearchAppBar() {
+interface IPrimarySearchAppBar {}
+export default function PrimarySearchAppBar(props: IPrimarySearchAppBar) {
+  const emptyBook = {
+    bookId: 0,
+    price: 0,
+    description: "",
+    author: "",
+    name: "",
+  };
+  const bookContext = useContext(BookContext);
+  const [addFlag, setAddFlag] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
     useState<null | HTMLElement>(null);
@@ -111,26 +118,24 @@ export default function PrimarySearchAppBar() {
                 aria-label="cart of current user"
                 aria-controls={menuId}
                 aria-haspopup="true"
-                onClick={() => navigate("/adminBooks")}
+                onClick={() => setAddFlag(true)}
                 color="inherit"
               >
                 <LibraryAdd />
               </IconButton>
             )}
 
-            <IconButton
-              size="large"
-              edge="end"
-              aria-label="account of current user"
-              aria-controls={menuId}
-              aria-haspopup="true"
-              onClick={handleProfileMenuOpen}
-              color="inherit"
-            >
-              <AccountCircle />
-            </IconButton>
-
-            {userDetails?.userDetails.userId !== -1 ? (
+            {userDetails?.userDetails.userId === -1 ? (
+              <IconButton
+                size="large"
+                aria-label="logout"
+                aria-haspopup="true"
+                onClick={() => navigate("/signin")}
+                color="inherit"
+              >
+                <Login /> <Typography>Login</Typography>
+              </IconButton>
+            ) : (
               <IconButton
                 size="large"
                 edge="end"
@@ -142,19 +147,38 @@ export default function PrimarySearchAppBar() {
               >
                 <AccountCircle />
               </IconButton>
-            ) : (
-              <IconButton
-                size="large"
-                aria-label="logout"
-                aria-haspopup="true"
-                onClick={() => navigate("/signin")}
-                color="inherit"
-              >
-                <Login /> <Typography>Login</Typography>
-              </IconButton>
             )}
           </Box>
           <Box sx={{ display: { xs: "flex", md: "none" } }}>
+            {userDetails?.userDetails.role !== Role.ADMIN ? (
+              <IconButton
+                size="large"
+                aria-label="cart of current user"
+                aria-controls={menuId}
+                aria-haspopup="true"
+                onClick={() => navigate("/cart")}
+                color="inherit"
+              >
+                <Typography>
+                  {(shoppingcartData?.cartItems !== 0 ||
+                    shoppingcartData !== null) &&
+                    shoppingcartData?.cartItems}
+                </Typography>
+                <ShoppingCartSharp />
+              </IconButton>
+            ) : (
+              <IconButton
+                size="large"
+                aria-label="cart of current user"
+                aria-controls={menuId}
+                aria-haspopup="true"
+                onClick={() => setAddFlag(true)}
+                color="inherit"
+              >
+                <LibraryAdd />
+              </IconButton>
+            )}
+
             <IconButton
               size="large"
               aria-label="mode"
@@ -178,7 +202,7 @@ export default function PrimarySearchAppBar() {
                 onClick={handleMobileMenuOpen}
                 color="inherit"
               >
-                <MoreIcon />
+                <MoreVert />
               </IconButton>
             ) : (
               <IconButton
@@ -196,6 +220,13 @@ export default function PrimarySearchAppBar() {
       </AppBar>
       {renderMobileMenu}
       {renderMenu}
+      {addFlag && (
+        <DetailsModal
+          setFlag={setAddFlag}
+          bookData={emptyBook}
+          modalUse={ModalUse.ADD}
+        />
+      )}
     </Box>
   );
 }

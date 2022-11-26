@@ -13,7 +13,7 @@ export default function AdminPage(props: IAdminPageProps) {
         <Card
           sx={{ width: "30%", minWidth: 275 }}
           onClick={() => {
-            navigate('/adminBooks');
+            navigate('/');
           }}
         >
           <CardContent>books</CardContent>

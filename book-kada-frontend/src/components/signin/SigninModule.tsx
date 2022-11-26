@@ -35,7 +35,7 @@ export default function SignIn() {
           localStorage.setItem("token", response.access_token);
           setTimeout(() => {
             usercontext?.setToken(response.access_token);
-            navigate("/");
+            navigate("/", { replace: true });
           }, 50);
         })
         .catch((error) => {
@@ -98,7 +98,7 @@ export default function SignIn() {
               </Link>
             </Grid>
             <Grid item>
-              <Link href="#" variant="body2">
+              <Link href="signup" variant="body2">
                 {"Don't have an account? Sign Up"}
               </Link>
             </Grid>

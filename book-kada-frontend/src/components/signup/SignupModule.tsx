@@ -37,8 +37,8 @@ export default function SignUpModule() {
         role: Role.CLIENT,
       })
         .then((response) => {
-          localStorage.setItem("userId", JSON.stringify(response));
-          setTimeout(() => navigate("/signin"), 50);
+          showToast(Toast.SUCCESS, "Signed up successfully");
+          setTimeout(() => navigate("/signin", { replace: true }), 50);
         })
         .catch((error) => {
           showToast(Toast.ERROR, error);
