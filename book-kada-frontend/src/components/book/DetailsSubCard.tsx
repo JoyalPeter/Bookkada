@@ -12,24 +12,15 @@ import Review from "./AddReview";
 import { BookDetails } from "./DetailsCard";
 
 interface DetailsProps {
-  resp: BookDetails | null;
+  bookDetails: BookDetails | null | undefined;
 }
 
-export default function DetailsSubCard({ resp }: DetailsProps) {
+export default function DetailsSubCard({ bookDetails }: DetailsProps) {
   const [addReviewFlag, setaddReviewFlag] = useState(false);
-  let reviewSum = 0;
-  let reviewAvg = 0;
-  let totalNumberOfReview = 0;
   function addReview() {
     setaddReviewFlag(!addReviewFlag);
   }
-  console.log(resp);
-  if (resp) {
-    //  console.log("rating", resp.ratings);
-    totalNumberOfReview = resp.ratings.length;
-    resp.ratings.map((item) => (reviewSum = reviewSum + item.rating));
-    reviewAvg = reviewSum / totalNumberOfReview;
-  }
+
   return (
     <Card
       sx={{
@@ -54,23 +45,23 @@ export default function DetailsSubCard({ resp }: DetailsProps) {
             Rating :{" "}
             <Rating
               name="half-rating"
-              defaultValue={resp?.ratings[0].rating}
+              defaultValue={bookDetails?.rating}
               precision={0.5}
               readOnly
             />
           </Typography>
         </LeftBox>
         <Typography gutterBottom variant="h3" component="div">
-          {resp?.name}
+          {bookDetails?.name}
         </Typography>
         <Typography gutterBottom variant="h6" component="div">
-          {resp?.author}
+          {bookDetails?.author}
         </Typography>
         <Typography gutterBottom variant="h5" component="div">
-          ${resp?.price}
+          ${bookDetails?.price}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          {resp?.description}
+          {bookDetails?.description}
         </Typography>
         <CentreBox>
           <Box sx={{ display: "flex", gap: 5 }}>

@@ -1,7 +1,7 @@
 import React from "react";
-import BooksContextProvider from "./Books_Context";
+import BooksContextProvider from "./Book_Context";
 import CartContextProvider from "./Shoppingcart_Context";
-import ViewResponseProvider from "./Review_Context";
+import ViewResponseProvider from "./Book_Context";
 import ThemeContextProvider from "./Theme_Context";
 import UserContextProvider from "./User_Context";
 

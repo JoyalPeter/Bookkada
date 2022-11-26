@@ -5,10 +5,10 @@ import Modal from "@mui/material/Modal";
 import CloseIcon from "@mui/icons-material/Close";
 import { TextField } from "@mui/material";
 import { useState } from "react";
-import { BookData } from "../../constants/Interfaces";
 import showToast from "../../utils/Toastify";
 import { Method, Toast } from "../../constants/Enums";
 import useApiService from "../../hooks/UseApiService";
+import { BookDataProps } from "../Home/HomeComponent";
 
 const style = {
   position: "absolute" as "absolute",
@@ -24,7 +24,7 @@ const style = {
 
 interface IEditModal {
   setEditFlag: Function;
-  bookData: BookData;
+  bookData: BookDataProps;
   setData: Function;
 }
 
@@ -49,7 +49,7 @@ export default function EditModal(props: IEditModal) {
       description: description,
     };
     makeApiCall(Method.PATCH, `books/updateBook/${id}`, body)
-      .then((response: BookData[]) => {
+      .then((response: BookDataProps[]) => {
         props.setData(response);
         props.setEditFlag(false);
         showToast(Toast.SUCCESS, "Edit Successful");

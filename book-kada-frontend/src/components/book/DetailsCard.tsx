@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useContext, useEffect, useState } from "react";
 
 import CentreBox from "../../UI/CenterBox";
 import Padding from "../../UI/Padding";
@@ -8,6 +8,7 @@ import { Method } from "../../constants/Enums";
 import useApiService from "../../hooks/UseApiService";
 import Spinner from "../../UI/Spinner";
 import { useParams } from "react-router-dom";
+import { BookContext } from "../../store/Book_Context";
 
 interface DetailsProps {}
 
@@ -18,22 +19,21 @@ export interface RatingInterface {
 
 export interface BookDetails {
   name: string;
-  price: string;
+  price: number;
   description: string;
   author: string;
   ratings: RatingInterface[];
+  rating: number;
 }
 
 const DetailsCard: FC<DetailsProps> = ({}) => {
-  const [resp, setResponse] = useState<BookDetails | null>(null);
+  const bookContext = useContext(BookContext);
   const { makeApiCall, loadingFlag } = useApiService();
   const { id } = useParams();
   useEffect(() => {
     makeApiCall(Method.GET, `books/getBook/${id}`)
       .then((response: BookDetails) => {
-        console.log("details", response);
-
-        setResponse(response);
+        bookContext?.setBookDetails(response);
       })
       .catch((error) => error);
   }, []);
@@ -46,7 +46,7 @@ const DetailsCard: FC<DetailsProps> = ({}) => {
           <Spinner />
         ) : (
           <>
-            <DetailsSubCard resp={resp} />
+            <DetailsSubCard bookDetails={bookContext?.bookDetails} />
             <CentreBox>
               <h1>Reviews</h1>
             </CentreBox>
