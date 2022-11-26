@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
@@ -10,12 +10,15 @@ import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import LeftBox from "../../UI/LeftBox";
 import Review from "./AddReview";
 import { BookDetails } from "./DetailsCard";
+import { UserContext } from "../../store/User_Context";
+import { Role } from "../../constants/Enums";
 
 interface DetailsProps {
   bookDetails: BookDetails | null | undefined;
 }
 
 export default function DetailsSubCard({ bookDetails }: DetailsProps) {
+  const userContext = useContext(UserContext);
   const [addReviewFlag, setaddReviewFlag] = useState(false);
   function addReview() {
     setaddReviewFlag(!addReviewFlag);
@@ -63,16 +66,18 @@ export default function DetailsSubCard({ bookDetails }: DetailsProps) {
         <Typography variant="body2" color="text.secondary">
           {bookDetails?.description}
         </Typography>
-        <CentreBox>
-          <Box sx={{ display: "flex", gap: 5 }}>
-            <Button variant="contained" onClick={addReview}>
-              Add Review
-            </Button>
-            <Button variant="contained" endIcon={<AddShoppingCartIcon />}>
-              Add To Cart
-            </Button>
-          </Box>
-        </CentreBox>
+        {userContext?.userDetails.role !== Role.ADMIN && (
+          <CentreBox>
+            <Box sx={{ display: "flex", gap: 5 }}>
+              <Button variant="contained" onClick={addReview}>
+                Add Review
+              </Button>
+              <Button variant="contained" endIcon={<AddShoppingCartIcon />}>
+                Add To Cart
+              </Button>
+            </Box>
+          </CentreBox>
+        )}
         {addReviewFlag && (
           <Review
             addReviewFlag={addReviewFlag}
