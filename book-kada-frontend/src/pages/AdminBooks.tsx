@@ -1,9 +1,9 @@
-import {  Card, CardContent, Grid } from "@mui/material";
+import { Card, CardContent, Grid } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ListItems from "../components/Admin/ListItems";
+import { BookDataProps } from "../components/Home/HomeComponent";
 import { Method, Toast } from "../constants/Enums";
-import { BookData } from "../constants/Interfaces";
 import useApiService from "../hooks/UseApiService";
 import AppBar from "../UI/AppBar/AppBar";
 import Padding from "../UI/Padding";
@@ -13,11 +13,11 @@ import showToast from "../utils/Toastify";
 export default function AdminBooks() {
   const navigate = useNavigate();
   const { makeApiCall, loadingFlag } = useApiService();
-  const [data, setData] = useState([] as BookData[]);
+  const [data, setData] = useState([] as BookDataProps[]);
 
   useEffect(() => {
     makeApiCall(Method.GET, "books/viewAllBooks")
-      .then((response: BookData[]) => {
+      .then((response: BookDataProps[]) => {
         console.log(response);
         setData(response);
         console.log(data);
@@ -27,7 +27,7 @@ export default function AdminBooks() {
 
   return (
     <>
-    <AppBar/>
+      <AppBar />
       <Padding>
         <Grid
           container
@@ -42,9 +42,9 @@ export default function AdminBooks() {
             <Spinner />
           ) : (
             data.map(
-              (element: BookData): JSX.Element => (
+              (element: BookDataProps): JSX.Element => (
                 <ListItems bookData={element} setData={setData} />
-              ),
+              )
             )
           )}
         </Grid>

@@ -23,7 +23,7 @@ export class BooksService {
 
     @InjectRepository(Rating)
     private ratingRepo: Repository<Rating>
-  ) {}
+  ) { }
 
   async create(createBookDto: CreateBookDto) {
     const book = this.booksRepo.create(createBookDto);
@@ -43,20 +43,23 @@ export class BooksService {
 
   async findOne(bookId: number) {
     return await this.booksRepo
-      .find({ where: { bookId: bookId }, relations: ["ratings"] })
+      .findOne({ where: { bookId: bookId }, relations: ["ratings"] })
       .catch(() => {
         throw new DBException();
       });
   }
 
   async findOneById(id: number) {
-    return await this.booksRepo.findOne({ where: { bookId: id } }).catch(() => {
+    return await this.booksRepo.findOne({ where: { bookId: id } }).catch((e) => {
+      console.log(e)
       throw new DBException();
     });
   }
 
   async update(id: number, updateBookDto: UpdateBookDto) {
-    await this.booksRepo.update(id, updateBookDto).catch(() => {
+    await this.booksRepo.update(id, updateBookDto).catch((e) => {
+      console.log(e);
+
       throw new DBException();
     });
     return await this.findAll().catch(() => {
@@ -64,7 +67,7 @@ export class BooksService {
     });
   }
 
-  async search(key:string){
+  async search(key: string) {
     return await this.booksRepo.find({ where: { name: Like(`%${key}%`) } });
   }
 

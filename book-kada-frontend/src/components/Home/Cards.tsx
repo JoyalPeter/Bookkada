@@ -7,13 +7,14 @@ import {
   CardActions,
   Typography,
   CardActionArea,
+  Rating,
 } from "@mui/material";
 import Ratings from "../../UI/Rating";
-import { BookData } from "../../constants/Interfaces";
 import Favorites from "./Addfavorite";
 import Cart from "./Shoppingcart";
+import { BookDataProps } from "./HomeComponent";
 
-export default function Cards(props: BookData) {
+export default function Cards(props: BookDataProps) {
   const navigate = useNavigate();
   const quantity = 0;
   return (
@@ -52,7 +53,13 @@ export default function Cards(props: BookData) {
           </CardContent>
         </CardActionArea>
         <CardActions>
-          <Cart /> <Favorites /> <Ratings />
+          <Cart /> <Favorites />
+          <Rating
+            name="half-rating"
+            defaultValue={props.rating!}
+            precision={0.5}
+            readOnly
+          />
         </CardActions>
       </Card>
     </>

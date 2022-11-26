@@ -6,27 +6,24 @@ import useApiService from "../../hooks/UseApiService";
 import { Method, Toast } from "../../constants/Enums";
 import showToast from "../../utils/Toastify";
 import Spinner from "../../UI/Spinner";
-import { useNavigate } from "react-router-dom";
 import Cards from "./Cards";
-import { BookData } from "../../constants/Interfaces";
-
 export interface BookDataProps {
   bookId: number;
   name: string;
   price: number;
   description: string;
   author: string;
+  rating?: number;
 }
 
 export default function UserPage() {
-  const navigate = useNavigate();
   const { makeApiCall, loadingFlag } = useApiService();
 
-  const [data, setData] = useState([] as BookData[]);
+  const [data, setData] = useState([] as BookDataProps[]);
 
   useEffect(() => {
     makeApiCall(Method.GET, "books/viewAllBooks")
-      .then((response: BookData[]) => {
+      .then((response: BookDataProps[]) => {
         setData(response);
       })
       .catch((error) => showToast(Toast.ERROR, error));
@@ -46,11 +43,13 @@ export default function UserPage() {
         >
           {loadingFlag && <Spinner />}
           {data.map(
-            (element: BookDataProps): JSX.Element => (
+            (element: BookDataProps, index: number): JSX.Element => (
               <Cards
+                key={index}
                 bookId={element.bookId}
                 name={element.name}
                 price={element.price}
+                rating={element.rating}
                 description={element.description}
                 author={element.author}
               />

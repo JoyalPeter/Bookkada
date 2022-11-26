@@ -10,16 +10,16 @@ import {
   Typography,
 } from "@mui/material";
 import { Method, Toast } from "../../constants/Enums";
-import { BookData } from "../../constants/Interfaces";
 import useApiService from "../../hooks/UseApiService";
 import showToast from "../../utils/Toastify";
 import Ratings from "../../UI/Rating";
 import Favorites from "../Home/Addfavorite";
 import Cart from "../Home/Shoppingcart";
 import EditModal from "./EditModal";
+import { BookDataProps } from "../Home/HomeComponent";
 
 interface IListItems {
-  bookData: BookData;
+  bookData: BookDataProps;
   setData: Function;
 }
 
@@ -31,7 +31,7 @@ export default function ListItems(props: IListItems) {
 
   function deleteBook(id: number) {
     makeApiCall(Method.DELETE, `books/deleteBook/${id}`)
-      .then((response: BookData[]) => {
+      .then((response: BookDataProps[]) => {
         props.setData(response);
         showToast(Toast.SUCCESS, "Delete Successful");
       })
@@ -91,7 +91,7 @@ export default function ListItems(props: IListItems) {
             <>
               <Cart />
               <Favorites />
-              <Ratings />
+              {/* <Ratings /> */}
             </>
           )}
         </CardActions>
