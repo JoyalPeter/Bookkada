@@ -16,7 +16,6 @@ import { BookDataProps } from "./HomeComponent";
 
 export default function Cards(props: BookDataProps) {
   const navigate = useNavigate();
-  const quantity = 0;
   return (
     <>
       <Card sx={{ maxWidth: 275, boxShadow: 5, m: 1, maxHeight: 500 }}>

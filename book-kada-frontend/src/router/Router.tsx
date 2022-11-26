@@ -8,6 +8,7 @@ import AdminPage from "../pages/AdminPage";
 import AdminBooks from "../pages/AdminBooks";
 import ProtectedRoute from "../utils/ProtectedRoute";
 import NotFound from "../pages/NotFound";
+import OrderPage from "../pages/OrdersPage";
 
 export default function Router() {
   return (
@@ -24,7 +25,7 @@ export default function Router() {
           }
         />
         <Route path="/details/:id" element={<DetailsPage />} />
-
+        <Route path="/orders" element={<OrderPage />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/admin" element={<AdminPage />} />
         <Route path="/adminBooks" element={<AdminBooks />} />

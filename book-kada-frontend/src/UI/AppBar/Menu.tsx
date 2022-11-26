@@ -2,6 +2,7 @@ import React from "react";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import useLogout from "../../hooks/UseLogout";
+import { useNavigate } from "react-router-dom";
 
 export interface IUseMenuProps {
   anchorEl: HTMLElement | null;
@@ -28,6 +29,7 @@ export default function useMenu({
     setAnchorEl(null);
     handleMobileMenuClose();
   };
+  const navigate = useNavigate()
   const menuId = "primary-search-account-menu";
   const renderMenu = (
     <Menu
@@ -47,6 +49,7 @@ export default function useMenu({
     >
       <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
       <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <MenuItem onClick={()=>navigate('/orders')}>My Orders</MenuItem>
       <MenuItem onClick={logout}>Logout</MenuItem>
     </Menu>
   );
