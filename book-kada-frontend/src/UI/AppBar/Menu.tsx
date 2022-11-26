@@ -29,7 +29,7 @@ export default function useMenu({
     setAnchorEl(null);
     handleMobileMenuClose();
   };
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const menuId = "primary-search-account-menu";
   const renderMenu = (
     <Menu
@@ -49,7 +49,7 @@ export default function useMenu({
     >
       <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
       <MenuItem onClick={handleMenuClose}>My account</MenuItem>
-      <MenuItem onClick={()=>navigate('/orders')}>My Orders</MenuItem>
+      <MenuItem onClick={() => navigate("/orders")}>My Orders</MenuItem>
       <MenuItem onClick={logout}>Logout</MenuItem>
     </Menu>
   );
