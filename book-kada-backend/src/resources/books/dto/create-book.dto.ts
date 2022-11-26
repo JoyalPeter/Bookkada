@@ -13,4 +13,6 @@ export class CreateBookDto {
 
   @IsNotEmpty({ message: errorMessages.mandatoryEmpty })
   author: string;
+
+  rating: number
 }

@@ -18,15 +18,17 @@ export class RatingsController {
   constructor(
     private readonly ratingsService: RatingsService,
     private readonly usersService: UsersService,
-    private readonly booksService: BooksService
-  ) {}
+    private readonly booksService: BooksService,
+  ) { }
 
   @Post("/addRating")
   async create(@Body() createRatingDto: CreateRatingDto) {
     const user = await this.usersService.findOne(createRatingDto.userId);
     const book = await this.booksService.findOneById(createRatingDto.bookId);
-    await this.ratingsService.create(createRatingDto, user, book);
-    return await this.ratingsService.findOne(createRatingDto.bookId);
+    await this.ratingsService.create(createRatingDto, user, book)
+    return await this.ratingsService.getAvg(createRatingDto.bookId)
+    // await this.booksService.update(createRatingDto.bookId, rating)
+    // return await this.ratingsService.findOne(createRatingDto.bookId);
   }
 
   @Get("/getAllRatings")

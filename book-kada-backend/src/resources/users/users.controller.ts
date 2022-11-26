@@ -27,10 +27,15 @@ export class UsersController {
     return await this.usersService.findOne(+id);
   }
 
+
+  @Get(':id')
+  @ApiBearerAuth()
+  @UseGuards(AuthGuard('jwt'))
   @Patch('/updateUser/:id')
   async update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
     return await this.usersService.update(+id, updateUserDto);
   }
+
 
   @Delete('/deleteUser/:id')
   async remove(@Param('id') id: string) {

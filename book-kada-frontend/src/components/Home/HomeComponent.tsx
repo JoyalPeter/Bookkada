@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { useState } from "react";
 import Padding from "../../UI/Padding";
 import { Grid } from "@mui/material";
@@ -6,9 +6,8 @@ import useApiService from "../../hooks/UseApiService";
 import { Method, Toast } from "../../constants/Enums";
 import showToast from "../../utils/Toastify";
 import Spinner from "../../UI/Spinner";
-import { useNavigate } from "react-router-dom";
 import Cards from "./Cards";
-import { BookData } from "../../constants/Interfaces";
+import { BookContext } from "../../store/Book_Context";
 
 export interface BookDataProps {
   bookId: number;
@@ -16,18 +15,17 @@ export interface BookDataProps {
   price: number;
   description: string;
   author: string;
+  rating?: number;
 }
 
-export default function UserPage() {
-  const navigate = useNavigate();
+export default function HomePage() {
   const { makeApiCall, loadingFlag } = useApiService();
-
-  const [data, setData] = useState([] as BookData[]);
+  const bookContext = useContext(BookContext);
 
   useEffect(() => {
     makeApiCall(Method.GET, "books/viewAllBooks")
-      .then((response: BookData[]) => {
-        setData(response);
+      .then((response: BookDataProps[]) => {
+        bookContext?.setAllBooks(response);
       })
       .catch((error) => showToast(Toast.ERROR, error));
   }, []);
@@ -45,15 +43,9 @@ export default function UserPage() {
           columns={{ xs: 4, sm: 8, md: 12 }}
         >
           {loadingFlag && <Spinner />}
-          {data.map(
-            (element: BookDataProps): JSX.Element => (
-              <Cards
-                bookId={element.bookId}
-                name={element.name}
-                price={element.price}
-                description={element.description}
-                author={element.author}
-              />
+          {bookContext?.allBooks.map(
+            (element: BookDataProps, index: number): JSX.Element => (
+              <Cards bookData={element} />
             )
           )}
         </Grid>

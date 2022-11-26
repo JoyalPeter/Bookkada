@@ -4,10 +4,9 @@ import SearchIcon from "@mui/icons-material/Search";
 import { useEffect, useState } from "react";
 import useApiService from "../../hooks/UseApiService";
 import { Method, Toast } from "../../constants/Enums";
-import { BookData } from "../../constants/Interfaces";
 import showToast from "../../utils/Toastify";
 import { Autocomplete, TextField } from "@mui/material";
-
+import { BookDataProps } from "../../components/Home/HomeComponent";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -52,7 +51,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 export default function SearchBar() {
   const { makeApiCall, loadingFlag } = useApiService();
   const [searchKey, setSearchKey] = useState("");
-  const [data,setData]=useState([] as BookData[])
+  const [data, setData] = useState([] as BookDataProps[]);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -67,7 +66,7 @@ export default function SearchBar() {
   function search(searchKey: string) {
     if (searchKey) {
       makeApiCall(Method.GET, `books/search/${searchKey}`)
-        .then((response: BookData[]) => {
+        .then((response: BookDataProps[]) => {
           setData(response);
         })
         .catch((error: string) => showToast(Toast.ERROR, error));
@@ -83,7 +82,7 @@ export default function SearchBar() {
         placeholder="Search…"
         inputProps={{ "aria-label": "search" }}
       />
-      </Search>
+    </Search>
     // <Autocomplete
     //   disableClearable
     //   sx={{ width: 200 }}

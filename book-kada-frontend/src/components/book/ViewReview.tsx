@@ -9,7 +9,8 @@ import useApiService from "../../hooks/UseApiService";
 import Spinner from "../../UI/Spinner";
 import { useParams } from "react-router-dom";
 import { UserContext } from "../../store/User_Context";
-import { ViewResponseContext } from "../../store/Review_Context";
+import { BookContext } from "../../store/Book_Context";
+import { BookDetails } from "./DetailsCard";
 
 interface IAppProps {}
 
@@ -24,14 +25,13 @@ export interface ReviewDetails {
 }
 
 export default function ViewReview(props: IAppProps) {
-  const reviewDetails = useContext(ViewResponseContext);
+  const bookContext = useContext(BookContext);
   const { makeApiCall, loadingFlag } = useApiService();
   const { id } = useParams();
   useEffect(() => {
     makeApiCall(Method.GET, `ratings/getReview/${id}`)
       .then((response: ReviewDetails[]) => {
-        reviewDetails?.setViewResponse(response);
-        console.log(reviewDetails?.viewResponse);
+        bookContext?.setReviews(response);
       })
       .catch((error: any) => error);
   }, []);
@@ -40,8 +40,9 @@ export default function ViewReview(props: IAppProps) {
       {loadingFlag ? (
         <Spinner />
       ) : (
-        reviewDetails?.viewResponse.map((item: ReviewDetails) => (
+        bookContext?.reviews.map((item: ReviewDetails, index: number) => (
           <Card
+            key={index}
             sx={{
               width: 1,
               display: "grid",

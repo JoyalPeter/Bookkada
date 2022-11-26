@@ -3,11 +3,12 @@ import { Rating, Button, TextField, Typography } from "@mui/material";
 import { ReviewDetails } from "./ViewReview";
 import { useContext } from "react";
 import { UserContext } from "../../store/User_Context";
-import { ViewResponseContext } from "../../store/Review_Context";
 import { FC, useEffect, useState } from "react";
 import { BookDetails } from "./DetailsCard";
 import { Method } from "../../constants/Enums";
 import useApiService from "../../hooks/UseApiService";
+import { BookContext } from "../../store/Book_Context";
+import { useParams } from "react-router-dom";
 
 export interface IAppProps {
   addReviewFlag: Boolean;
@@ -24,8 +25,9 @@ export interface AddReviewDetails {
 export default function Review({ addReviewFlag, setaddReviewFlag }: IAppProps) {
   const [ratingvalue, setRatingValue] = React.useState<number | null>(2);
   const [reviewdata, setReviewData] = useState("");
-  const reviewDetails = useContext(ViewResponseContext);
+  const bookContext = useContext(BookContext);
   const { makeApiCall, loadingFlag } = useApiService();
+  const { id } = useParams();
   function reviewSubmit() {
     setaddReviewFlag(!addReviewFlag);
 
@@ -35,11 +37,16 @@ export default function Review({ addReviewFlag, setaddReviewFlag }: IAppProps) {
       description: reviewdata,
       rating: ratingvalue,
       userId: 1,
-      bookId: 2,
+      bookId: +id!,
     })
       .then((response: ReviewDetails[]) => {
         console.log("add review", response);
-        reviewDetails?.setViewResponse(response);
+        bookContext?.setReviews(response);
+        makeApiCall(Method.GET, `books/getBook/${id}`)
+          .then((response: BookDetails) => {
+            bookContext?.setBookDetails(response);
+          })
+          .catch((error) => error);
       })
       .catch((error) => error);
     // console.log(addreview);
