@@ -65,6 +65,7 @@ export default function DetailsModal(props: IDetailsModal) {
       price: price,
       author: author,
       description: description,
+      rating:0
     };
     makeApiCall(Method.POST, `books/addBook`, body)
       .then((response: BookDataProps[]) => {
