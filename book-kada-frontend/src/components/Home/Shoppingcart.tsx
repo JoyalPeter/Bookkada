@@ -5,12 +5,10 @@ import { Tooltip, IconButton } from "@mui/material";
 import { ShoppingCartContext } from "../../store/Shoppingcart_Context";
 
 export default function Cart() {
-  const [isActive, setisActive] = useState(false);
-  const [tooltip, setTooltip] = useState("Add to Cart");
   const Shoppingcart = useContext(ShoppingCartContext);
   return (
     <Padding>
-      <Tooltip title={tooltip}>
+      <Tooltip title="Add to Cart">
         <IconButton
           onClick={() => {
             Shoppingcart?.setCartItems((noOfItems) => noOfItems + 1);
