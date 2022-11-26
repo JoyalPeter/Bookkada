@@ -7,7 +7,7 @@ import { TextField } from "@mui/material";
 import { useState } from "react";
 import { BookData } from "../../constants/Interfaces";
 import showToast from "../../utils/Toastify";
-import { Method, Toast } from "../../constants/Enums";
+import { Method, ModalUse, Toast } from "../../constants/Enums";
 import useApiService from "../../hooks/UseApiService";
 
 const style = {
@@ -23,12 +23,13 @@ const style = {
 };
 
 interface IEditModal {
-  setEditFlag: Function;
+  setFlag: Function;
   bookData: BookData;
   setData: Function;
+  modalUse: string;
 }
 
-export default function EditModal(props: IEditModal) {
+export default function DetailsModal(props: IEditModal) {
   const [open, setOpen] = useState(true);
   const [name, setName] = useState(props.bookData.name);
   const [author, setAuthor] = useState(props.bookData.author);
@@ -38,10 +39,10 @@ export default function EditModal(props: IEditModal) {
 
   const handleClose = () => {
     setOpen(false);
-    props.setEditFlag(false);
+    props.setFlag(false);
   };
 
-  function edit(id: number) {
+  function editBook(id: number) {
     const body = {
       name: name,
       price: price,
@@ -51,8 +52,24 @@ export default function EditModal(props: IEditModal) {
     makeApiCall(Method.PATCH, `books/updateBook/${id}`, body)
       .then((response: BookData[]) => {
         props.setData(response);
-        props.setEditFlag(false);
+        props.setFlag(false);
         showToast(Toast.SUCCESS, "Edit Successful");
+      })
+      .catch((error: string) => showToast(Toast.ERROR, error));
+  }
+
+  function addBook() {
+    const body = {
+      name: name,
+      price: price,
+      author: author,
+      description: description,
+    };
+    makeApiCall(Method.POST, `books/addBook`, body)
+      .then((response: BookData[]) => {
+        props.setData(response);
+        props.setFlag(false);
+        showToast(Toast.SUCCESS, "Added Successfully");
       })
       .catch((error: string) => showToast(Toast.ERROR, error));
   }
@@ -67,7 +84,7 @@ export default function EditModal(props: IEditModal) {
         <Box sx={style}>
           <CloseIcon onClick={handleClose} />
           <Typography id="modal-modal-title" variant="h6" component="h2">
-            Edit Details
+            Enter Details
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
             <Box>
@@ -101,7 +118,13 @@ export default function EditModal(props: IEditModal) {
             </Box>
             <Button
               variant="contained"
-              onClick={() => edit(props.bookData.bookId)}
+              onClick={() => {
+                if (props.modalUse === ModalUse.EDIT) {
+                  editBook(props.bookData.bookId);
+                }else{
+                  addBook()
+                }
+              }}
             >
               Submit
             </Button>

@@ -27,7 +27,7 @@ export default function AdminBooks() {
 
   return (
     <>
-    <AppBar/>
+      <AppBar setData={setData} /> // to be removed
       <Padding>
         <Grid
           container
@@ -44,7 +44,7 @@ export default function AdminBooks() {
             data.map(
               (element: BookData): JSX.Element => (
                 <ListItems bookData={element} setData={setData} />
-              ),
+              )
             )
           )}
         </Grid>

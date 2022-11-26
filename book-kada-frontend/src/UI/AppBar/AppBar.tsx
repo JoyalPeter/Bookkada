@@ -1,5 +1,12 @@
-import { DarkMode, LibraryAdd, LightMode, ShoppingCartSharp,Login, Logout  } from '@mui/icons-material';
-import { Labels } from '../../constants/Labels';
+import {
+  DarkMode,
+  LibraryAdd,
+  LightMode,
+  ShoppingCartSharp,
+  Login,
+  Logout,
+} from "@mui/icons-material";
+import { Labels } from "../../constants/Labels";
 import { useContext, useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -12,12 +19,25 @@ import SearchBar from "./Search";
 import useMenu from "./Menu";
 import useMobileMenu from "./MobileMenu";
 import { ThemeContext } from "../../store/Theme_Context";
-import { Role, Themes } from "../../constants/Enums";
+import { ModalUse, Role, Themes } from "../../constants/Enums";
 import { UserContext } from "../../store/User_Context";
 import useLogout from "../../hooks/UseLogout";
 import { useNavigate } from "react-router-dom";
+import EditModal from "../../components/Admin/DetailsModal";
+import DetailsModal from "../../components/Admin/DetailsModal";
 
-export default function PrimarySearchAppBar() {
+interface IPrimarySearchAppBar {
+  setData: Function;
+}
+export default function PrimarySearchAppBar(props: IPrimarySearchAppBar) {
+  const emptyBook = {
+    bookId: 0,
+    price: 0,
+    description: "",
+    author: "",
+    name: "",
+  };
+  const [addFlag, setAddFlag] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
     useState<null | HTMLElement>(null);
@@ -80,18 +100,18 @@ export default function PrimarySearchAppBar() {
                 <DarkMode />
               )}
             </IconButton>
-            {/* {userDetails?.userDetails.Role !== -1 ? ( */}
-              <IconButton
+            {userDetails?.userDetails.role !== Role.ADMIN ? (
+              <IconButton //add icon
                 size="large"
                 aria-label="cart of current user"
                 aria-controls={menuId}
                 aria-haspopup="true"
-                onClick={() => navigate("/adminBooks")}
+                onClick={() => setAddFlag(true)}
                 color="inherit"
               >
                 <LibraryAdd />
               </IconButton>
-            {/* ) : ( */}
+            ) : (
               <IconButton
                 size="large"
                 aria-label="cart of current user"
@@ -102,7 +122,7 @@ export default function PrimarySearchAppBar() {
               >
                 <ShoppingCartSharp />
               </IconButton>
-            {/* )} */}
+            )}
 
             <IconButton
               size="large"
@@ -115,7 +135,6 @@ export default function PrimarySearchAppBar() {
             >
               <AccountCircle />
             </IconButton>
-          
 
             {userDetails?.userDetails.userId !== -1 ? (
               <IconButton
@@ -183,6 +202,14 @@ export default function PrimarySearchAppBar() {
       </AppBar>
       {renderMobileMenu}
       {renderMenu}
+      {addFlag && (
+        <DetailsModal
+          setFlag={setAddFlag}
+          setData={props.setData}
+          bookData={emptyBook}
+          modalUse={ModalUse.ADD}
+        />
+      )}
     </Box>
   );
 }
