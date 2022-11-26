@@ -19,7 +19,7 @@ export interface IMobileAppBarProps {
   handleModeChange: () => void;
   menuId: string;
   setAddFlag: React.Dispatch<React.SetStateAction<boolean>>;
-  handleMobileMenuOpen: (
+  handleProfileMenuOpen: (
     event: React.MouseEvent<HTMLElement, MouseEvent>
   ) => void;
 }
@@ -29,7 +29,7 @@ export default function MobileAppBar({
   setAddFlag,
   mobileMenuId,
   handleModeChange,
-  handleMobileMenuOpen,
+  handleProfileMenuOpen,
 }: IMobileAppBarProps) {
   const themeMode = useContext(ThemeContext);
   const userDetails = useContext(UserContext);
@@ -81,7 +81,7 @@ export default function MobileAppBar({
           aria-label="show more"
           aria-controls={mobileMenuId}
           aria-haspopup="true"
-          onClick={handleMobileMenuOpen}
+          onClick={handleProfileMenuOpen}
           color="inherit"
         >
           <MoreVert />
