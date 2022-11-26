@@ -4,17 +4,12 @@ import {
   LightMode,
   ShoppingCartSharp,
   Login,
-  Logout,
+  MoreVert,
+  AccountCircle,
 } from "@mui/icons-material";
+import { AppBar, Box, Toolbar, IconButton, Typography } from "@mui/material";
 import { Labels } from "../../constants/Labels";
 import { useContext, useState } from "react";
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
-import AccountCircle from "@mui/icons-material/AccountCircle";
-import MoreIcon from "@mui/icons-material/MoreVert";
 import SearchBar from "./Search";
 import useMenu from "./Menu";
 import useMobileMenu from "./MobileMenu";
@@ -155,6 +150,35 @@ export default function PrimarySearchAppBar(props: IPrimarySearchAppBar) {
             )}
           </Box>
           <Box sx={{ display: { xs: "flex", md: "none" } }}>
+            {userDetails?.userDetails.role !== Role.ADMIN ? (
+              <IconButton
+                size="large"
+                aria-label="cart of current user"
+                aria-controls={menuId}
+                aria-haspopup="true"
+                onClick={() => navigate("/cart")}
+                color="inherit"
+              >
+                <Typography>
+                  {(shoppingcartData?.cartItems !== 0 ||
+                    shoppingcartData !== null) &&
+                    shoppingcartData?.cartItems}
+                </Typography>
+                <ShoppingCartSharp />
+              </IconButton>
+            ) : (
+              <IconButton
+                size="large"
+                aria-label="cart of current user"
+                aria-controls={menuId}
+                aria-haspopup="true"
+                onClick={() => setAddFlag(true)}
+                color="inherit"
+              >
+                <LibraryAdd />
+              </IconButton>
+            )}
+
             <IconButton
               size="large"
               aria-label="mode"
@@ -178,7 +202,7 @@ export default function PrimarySearchAppBar(props: IPrimarySearchAppBar) {
                 onClick={handleMobileMenuOpen}
                 color="inherit"
               >
-                <MoreIcon />
+                <MoreVert />
               </IconButton>
             ) : (
               <IconButton
