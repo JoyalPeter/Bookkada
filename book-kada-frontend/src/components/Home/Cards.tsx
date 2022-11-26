@@ -21,11 +21,8 @@ import showToast from "../../utils/Toastify";
 import { UserContext } from "../../store/User_Context";
 import DetailsModal from "../Admin/DetailsModal";
 
-interface ICards {
-  bookData: BookDataProps;
-}
-
 export default function Cards(props: ICards) {
+ const navigate = useNavigate();
   const quantity = 0;
   const navigate = useNavigate();
   const bookContext = useContext(BookContext);
