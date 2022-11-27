@@ -5,11 +5,9 @@ import { Box, Rating, Typography } from "@mui/material";
 import CentreBox from "../../UI/CenterBox";
 import { Method } from "../../constants/Enums";
 import useApiService from "../../hooks/UseApiService";
-import Spinner from "../../UI/Spinner";
 import { useParams } from "react-router-dom";
 import { BookContext } from "../../store/Book_Context";
-
-interface IAppProps {}
+import LoadedComponent from "../../UI/LoadedComponent";
 
 export interface UserInterface {
   name: string;
@@ -21,7 +19,7 @@ export interface ReviewDetails {
   user: UserInterface;
 }
 
-export default function ViewReview(props: IAppProps) {
+export default function ViewReview() {
   const bookContext = useContext(BookContext);
   const { makeApiCall, loadingFlag } = useApiService();
   const { id } = useParams();
@@ -33,50 +31,46 @@ export default function ViewReview(props: IAppProps) {
       .catch((error: any) => error);
   }, []);
   return (
-    <div>
-      {loadingFlag ? (
-        <Spinner />
-      ) : (
-        <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-          {bookContext?.reviews.map((item: ReviewDetails, index: number) => (
-            <Card
-              key={index}
-              sx={{
-                width: 1,
-                display: "grid",
-                gap: 1,
-                gridTemplateColumns: "repeat(3, 1fr)",
-              }}
-            >
-              <CentreBox>
-                <CardContent>
-                  <Typography gutterBottom variant="h5">
-                    {item.user.name}
-                  </Typography>
-                </CardContent>
-              </CentreBox>
+    <LoadedComponent loadingFlag={loadingFlag}>
+      <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+        {bookContext?.reviews.map((item: ReviewDetails, index: number) => (
+          <Card
+            key={index}
+            sx={{
+              width: 1,
+              display: "grid",
+              gap: 1,
+              gridTemplateColumns: "repeat(3, 1fr)",
+            }}
+          >
+            <CentreBox>
               <CardContent>
                 <Typography gutterBottom variant="h5">
-                  {item.description}
+                  {item.user.name}
                 </Typography>
               </CardContent>
-              <CardContent>
-                <CentreBox>
-                  <Typography gutterBottom variant="h5" component="div">
-                    Rating :{" "}
-                    <Rating
-                      name="half-rating"
-                      defaultValue={item.rating}
-                      precision={0.5}
-                      readOnly
-                    />
-                  </Typography>
-                </CentreBox>
-              </CardContent>
-            </Card>
-          ))}
-        </Box>
-      )}
-    </div>
+            </CentreBox>
+            <CardContent>
+              <Typography gutterBottom variant="h5">
+                {item.description}
+              </Typography>
+            </CardContent>
+            <CardContent>
+              <CentreBox>
+                <Typography gutterBottom variant="h5" component="div">
+                  Rating :{" "}
+                  <Rating
+                    name="half-rating"
+                    defaultValue={item.rating}
+                    precision={0.5}
+                    readOnly
+                  />
+                </Typography>
+              </CentreBox>
+            </CardContent>
+          </Card>
+        ))}
+      </Box>
+    </LoadedComponent>
   );
 }

@@ -6,9 +6,9 @@ import ViewReview from "./ViewReview";
 import DetailsSubCard from "./DetailsSubCard";
 import { Method } from "../../constants/Enums";
 import useApiService from "../../hooks/UseApiService";
-import Spinner from "../../UI/Spinner";
 import { useParams } from "react-router-dom";
 import { BookContext } from "../../store/Book_Context";
+import LoadedComponent from "../../UI/LoadedComponent";
 
 interface DetailsProps {}
 
@@ -42,17 +42,13 @@ const DetailsCard: FC<DetailsProps> = ({}) => {
   return (
     <>
       <Padding>
-        {loadingFlag ? (
-          <Spinner />
-        ) : (
-          <>
-            <DetailsSubCard book={bookContext?.bookDetails} />
-            <CentreBox>
-              <h1>Reviews</h1>
-            </CentreBox>
-            <ViewReview />
-          </>
-        )}
+        <LoadedComponent loadingFlag={loadingFlag}>
+          <DetailsSubCard book={bookContext?.bookDetails} />
+          <CentreBox>
+            <h1>Reviews</h1>
+          </CentreBox>
+          <ViewReview />
+        </LoadedComponent>
       </Padding>
     </>
   );

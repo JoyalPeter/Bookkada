@@ -32,11 +32,10 @@ export default function ProfileModule(props: IAppProps) {
   useEffect(() => {
     makeApiCall(Method.GET, `users/${userid}`).then((response: UserDetails) => {
       setResponse(response);
-     
     });
   });
   function updateUserProfile() {
-    setupdateflag(!updateflag);  
+    setupdateflag(!updateflag);
   }
   function userProfileUpdated() {
     makeApiCall(Method.PATCH, `users/updateUser/${userid}`, {
@@ -80,6 +79,19 @@ export default function ProfileModule(props: IAppProps) {
               <Typography>
                 {updateflag && (
                   <Box>
+                    <TextField
+                      variant="outlined"
+                      size="small"
+                      onChange={(e) => setNewName(e.target.value)}
+                    />
+                    <TextField
+                      variant="outlined"
+                      size="small"
+                      onChange={(e) => {
+                        setNewEmail(e.target.value);
+                      }}
+                    />
+                    <Button onClick={userProfileUpdated}>Update</Button>
                     <Stack spacing={2}>
                       Enter New Name
                       <TextField
