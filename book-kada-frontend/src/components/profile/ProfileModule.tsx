@@ -33,7 +33,7 @@ export default function ProfileModule() {
     makeApiCall(Method.GET, `users/${userid}`).then((response: UserDetails) => {
       setResponse(response);
     });
-  });
+  }, []);
   function updateUserProfile() {
     setupdateflag(!updateflag);
   }
