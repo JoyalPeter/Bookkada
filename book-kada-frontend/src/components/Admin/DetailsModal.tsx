@@ -11,6 +11,7 @@ import useApiService from "../../hooks/UseApiService";
 import { BookDataProps } from "../Home/HomeComponent";
 import { BookContext } from "../../store/Book_Context";
 import { BookDetails } from "../book/DetailsCard";
+import LoadedComponent from "../../UI/LoadedComponent";
 
 const style = {
   position: "absolute" as "absolute",
@@ -120,18 +121,20 @@ export default function DetailsModal(props: IDetailsModal) {
                 onChange={(e) => setDescription(e.target.value)}
               />
             </Box>
-            <Button
-              variant="contained"
-              onClick={() => {
-                if (props.modalUse === ModalUse.EDIT) {
-                  editBook(props.bookData.bookId);
-                } else {
-                  addBook();
-                }
-              }}
-            >
-              Submit
-            </Button>
+            <LoadedComponent loadingFlag={loadingFlag}>
+              <Button
+                variant="contained"
+                onClick={() => {
+                  if (props.modalUse === ModalUse.EDIT) {
+                    editBook(props.bookData.bookId);
+                  } else {
+                    addBook();
+                  }
+                }}
+              >
+                Submit
+              </Button>
+            </LoadedComponent>
           </Typography>
         </Box>
       </Modal>

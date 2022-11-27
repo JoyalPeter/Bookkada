@@ -9,6 +9,7 @@ import { Autocomplete, TextField } from "@mui/material";
 import { BookDataProps } from "../../components/Home/HomeComponent";
 
 import { useNavigate } from "react-router-dom";
+import LoadedComponent from "../LoadedComponent";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -76,36 +77,38 @@ export default function SearchBar() {
   }
 
   return (
-    <Autocomplete
-      sx={{
-        width: "20%",
-        margin: 2,
-        backgroundColor: "#ffffff26",
-        borderWidth: 0,
-      }}
-      noOptionsText="No matching search results!"
-      size="small"
-      handleHomeEndKeys={true}
-      // forcePopupIcon={true}
-      onChange={(event, value) => {
-        const bookName = value?.split(" by")[0];
-        let id;
-        searchResults.forEach((e) => {
-          if (e.name == bookName) {
-            id = e.bookId;
+    <LoadedComponent loadingFlag={loadingFlag}>
+      <Autocomplete
+        sx={{
+          width: "20%",
+          margin: 2,
+          backgroundColor: "#ffffff26",
+          borderWidth: 0,
+        }}
+        noOptionsText="No matching search results!"
+        size="small"
+        handleHomeEndKeys={true}
+        // forcePopupIcon={true}
+        onChange={(event, value) => {
+          const bookName = value?.split(" by")[0];
+          let id;
+          searchResults.forEach((e) => {
+            if (e.name == bookName) {
+              id = e.bookId;
+            }
+          });
+          navigate(`/details/${id}`);
+        }}
+        options={searchResults.map((e) => e.name + " by " + e.author)}
+        onInputChange={(event: object, value: string, reason: string) => {
+          if (reason === "input") {
+            search(value);
           }
-        });
-        navigate(`/details/${id}`);
-      }}
-      options={searchResults.map((e) => e.name + " by " + e.author)}
-      onInputChange={(event: object, value: string, reason: string) => {
-        if (reason === "input") {
-          search(value);
-        }
-      }}
-      renderInput={(params) => (
-        <TextField {...params} label="Search" variant="outlined" />
-      )}
-    />
+        }}
+        renderInput={(params) => (
+          <TextField {...params} label="Search" variant="outlined" />
+        )}
+      />
+    </LoadedComponent>
   );
 }

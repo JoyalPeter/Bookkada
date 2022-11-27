@@ -20,6 +20,7 @@ import { UserContext } from "../../store/User_Context";
 import DetailsModal from "../Admin/DetailsModal";
 import { ShoppingCartContext } from "../../store/Shoppingcart_Context";
 import { BookDetails } from "../book/DetailsCard";
+import LoadedComponent from "../../UI/LoadedComponent";
 
 interface ICards {
   book: BookDetails;
@@ -88,12 +89,14 @@ export default function Cards(props: ICards) {
               <Button variant="contained" onClick={() => setEditFlag(true)}>
                 Edit
               </Button>
-              <Button
-                variant="contained"
-                onClick={() => deleteBook(props.book.bookId)}
-              >
-                Delete
-              </Button>
+              <LoadedComponent loadingFlag={loadingFlag}>
+                <Button
+                  variant="contained"
+                  onClick={() => deleteBook(props.book.bookId)}
+                >
+                  Delete
+                </Button>
+              </LoadedComponent>
             </>
           ) : (
             <>

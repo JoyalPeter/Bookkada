@@ -17,6 +17,7 @@ import useSignupValidate from "./SignupValdations";
 import { Method, Role, Toast } from "../../constants/Enums";
 import showToast from "../../utils/Toastify";
 import Spinner from "../../UI/Spinner";
+import LoadedComponent from "../../UI/LoadedComponent";
 
 export default function SignUpModule() {
   const navigate = useNavigate();
@@ -36,7 +37,7 @@ export default function SignUpModule() {
         password: password,
         role: Role.CLIENT,
       })
-        .then((response) => {
+        .then(() => {
           showToast(Toast.SUCCESS, "Signed up successfully");
           setTimeout(() => navigate("/signin", { replace: true }), 50);
         })
@@ -97,9 +98,7 @@ export default function SignUpModule() {
             </Grid>
             <Grid item xs={12}></Grid>
           </Grid>
-          {loadingFlag ? (
-            <Spinner />
-          ) : (
+          <LoadedComponent loadingFlag={loadingFlag}>
             <Button
               type="submit"
               fullWidth
@@ -108,7 +107,7 @@ export default function SignUpModule() {
             >
               Sign Up
             </Button>
-          )}
+          </LoadedComponent>
           <Grid container justifyContent="flex-end">
             <Grid item>
               <Link href="/signin" variant="body2">
