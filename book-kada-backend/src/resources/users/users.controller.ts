@@ -18,7 +18,7 @@ import { ApiBearerAuth } from "@nestjs/swagger";
 
 @Controller("users")
 export class UsersController {
-  constructor(private readonly usersService: UsersService) {}
+  constructor(private readonly usersService: UsersService) { }
 
   @Post("signup")
   async create(
@@ -41,15 +41,13 @@ export class UsersController {
 
   @Get(":id")
   // @ApiBearerAuth()
-  // @UseGuards(AuthGuard('jwt'))
+  // @UseGuards(AuthGuard("jwt"))
+  @Get(":id")
   async findOne(@Param("id") id: string) {
     return await this.usersService.findOne(+id);
   }
 
 
-  // @Get(":id")
-  // @ApiBearerAuth()
-  // @UseGuards(AuthGuard('jwt'))
   @Patch("/updateUser/:id")
   async update(@Param("id") id: string, @Body() updateUserDto: UpdateUserDto) {
     return await this.usersService.update(+id, updateUserDto);

@@ -13,16 +13,17 @@ export class OrdersService {
   constructor(
     @InjectRepository(Order)
     private orderRepo: Repository<Order>
-  ) {}
+  ) { }
 
   async create(
-    createOrderDto: CreateOrderDto,
+    quantity: number,
     user: CreateUserDto,
     book: CreateBookDto
   ) {
     return await this.orderRepo
       .save({
-        orderDate: createOrderDto.orderDate,
+        orderDate: new Date(),
+        quantity: quantity,
         book: book,
         user: user,
       })
@@ -50,7 +51,7 @@ export class OrdersService {
       });
   }
 
-  async findUsers(id: number) {
+  async findOrderByUser(id: number) {
     return await this.orderRepo
       .find({
         where: { user: { userId: id } },

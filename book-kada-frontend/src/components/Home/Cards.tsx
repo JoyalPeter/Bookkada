@@ -27,8 +27,7 @@ interface ICards {
 export default function Cards(props: ICards) {
   const navigate = useNavigate();
   const bookContext = useContext(BookContext);
-  const userContext = useContext(UserContext);
-
+  const userContext = useContext(UserContext);  
   const { makeApiCall, loadingFlag } = useApiService();
   const [editFlag, setEditFlag] = useState(false);
 

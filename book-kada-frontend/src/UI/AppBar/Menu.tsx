@@ -42,7 +42,6 @@ export default function useMenu({ anchorEl, setAnchorEl }: IUseMenuProps) {
       onClose={handleMenuClose}
     >
       <MenuItem onClick={() => navigate("/profile")}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
       {userContext?.userDetails.role === Role.CLIENT ? (
         <MenuItem onClick={() => navigate("/orders")}>My Orders</MenuItem>
       ) : (

@@ -16,6 +16,9 @@ export class Order {
   @Column()
   orderDate: Date;
 
+  @Column()
+  quantity: number;
+
   @ManyToOne(() => Book, (book) => book.orders)
   @JoinColumn({ name: 'bookId' })
   book: Book;

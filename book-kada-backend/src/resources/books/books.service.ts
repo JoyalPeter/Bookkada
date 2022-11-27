@@ -47,14 +47,14 @@ export class BooksService {
 
   async findOneById(id: number) {
     return await this.booksRepo.findOne({ where: { bookId: id } }).catch((e) => {
-      console.log(e)
+
       throw new DBException();
     });
   }
 
   async update(id: number, updateBookDto: UpdateBookDto) {
     await this.booksRepo.update(id, updateBookDto).catch((e) => {
-      console.log(e);
+
 
       throw new DBException();
     });
