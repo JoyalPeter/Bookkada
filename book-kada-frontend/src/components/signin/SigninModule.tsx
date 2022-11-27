@@ -90,12 +90,12 @@ export default function SignIn() {
           </LoadedComponent>
           <Grid container>
             <Grid item xs>
-              <Link href="signin" variant="body2">
+              <Link variant="body2" onClick={() => navigate("/")}>
                 Forgot password?
               </Link>
             </Grid>
             <Grid item>
-              <Link href="signup" variant="body2">
+              <Link variant="body2" onClick={() => navigate("/")}>
                 {"Don't have an account? Sign Up"}
               </Link>
             </Grid>

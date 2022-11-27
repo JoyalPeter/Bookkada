@@ -1,4 +1,4 @@
-import { AppBar, Box, Link, Toolbar, Typography } from "@mui/material";
+import { AppBar, Box, Toolbar, Link, Typography } from "@mui/material";
 import { Labels } from "../../constants/Labels";
 import { useContext, useState } from "react";
 import SearchBar from "./Search";
@@ -9,8 +9,10 @@ import { ModalUse, Themes } from "../../constants/Enums";
 import DetailsModal from "../../components/Admin/DetailsModal";
 import MainAppBar from "./MainAppBar";
 import MobileAppBar from "./MobileAppBar";
+import { useNavigate } from "react-router-dom";
 
 export default function PrimarySearchAppBar() {
+  const navigate = useNavigate();
   const emptyBook = {
     bookId: 0,
     price: 0,
@@ -47,7 +49,7 @@ export default function PrimarySearchAppBar() {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
-          <Link href="/">
+          <Link onClick={() => navigate("/")}>
             <Typography
               variant="h6"
               noWrap
@@ -58,6 +60,7 @@ export default function PrimarySearchAppBar() {
               {Labels.title}
             </Typography>
           </Link>
+
           <SearchBar></SearchBar>
           <Box sx={{ flexGrow: 1 }} />
           <MainAppBar
