@@ -85,7 +85,6 @@ export default function SearchBar() {
         noOptionsText="No matching search results!"
         size="small"
         handleHomeEndKeys={true}
-        // forcePopupIcon={true}
         onChange={(event, value) => {
           const bookName = value?.split(" by")[0];
           let id;
