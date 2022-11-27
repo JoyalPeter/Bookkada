@@ -6,12 +6,19 @@ import {
   SxProps,
   CardMedia,
   Grid,
+  IconButton,
+  Avatar,
+  ListItem,
+  ListItemAvatar,
+  ListItemText,
 } from "@mui/material";
 import Card from "@mui/material/Card";
+import EventIcon from '@mui/icons-material/Event';
 
 import { Box } from "@mui/system";
 import RightBox from "../../UI/RightBox";
 import CentreBox from "../../UI/CenterBox";
+import Event from "@mui/icons-material/Event";
 
 export interface IAppProps {
   sx?: SxProps<Theme>;
@@ -49,9 +56,14 @@ export default function OrderCard({ sx }: IAppProps) {
           </CentreBox>
         </Box>
         <Box>
-          <Typography>
-            <RightBox>Cost</RightBox>
-          </Typography>
+          <RightBox>
+            <ListItem>
+              <ListItemAvatar>
+                  <EventIcon />
+              </ListItemAvatar>
+              <ListItemText  primary="Ordered On" secondary="Jan 9, 2014" />
+            </ListItem>
+          </RightBox>
         </Box>
       </Card>
     </div>
