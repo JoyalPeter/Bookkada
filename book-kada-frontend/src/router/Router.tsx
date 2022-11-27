@@ -8,6 +8,7 @@ import AdminPage from "../pages/AdminPage";
 import ProtectedRoute from "../utils/ProtectedRoute";
 import NotFound from "../pages/NotFound";
 import OrderPage from "../pages/OrdersPage";
+import ProfilePage from "../pages/Profile";
 
 export default function Router() {
   return (
@@ -27,6 +28,7 @@ export default function Router() {
         <Route path="/orders" element={<OrderPage />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/admin" element={<AdminPage />} />
+        <Route path="/profile" element={<ProfilePage/>}/>
         <Route path="/*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>

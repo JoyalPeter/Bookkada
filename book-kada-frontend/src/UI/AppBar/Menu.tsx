@@ -47,7 +47,7 @@ export default function useMenu({
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+      <MenuItem onClick={() => navigate("/profile")}>Profile</MenuItem>
       <MenuItem onClick={handleMenuClose}>My account</MenuItem>
       <MenuItem onClick={() => navigate("/orders")}>My Orders</MenuItem>
       <MenuItem onClick={logout}>Logout</MenuItem>
