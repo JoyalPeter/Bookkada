@@ -1,7 +1,6 @@
 import { useContext, useState } from "react";
 import { Method } from "../constants/Enums";
 import { ApiCall } from "../utils/ApiCall";
-import { useNavigate } from "react-router-dom";
 import useLogout from "./UseLogout";
 import { UserContext } from "../store/User_Context";
 
@@ -23,7 +22,6 @@ export default function useApiService() {
           resolve(response.data);
         })
         .catch((response) => {
-          console.log(response);
           if (!response.response) reject("Something went wrong");
           else if (response.response.status === 400)
             reject(response.response.data.message);

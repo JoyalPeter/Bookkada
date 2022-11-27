@@ -1,4 +1,3 @@
-import * as React from "react";
 import ProfileModule from "../components/profile/ProfileModule";
 
 export interface IAppProps {}

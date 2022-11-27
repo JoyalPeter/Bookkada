@@ -1,6 +1,5 @@
 import { styled, alpha } from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
-import SearchIcon from "@mui/icons-material/Search";
 import { useEffect, useState } from "react";
 import useApiService from "../../hooks/UseApiService";
 import { Method, Toast } from "../../constants/Enums";
@@ -40,7 +39,6 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: "inherit",
   "& .MuiInputBase-input": {
     padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
     transition: theme.transitions.create("width"),
     width: "100%",
@@ -86,7 +84,6 @@ export default function SearchBar() {
       noOptionsText="No matching search results!"
       size="small"
       handleHomeEndKeys={true}
-      // forcePopupIcon={true}
       onChange={(event, value) => {
         const bookName = value?.split(" by")[0];
         let id;
