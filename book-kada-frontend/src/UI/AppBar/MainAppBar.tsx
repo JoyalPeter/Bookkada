@@ -75,16 +75,18 @@ export default function MainAppBar({
           </IconButton>
         </Tooltip>
       ) : (
-        <IconButton
-          size="large"
-          aria-label="cart of current user"
-          aria-controls={menuId}
-          aria-haspopup="true"
-          onClick={() => setAddFlag(true)}
-          color="inherit"
-        >
-          <LibraryAdd />
-        </IconButton>
+        <Tooltip title="Add books">
+          <IconButton
+            size="large"
+            aria-label="cart of current user"
+            aria-controls={menuId}
+            aria-haspopup="true"
+            onClick={() => setAddFlag(true)}
+            color="inherit"
+          >
+            <LibraryAdd />
+          </IconButton>
+        </Tooltip>
       )}
 
       {userDetails?.userDetails.userId === -1 ? (
