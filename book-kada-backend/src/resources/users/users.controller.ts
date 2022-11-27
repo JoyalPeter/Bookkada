@@ -35,13 +35,15 @@ export class UsersController {
   }
 
   @Get(":id")
+  @ApiBearerAuth()
+  @UseGuards(AuthGuard("jwt"))
   async findOne(@Param("id") id: string) {
     return await this.usersService.findOne(+id);
   }
 
-  // @Get(":id")
-  // @ApiBearerAuth()
-  // @UseGuards(AuthGuard('jwt'))
+  @Get(":id")
+  @ApiBearerAuth()
+  @UseGuards(AuthGuard("jwt"))
   @Patch("/updateUser/:id")
   async update(@Param("id") id: string, @Body() updateUserDto: UpdateUserDto) {
     return await this.usersService.update(+id, updateUserDto);
