@@ -4,7 +4,10 @@ import OrderCard from "../components/orders/OrderCard";
 import PrimarySearchAppBar from "../UI/AppBar/AppBar";
 import CentreBox from "../UI/CenterBox";
 import Padding from "../UI/Padding";
+
+
 export default function OrderPage() {
+  
   return (
     <div>
       <PrimarySearchAppBar />

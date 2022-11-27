@@ -1,5 +1,6 @@
 import { Button, Typography } from "@mui/material";
 import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import CartContents from "../components/cart/CartContents";
 import { ShoppingCartContext } from "../store/Shoppingcart_Context";
 import PrimarySearchAppBar from "../UI/AppBar/AppBar";
@@ -10,6 +11,7 @@ import RightBox from "../UI/RightBox";
 export default function CartPage() {
   const shoppingCartContext = useContext(ShoppingCartContext);
   const cartItems = shoppingCartContext?.cartItems;
+  const navigate = useNavigate()
   return (
     <>
       <PrimarySearchAppBar />
@@ -18,7 +20,7 @@ export default function CartPage() {
           <CartContents cartItems={cartItems!} />
           <Padding>
             <RightBox>
-              <Button variant="contained">Proceed to checkout</Button>
+              <Button variant="contained" onClick={()=>navigate('/orders')}>Proceed to checkout</Button>
             </RightBox>
           </Padding>
         </>

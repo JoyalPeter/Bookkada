@@ -25,8 +25,8 @@ export class OrdersController {
   ) { }
 
 
-  @ApiBearerAuth()
-  @UseGuards(AuthGuard('jwt'))
+  // @ApiBearerAuth()
+  // @UseGuards(AuthGuard('jwt'))
   @Post('placeOrder')
   async create(@Body() createOrderDto: CreateOrderDto) {
     const user = await this.usersService.findOne(createOrderDto.userId);
