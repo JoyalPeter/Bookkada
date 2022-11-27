@@ -62,7 +62,7 @@ export default function SearchBar() {
         }
       }}
       renderInput={(params) => (
-        <TextField {...params} label="Search" variant="outlined" />
+        <TextField {...params} label="Search Books..." variant="outlined" />
       )}
     />
   );

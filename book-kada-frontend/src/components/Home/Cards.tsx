@@ -47,7 +47,7 @@ export default function Cards(props: ICards) {
           component="img"
           height="150"
           image={props.book.cover}
-          alt="name"
+          alt="Book Cover"
         />
         <CardActionArea>
           <CardContent
