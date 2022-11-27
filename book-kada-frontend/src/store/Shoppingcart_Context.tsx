@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import { createContext, useState } from "react";
 import { BookDetails } from "../components/book/DetailsCard";
 import { CartActions, Toast } from "../constants/Enums";
@@ -51,7 +51,6 @@ export default function CartContextProvider({
         showToast(Toast.SUCCESS, "Book added to cart");
       }
       setItemCount(cartItems.length);
-      console.log(cartItems);
       return [...cartItems];
     });
   };

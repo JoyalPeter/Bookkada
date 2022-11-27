@@ -18,13 +18,9 @@ import EventIcon from '@mui/icons-material/Event';
 import { Box } from "@mui/system";
 import RightBox from "../../UI/RightBox";
 import CentreBox from "../../UI/CenterBox";
-import Event from "@mui/icons-material/Event";
+import EventIcon from "@mui/icons-material/Event";
 
-export interface IAppProps {
-  sx?: SxProps<Theme>;
-}
-
-export default function OrderCard({ sx }: IAppProps) {
+export default function OrderCard() {
   return (
     <div>
       <Card

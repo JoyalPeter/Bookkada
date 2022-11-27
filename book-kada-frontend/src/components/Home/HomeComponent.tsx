@@ -1,5 +1,4 @@
 import { useContext, useEffect } from "react";
-import { useState } from "react";
 import Padding from "../../UI/Padding";
 import { Grid } from "@mui/material";
 import useApiService from "../../hooks/UseApiService";
@@ -9,6 +8,7 @@ import Spinner from "../../UI/Spinner";
 import Cards from "./Cards";
 import { BookContext } from "../../store/Book_Context";
 import { BookDetails } from "../book/DetailsCard";
+import LoadedComponent from "../../UI/LoadedComponent";
 
 export interface BookDataProps {
   bookId: number;
@@ -32,7 +32,7 @@ export default function HomePage() {
   }, []);
 
   return (
-    <>
+    <LoadedComponent loadingFlag={loadingFlag}>
       <Padding>
         <Grid
           container
@@ -43,7 +43,6 @@ export default function HomePage() {
           spacing={{ xs: 2, md: 3 }}
           columns={{ xs: 4, sm: 8, md: 12 }}
         >
-          {loadingFlag && <Spinner />}
           {bookContext?.allBooks.map(
             (element: BookDetails, index: number): JSX.Element => (
               <Cards key={index} book={element} />
@@ -51,6 +50,6 @@ export default function HomePage() {
           )}
         </Grid>
       </Padding>
-    </>
+    </LoadedComponent>
   );
 }

@@ -1,10 +1,7 @@
-import React, { useContext } from "react";
 import {
   CartItems,
-  ShoppingCartContext,
 } from "../../store/Shoppingcart_Context";
 import Padding from "../../UI/Padding";
-import { BookDetails } from "../book/DetailsCard";
 import CartCard from "./CartCard";
 
 export interface ICartContentsProps {

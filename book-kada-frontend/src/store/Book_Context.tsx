@@ -1,7 +1,6 @@
 import React, { useState, createContext } from "react";
 import { BookDetails } from "../components/book/DetailsCard";
 import { ReviewDetails } from "../components/book/ViewReview";
-import { BookDataProps } from "../components/Home/HomeComponent";
 
 export interface IBookContext {
   reviews: ReviewDetails[];

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import {
   CardActionArea,
   Typography,
@@ -12,13 +12,10 @@ import {
 
 import { ArrowUpward, ArrowDownward } from "@mui/icons-material";
 import { Box } from "@mui/system";
-import RightBox from "../../UI/RightBox";
 import CentreBox from "../../UI/CenterBox";
 import { BookDetails } from "../book/DetailsCard";
-import LeftBox from "../../UI/LeftBox";
 import { ShoppingCartContext } from "../../store/Shoppingcart_Context";
 import { CartActions } from "../../constants/Enums";
-import Padding from "../../UI/Padding";
 
 export interface ICartCardProps {
   book: BookDetails;
