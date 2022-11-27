@@ -46,7 +46,7 @@ export default function Cards(props: ICards) {
         <CardMedia
           component="img"
           height="150"
-          image="https://c1.wallpaperflare.com/preview/127/366/443/library-book-bookshelf-read.jpg"
+          image={props.book.cover}
           alt="name"
         />
         <CardActionArea>
