@@ -109,7 +109,7 @@ export default function SignUpModule() {
           </LoadedComponent>
           <Grid container justifyContent="flex-end">
             <Grid item>
-              <Link href="/signin" variant="body2">
+              <Link variant="body2" onClick={() => navigate("/signup")}>
                 Already have an account? Sign in
               </Link>
             </Grid>

@@ -18,7 +18,7 @@ import { ApiBearerAuth } from "@nestjs/swagger";
 
 @Controller("users")
 export class UsersController {
-  constructor(private readonly usersService: UsersService) {}
+  constructor(private readonly usersService: UsersService) { }
 
   @Post("signup")
   async create(

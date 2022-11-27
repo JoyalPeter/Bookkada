@@ -62,11 +62,10 @@ export default function ProfileModule() {
     <LoadedComponent loadingFlag={loadingFlag}>
       <Padding>
         {response && (
-          <Card>
+          <Card sx={{ marginTop: 10 }}>
             <Container component="main" maxWidth="xs">
               <CenterBox sx={{ marginTop: 10 }}>
                 <Avatar
-                  src="https://c1.wallpaperflare.com/preview/127/366/443/library-book-bookshelf-read.jpg"
                   sx={{
                     m: 1,
                     bgcolor: "secondary.main",
@@ -75,7 +74,6 @@ export default function ProfileModule() {
                     height: 200,
                   }}
                 />
-
                 <Typography component="h1" variant="h5">
                   Profile
                 </Typography>

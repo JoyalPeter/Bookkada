@@ -40,7 +40,8 @@ export default function DetailsModal(props: IDetailsModal) {
   const [author, setAuthor] = useState(props.bookData.author);
   const [price, setPrice] = useState(props.bookData.price);
   const [description, setDescription] = useState(props.bookData.description);
-  const { makeApiCall, loadingFlag } = useApiService();
+  const [loadingFlag, setLoadingFlag] = useState(false);
+  const { makeApiCall } = useApiService();
   let photo: File;
 
   const handleClose = () => {
@@ -65,6 +66,7 @@ export default function DetailsModal(props: IDetailsModal) {
   }
 
   function addBook() {
+    setLoadingFlag(true);
     const storageRef = ref(storage, `Bookkada/${photo.name}`);
     const uploadImage = uploadBytesResumable(storageRef, photo);
 
@@ -82,11 +84,12 @@ export default function DetailsModal(props: IDetailsModal) {
             author: author,
             description: description,
             rating: 0,
-            cover:url,
+            cover: url,
           };
           makeApiCall(Method.POST, `books/addBook`, body) //API call to add book
             .then((response: BookDetails[]) => {
               bookContext?.setAllBooks(response);
+              setLoadingFlag(false);
               props.setFlag(false);
               showToast(Toast.SUCCESS, "Added Successfully");
             })
