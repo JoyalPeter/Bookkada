@@ -16,6 +16,7 @@ import useApiService from "../../hooks/UseApiService";
 import { Method, Toast } from "../../constants/Enums";
 import showToast from "../../utils/Toastify";
 import LoadedComponent from "../../UI/LoadedComponent";
+import CenterBox from "../../UI/CenterBox";
 
 export interface UserDetails {
   name?: string;
@@ -26,7 +27,7 @@ export interface UserDetails {
 export default function ProfileModule() {
   const usercontext = useContext(UserContext);
   const [response, setResponse] = useState<UserDetails | null>(null);
-  const { makeApiCall } = useApiService();
+  const { makeApiCall, loadingFlag } = useApiService();
   const [updateflag, setupdateflag] = useState(false);
   const [newName, setNewName] = useState("");
   const [newEmail, setNewEmail] = useState("");
