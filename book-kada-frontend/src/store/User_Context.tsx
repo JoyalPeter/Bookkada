@@ -1,6 +1,5 @@
 import jwtDecode from "jwt-decode";
 import React, { createContext, useEffect, useState } from "react";
-import { Role } from "../constants/Enums";
 
 export interface UserContextProps {
   userDetails: userDetailsProps;
@@ -18,6 +17,7 @@ export interface IUserContextProviderProps {
 export interface userDetailsProps {
   userId: number;
   role: string;
+  name: string;
 }
 
 export default function UserContextProvider({
@@ -25,6 +25,7 @@ export default function UserContextProvider({
 }: IUserContextProviderProps) {
   const [token, setToken] = useState<string | null>(null);
   const [userDetails, setUserDetails] = useState<userDetailsProps>({
+    name: "",
     role: "",
     userId: -1,
   });
@@ -42,6 +43,7 @@ export default function UserContextProvider({
       setUserDetails({
         userId: decodedToken.userId,
         role: decodedToken.role,
+        name: decodedToken.name
       });
     }
   }, [token]);

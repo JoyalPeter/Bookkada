@@ -3,13 +3,15 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import CloseIcon from "@mui/icons-material/Close";
-import { FormGroup, TextField } from "@mui/material";
+import { TextField } from "@mui/material";
 import { useContext, useState } from "react";
 import showToast from "../../utils/Toastify";
 import { Method, ModalUse, Toast } from "../../constants/Enums";
 import useApiService from "../../hooks/UseApiService";
 import { BookDataProps } from "../Home/HomeComponent";
 import { BookContext } from "../../store/Book_Context";
+import { BookDetails } from "../book/DetailsCard";
+import LoadedComponent from "../../UI/LoadedComponent";
 
 const style = {
   position: "absolute" as "absolute",
@@ -51,7 +53,7 @@ export default function DetailsModal(props: IDetailsModal) {
       description,
     };
     makeApiCall(Method.PATCH, `books/updateBook/${id}`, body)
-      .then((response: BookDataProps[]) => {
+      .then((response: BookDetails[]) => {
         bookContext?.setAllBooks(response);
         props.setFlag(false);
         showToast(Toast.SUCCESS, "Edit Successful");
@@ -68,7 +70,7 @@ export default function DetailsModal(props: IDetailsModal) {
       rating: 0,
     };
     makeApiCall(Method.POST, `books/addBook`, body)
-      .then((response: BookDataProps[]) => {
+      .then((response: BookDetails[]) => {
         bookContext?.setAllBooks(response);
         props.setFlag(false);
         showToast(Toast.SUCCESS, "Added Successfully");
@@ -119,18 +121,20 @@ export default function DetailsModal(props: IDetailsModal) {
                 onChange={(e) => setDescription(e.target.value)}
               />
             </Box>
-            <Button
-              variant="contained"
-              onClick={() => {
-                if (props.modalUse === ModalUse.EDIT) {
-                  editBook(props.bookData.bookId);
-                } else {
-                  addBook();
-                }
-              }}
-            >
-              Submit
-            </Button>
+            <LoadedComponent loadingFlag={loadingFlag}>
+              <Button
+                variant="contained"
+                onClick={() => {
+                  if (props.modalUse === ModalUse.EDIT) {
+                    editBook(props.bookData.bookId);
+                  } else {
+                    addBook();
+                  }
+                }}
+              >
+                Submit
+              </Button>
+            </LoadedComponent>
           </Typography>
         </Box>
       </Modal>

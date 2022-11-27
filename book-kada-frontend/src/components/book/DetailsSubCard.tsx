@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import  { useContext, useState } from "react";
 
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
@@ -11,15 +11,17 @@ import LeftBox from "../../UI/LeftBox";
 import Review from "./AddReview";
 import { BookDetails } from "./DetailsCard";
 import { UserContext } from "../../store/User_Context";
-import { Role } from "../../constants/Enums";
+import { CartActions, Role } from "../../constants/Enums";
+import { ShoppingCartContext } from "../../store/Shoppingcart_Context";
 
 interface DetailsProps {
-  bookDetails: BookDetails | null | undefined;
+  book: BookDetails | null | undefined;
 }
 
-export default function DetailsSubCard({ bookDetails }: DetailsProps) {
+export default function DetailsSubCard({ book }: DetailsProps) {
   const userContext = useContext(UserContext);
   const [addReviewFlag, setaddReviewFlag] = useState(false);
+  const shoppingCartContext = useContext(ShoppingCartContext);
   function addReview() {
     setaddReviewFlag(!addReviewFlag);
   }
@@ -46,25 +48,20 @@ export default function DetailsSubCard({ bookDetails }: DetailsProps) {
         <LeftBox>
           <Typography gutterBottom variant="h5" component="div">
             Rating :{" "}
-            <Rating
-              name="half-rating"
-              value={2.5}
-              precision={0.5}
-              readOnly
-            />
+            <Rating name="half-rating" value={2.5} precision={0.5} readOnly />
           </Typography>
         </LeftBox>
         <Typography gutterBottom variant="h3" component="div">
-          {bookDetails?.name}
+          {book?.name}
         </Typography>
         <Typography gutterBottom variant="h6" component="div">
-          {bookDetails?.author}
+          {book?.author}
         </Typography>
         <Typography gutterBottom variant="h5" component="div">
-          ${bookDetails?.price}
+          ${book?.price}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          {bookDetails?.description}
+          {book?.description}
         </Typography>
         {userContext?.userDetails.role !== Role.ADMIN && (
           <CentreBox>
@@ -72,7 +69,13 @@ export default function DetailsSubCard({ bookDetails }: DetailsProps) {
               <Button variant="contained" onClick={addReview}>
                 Add Review
               </Button>
-              <Button variant="contained" endIcon={<AddShoppingCartIcon />}>
+              <Button
+                variant="contained"
+                onClick={() => {
+                  shoppingCartContext?.updateCart(book!, CartActions.ADD);
+                }}
+                endIcon={<AddShoppingCartIcon />}
+              >
                 Add To Cart
               </Button>
             </Box>

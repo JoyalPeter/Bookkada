@@ -8,6 +8,7 @@ import AdminPage from "../pages/AdminPage";
 import ProtectedRoute from "../utils/ProtectedRoute";
 import NotFound from "../pages/NotFound";
 import OrderPage from "../pages/OrdersPage";
+import ProfilePage from "../pages/Profile";
 
 export default function Router() {
   return (
@@ -35,6 +36,7 @@ export default function Router() {
         />
 
         <Route path="/signup" element={<Signup />} />
+        <Route path="/profile" element={<ProfilePage/>}/>
         <Route
           path="/admin"
           element={

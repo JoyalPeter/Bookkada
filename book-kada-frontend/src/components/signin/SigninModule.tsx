@@ -18,6 +18,7 @@ import { Method, Toast } from "../../constants/Enums";
 import useApiService from "../../hooks/UseApiService";
 import Spinner from "../../UI/Spinner";
 import { UserContext } from "../../store/User_Context";
+import LoadedComponent from "../../UI/LoadedComponent";
 
 export default function SignIn() {
   const navigate = useNavigate();
@@ -78,10 +79,7 @@ export default function SignIn() {
             helperText={errorTexts.passwordError}
             autoComplete="current-password"
           />
-
-          {loadingFlag ? (
-            <Spinner />
-          ) : (
+          <LoadedComponent loadingFlag={loadingFlag}>
             <Button
               type="submit"
               fullWidth
@@ -90,7 +88,7 @@ export default function SignIn() {
             >
               Sign In
             </Button>
-          )}
+          </LoadedComponent>
           <Grid container>
             <Grid item xs>
               <Link href="signin" variant="body2">
