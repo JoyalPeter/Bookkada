@@ -1,13 +1,7 @@
-import * as React from "react";
 import {
   CardActionArea,
   Typography,
-  Theme,
-  SxProps,
   CardMedia,
-  Grid,
-  IconButton,
-  Avatar,
   ListItem,
   ListItemAvatar,
   ListItemText,
