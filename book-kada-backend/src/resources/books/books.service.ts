@@ -3,7 +3,6 @@ import { InjectRepository } from "@nestjs/typeorm";
 import DBException from "src/exceptions/db.exception";
 import { Like, Repository } from "typeorm";
 import { Order } from "../orders/entities/order.entity";
-import { Photo } from "../photos/entities/photo.entity";
 import { Rating } from "../ratings/entities/rating.entity";
 import { CreateBookDto } from "./dto/create-book.dto";
 import { UpdateBookDto } from "./dto/update-book.dto";
@@ -17,9 +16,6 @@ export class BooksService {
 
     @InjectRepository(Order)
     private orderRepo: Repository<Order>,
-
-    @InjectRepository(Photo)
-    private photosRepo: Repository<Photo>,
 
     @InjectRepository(Rating)
     private ratingRepo: Repository<Rating>
@@ -51,14 +47,14 @@ export class BooksService {
 
   async findOneById(id: number) {
     return await this.booksRepo.findOne({ where: { bookId: id } }).catch((e) => {
-      console.log(e)
+
       throw new DBException();
     });
   }
 
   async update(id: number, updateBookDto: UpdateBookDto) {
     await this.booksRepo.update(id, updateBookDto).catch((e) => {
-      console.log(e);
+
 
       throw new DBException();
     });
@@ -77,7 +73,7 @@ export class BooksService {
     const books = await this.booksRepo
       .findOne({
         where: { bookId: id },
-        relations: ["ratings", "photos", "orders"],
+        relations: ["ratings", "orders"],
       })
       .catch((e) => {
         throw new DBException();
@@ -97,12 +93,6 @@ export class BooksService {
         })
     );
 
-    books.photos.forEach(
-      async (e) =>
-        await this.ratingRepo.delete(e.photoId).catch((e) => {
-          throw new DBException();
-        })
-    );
 
     await this.booksRepo.delete(id).catch((e) => {
       throw new DBException();

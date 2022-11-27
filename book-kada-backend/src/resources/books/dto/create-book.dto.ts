@@ -15,4 +15,6 @@ export class CreateBookDto {
   author: string;
 
   rating: number
+
+  cover: string
 }

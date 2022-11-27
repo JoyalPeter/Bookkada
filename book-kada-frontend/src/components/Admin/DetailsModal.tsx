@@ -12,6 +12,8 @@ import { BookDataProps } from "../Home/HomeComponent";
 import { BookContext } from "../../store/Book_Context";
 import { BookDetails } from "../book/DetailsCard";
 import LoadedComponent from "../../UI/LoadedComponent";
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { storage } from "../image_storage/uploadConfig";
 
 const style = {
   position: "absolute" as "absolute",
@@ -38,7 +40,9 @@ export default function DetailsModal(props: IDetailsModal) {
   const [author, setAuthor] = useState(props.bookData.author);
   const [price, setPrice] = useState(props.bookData.price);
   const [description, setDescription] = useState(props.bookData.description);
-  const { makeApiCall, loadingFlag } = useApiService();
+  const [loadingFlag, setLoadingFlag] = useState(false);
+  const { makeApiCall } = useApiService();
+  let photo: File;
 
   const handleClose = () => {
     setOpen(false);
@@ -62,21 +66,42 @@ export default function DetailsModal(props: IDetailsModal) {
   }
 
   function addBook() {
-    const body = {
-      name: name,
-      price: price,
-      author: author,
-      description: description,
-      rating: 0,
-    };
-    makeApiCall(Method.POST, `books/addBook`, body)
-      .then((response: BookDetails[]) => {
-        bookContext?.setAllBooks(response);
-        props.setFlag(false);
-        showToast(Toast.SUCCESS, "Added Successfully");
-      })
-      .catch((error: string) => showToast(Toast.ERROR, error));
+    setLoadingFlag(true);
+    const storageRef = ref(storage, `Bookkada/${photo.name}`);
+    const uploadImage = uploadBytesResumable(storageRef, photo);
+
+    uploadImage.on(
+      "state_changed",
+      () => {},
+      () => {},
+      () => {
+        getDownloadURL(uploadImage.snapshot.ref).then((url) => {
+          const body = {
+            name: name,
+            price: price,
+            author: author,
+            description: description,
+            rating: 0,
+            cover: url,
+          };
+          makeApiCall(Method.POST, `books/addBook`, body) //API call to add book
+            .then((response: BookDetails[]) => {
+              bookContext?.setAllBooks(response);
+              setLoadingFlag(false);
+              props.setFlag(false);
+              showToast(Toast.SUCCESS, "Added Successfully");
+            })
+            .catch((error: string) => showToast(Toast.ERROR, error));
+        });
+      }
+    );
   }
+
+  const handlePhotoSubmit = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files) {
+      photo = event.target.files[0];
+    }
+  };
 
   return (
     <>
@@ -121,6 +146,16 @@ export default function DetailsModal(props: IDetailsModal) {
                 onChange={(e) => setDescription(e.target.value)}
               />
             </Box>
+            {props.modalUse === ModalUse.ADD && (
+              <Box>
+                Add Book Cover:
+                <TextField
+                  type={"file"}
+                  inputProps={{ accept: "images/*" }}
+                  onChange={handlePhotoSubmit}
+                />
+              </Box>
+            )}
             <LoadedComponent loadingFlag={loadingFlag}>
               <Button
                 variant="contained"

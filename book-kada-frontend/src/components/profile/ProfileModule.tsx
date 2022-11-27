@@ -1,7 +1,7 @@
 import Padding from "../../UI/Padding";
 import {
   Avatar,
-  Box,
+  Card,
   Container,
   Grid,
   TextField,
@@ -18,7 +18,6 @@ import showToast from "../../utils/Toastify";
 import LoadedComponent from "../../UI/LoadedComponent";
 import CenterBox from "../../UI/CenterBox";
 
-
 export interface UserDetails {
   name?: string;
   email?: string;
@@ -28,23 +27,34 @@ export interface UserDetails {
 export default function ProfileModule() {
   const usercontext = useContext(UserContext);
   const [response, setResponse] = useState<UserDetails | null>(null);
-  const { makeApiCall,loadingFlag } = useApiService();
-  const [updateflag, setupdateflag] = useState(false);
+  const { makeApiCall, loadingFlag } = useApiService();
+  const [updatenameflag, setNameflag] = useState(true);
+  const [updatePasswordflag, setPasswordflag] = useState(true);
+
   const [newName, setNewName] = useState("");
-  const [newEmail, setNewEmail] = useState("");
+  const [newPassword, setnewPassword] = useState("");
   const userid = usercontext?.userDetails.userId;
   useEffect(() => {
     makeApiCall(Method.GET, `users/${userid}`).then((response: UserDetails) => {
       setResponse(response);
     });
   }, []);
-  function updateUserProfile() {
-    setupdateflag(!updateflag);
+  function updateName() {
+    setNameflag(!updatenameflag);
   }
-  function userProfileUpdated() {
+  function updatePassword() {
+    setPasswordflag(!updatePasswordflag);
+  }
+  function userNameUpdated() {
+    setNameflag(!updatenameflag);
     makeApiCall(Method.PATCH, `users/updateUser/${userid}`, {
-      name: newName,
-      email: newEmail,
+      name: newName
+    }).catch((error) => showToast(Toast.ERROR, error));
+  }
+  function userPasswordUpdated() {
+    setPasswordflag(!updatePasswordflag);
+    makeApiCall(Method.PATCH, `users/updateUser/${userid}`, {
+      password: newPassword
     }).catch((error) => showToast(Toast.ERROR, error));
   }
 
@@ -52,80 +62,88 @@ export default function ProfileModule() {
     <LoadedComponent loadingFlag={loadingFlag}>
       <Padding>
         {response && (
-          <Container component="main" maxWidth="xs">
-            <CenterBox sx={{ marginTop: 20 }}>
-              <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}></Avatar>
-              <Typography component="h1" variant="h5">
-                Profile
-              </Typography>
-              <Typography component="h1" variant="h5">
-                Name : {response.name}
-              </Typography>
-              <Typography component="h1" variant="h5">
-                Email : {response.email}
-              </Typography>
-              <Grid container justifyContent="center">
-                <IconButton
-                  onClick={updateUserProfile}
-                  sx={{ mt: 3, mb: 2 }}
-                  aria-label="delete"
-                >
-                  <EditIcon />
-                </IconButton>
-              </Grid>
-              {updateflag && (
-                <Box>
-                  <Grid container spacing={2}>
-                    <Grid item xs={12}>
-                      <TextField
-                        autoComplete="given-name"
-                        name="firstname"
-                        required
-                        fullWidth
-                        id="first name"
-                        label={`${response.name}`}
-                        autoFocus
-                        onChange={(e) => setNewName(e.target.value)}
-                      />
-                    </Grid>
-                    <Grid item xs={12}>
-                      <TextField
-                        required
-                        fullWidth
-                        id="email"
-                        label={`${response.email}`}
-                        name="email"
-                        autoComplete="email"
-                        onChange={(e) => setNewEmail(e.target.value)}
-                      />
-                    </Grid>
-                    {/* <Grid item xs={12}>
-                      <TextField
-                        required
-                        fullWidth
-                        name="password"
-                        label={``}
-                        type="password"
-                        id="password"
-                        autoComplete="new-password"
-                      />
-                    </Grid> */}
-                    <Grid item xs={12} container justifyContent="center">
-                      <IconButton onClick={userProfileUpdated}>
-                        <BuildIcon />
-                      </IconButton>
-                    </Grid>
-                  </Grid>
+          <Card sx={{ marginTop: 8 }}>
+            <Container component="main" maxWidth="xs">
+              <CenterBox sx={{ marginTop: 10 }}>
+                <Avatar
+                  sx={{
+                    m: 1,
+                    bgcolor: "secondary.main",
 
-                  {/* <Button
-                  type="submit"
-                  fullWidth
-                  variant="contained" 
-                > */}
-                </Box>
-              )}
-            </CenterBox>
-          </Container>
+                    width: 100,
+                    height: 100,
+                  }}
+                />
+                <Typography component="h1" variant="h5">
+                  Profile
+                </Typography>
+                {updatenameflag ? (
+                  <>
+                    <Typography component="h1" variant="h5">
+                      Name : {response.name}
+                      <IconButton
+                        onClick={updateName}
+                        sx={{ mt: 3, mb: 3 }}
+                        aria-label="delete"
+                      >
+                        <EditIcon />
+                      </IconButton>
+                    </Typography>
+                  </>
+                ) : (
+                  <>
+                    <TextField
+                      autoComplete="given-name"
+                      name="firstname"
+                      required
+                      fullWidth
+                      id="first name"
+                      label={`${response.name}`}
+                      autoFocus
+                      onChange={(e) => setNewName(e.target.value)}
+                    />
+                    <IconButton onClick={userNameUpdated}>
+                      <BuildIcon />
+                    </IconButton>
+                  </>
+                )}
+                <Grid>
+                  <Typography component="h1" variant="h5">
+                    Email : {response.email}
+                  </Typography>
+                </Grid>
+                {updatePasswordflag ? (
+                  <>
+                    <Typography component="h1" variant="h5">
+                      Password{" "}
+                      <IconButton
+                        onClick={updatePassword}
+                        sx={{ mt: 3, mb: 3 }}
+                        aria-label="delete"
+                      >
+                        <EditIcon />
+                      </IconButton>
+                    </Typography>
+                  </>
+                ) : (
+                  <>
+                        <TextField
+                          required
+                          fullWidth
+                          id="email"
+                          label="Password"
+                          name="email"
+                          autoComplete="email"
+                          onChange={(e) => setnewPassword(e.target.value)}
+                        />
+                        <IconButton onClick={userPasswordUpdated}>
+                          <BuildIcon />
+                        </IconButton>
+                  </>
+                )}
+              </CenterBox>
+            </Container>
+          </Card>
         )}
       </Padding>
     </LoadedComponent>

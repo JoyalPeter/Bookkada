@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import {
   Avatar,
   Button,
@@ -8,6 +8,8 @@ import {
   Typography,
   Container,
   Link,
+  Select,
+  MenuItem,
 } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import CenterBox from "../../UI/CenterBox";
@@ -17,11 +19,14 @@ import useSignupValidate from "./SignupValdations";
 import { Method, Role, Toast } from "../../constants/Enums";
 import showToast from "../../utils/Toastify";
 import LoadedComponent from "../../UI/LoadedComponent";
+import { UserContext } from "../../store/User_Context";
 
 export default function SignUpModule() {
   const navigate = useNavigate();
+  const userContext = useContext(UserContext);
   const { validateSignup, errorTexts } = useSignupValidate();
   const { makeApiCall, loadingFlag } = useApiService();
+  const [role, setRole] = useState("client");
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -34,11 +39,13 @@ export default function SignUpModule() {
         name: firstname,
         email,
         password: password,
-        role: Role.CLIENT,
+        role: role,
       })
         .then(() => {
           showToast(Toast.SUCCESS, "Signed up successfully");
-          setTimeout(() => navigate("/signin", { replace: true }), 50);
+          userContext?.userDetails.role === Role.ADMIN
+            ? navigate("/")
+            : setTimeout(() => navigate("/signin", { replace: true }), 50);
         })
         .catch((error) => {
           showToast(Toast.ERROR, error);
@@ -52,9 +59,16 @@ export default function SignUpModule() {
         <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
           <LockOutlinedIcon />
         </Avatar>
-        <Typography component="h1" variant="h5">
-          Sign up
-        </Typography>
+        {userContext?.userDetails.role === Role.ADMIN ? (
+          <Typography component="h1" variant="h5">
+            Add User
+          </Typography>
+        ) : (
+          <Typography component="h1" variant="h5">
+            Sign up
+          </Typography>
+        )}
+
         <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
@@ -95,6 +109,20 @@ export default function SignUpModule() {
                 autoComplete="new-password"
               />
             </Grid>
+            {userContext?.userDetails.role === Role.ADMIN && (
+              <Grid item xs={12}>
+                <Select
+                  id="role"
+                  fullWidth
+                  value={role}
+                  label="role"
+                  onChange={(e) => setRole(e.target.value)}
+                >
+                  <MenuItem value={Role.CLIENT}>Client</MenuItem>
+                  <MenuItem value={Role.ADMIN}>Admin</MenuItem>
+                </Select>
+              </Grid>
+            )}
             <Grid item xs={12}></Grid>
           </Grid>
           <LoadedComponent loadingFlag={loadingFlag}>
@@ -109,7 +137,7 @@ export default function SignUpModule() {
           </LoadedComponent>
           <Grid container justifyContent="flex-end">
             <Grid item>
-              <Link href="/signin" variant="body2">
+              <Link variant="body2" onClick={() => navigate("/signup")}>
                 Already have an account? Sign in
               </Link>
             </Grid>

@@ -1,7 +1,7 @@
-import {
-  CartItems,
-} from "../../store/Shoppingcart_Context";
+import { Typography } from "@mui/material";
+import { CartItems } from "../../store/Shoppingcart_Context";
 import Padding from "../../UI/Padding";
+import RightBox from "../../UI/RightBox";
 import CartCard from "./CartCard";
 
 export interface ICartContentsProps {
@@ -9,6 +9,10 @@ export interface ICartContentsProps {
 }
 
 export default function CartContents({ cartItems }: ICartContentsProps) {
+  let total = 0;
+  cartItems.forEach(
+    (cartItem) => (total += cartItem.book.price * cartItem.quantity)
+  );
   return (
     <Padding>
       {cartItems.map((cartItem, index) => (
@@ -18,6 +22,14 @@ export default function CartContents({ cartItems }: ICartContentsProps) {
           quantity={cartItem.quantity}
         />
       ))}
+      <RightBox>
+        <Typography marginRight={1} variant="h5">
+          Total:{" "}
+        </Typography>
+        <Typography color="secondary.main" variant="h6">
+          ${total}
+        </Typography>
+      </RightBox>
     </Padding>
   );
 }

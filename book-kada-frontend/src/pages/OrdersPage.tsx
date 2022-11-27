@@ -1,5 +1,5 @@
 import { ShoppingCartCheckout } from "@mui/icons-material";
-import { Box, Button } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import OrderCard from "../components/orders/OrderCard";
 import PrimarySearchAppBar from "../UI/AppBar/AppBar";
 import CentreBox from "../UI/CenterBox";
@@ -9,11 +9,11 @@ import Padding from "../UI/Padding";
 export default function OrderPage() {
   
   return (
-    <div>
+    <>
       <PrimarySearchAppBar />
       <Padding>
         <CentreBox>
-          <h1> Orders </h1>
+          <Typography variant="h4">Orders</Typography>
         </CentreBox>
         <OrderCard />
       </Padding>
@@ -24,6 +24,6 @@ export default function OrderPage() {
           </Button>
         </Box>
       </CentreBox>
-    </div>
+    </>
   );
 }

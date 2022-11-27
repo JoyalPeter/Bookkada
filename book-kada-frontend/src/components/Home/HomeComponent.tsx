@@ -16,6 +16,7 @@ export interface BookDataProps {
   description: string;
   author: string;
   rating?: number;
+  cover: string;
 }
 
 export default function HomePage() {

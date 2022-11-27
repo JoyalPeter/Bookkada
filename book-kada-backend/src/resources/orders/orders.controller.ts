@@ -7,6 +7,7 @@ import {
   Param,
   Delete,
   UseGuards,
+  Logger,
 } from '@nestjs/common';
 import { OrdersService } from './orders.service';
 import { CreateOrderDto } from './dto/create-order.dto';
@@ -28,10 +29,14 @@ export class OrdersController {
   // @ApiBearerAuth()
   // @UseGuards(AuthGuard('jwt'))
   @Post('placeOrder')
-  async create(@Body() createOrderDto: CreateOrderDto) {
-    const user = await this.usersService.findOne(createOrderDto.userId);
-    const book = await this.booksService.findOneById(createOrderDto.bookId);
-    return await this.ordersService.create(createOrderDto, user, book);
+  async create(@Body() createOrdersDto: CreateOrderDto[]) {
+    createOrdersDto.forEach(async (orderDto: CreateOrderDto) => {
+      const user = await this.usersService.findOne(orderDto.userId);
+      const book = await this.booksService.findOneById(orderDto.bookId);
+      const order = await this.ordersService.create(orderDto.quantity, user, book);
+      Logger.log(order)
+    })
+    return "Orders placed successfully"
   }
 
   @Get('getAllOrders')

@@ -1,4 +1,4 @@
-import  { useContext, useState } from "react";
+import { useContext, useState } from "react";
 
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
@@ -39,7 +39,7 @@ export default function DetailsSubCard({ book }: DetailsProps) {
         <CardMedia
           component="img"
           height="500"
-          image="https://c1.wallpaperflare.com/preview/127/366/443/library-book-bookshelf-read.jpg"
+          image={book?.cover}
           alt="green iguana"
         />
       </CardActionArea>
@@ -72,7 +72,7 @@ export default function DetailsSubCard({ book }: DetailsProps) {
               <Button
                 variant="contained"
                 onClick={() => {
-                  shoppingCartContext?.updateCart(book!, CartActions.ADD);
+                  shoppingCartContext?.updateCart(CartActions.ADD, book!);
                 }}
                 endIcon={<AddShoppingCartIcon />}
               >
