@@ -10,8 +10,6 @@ import {
   Rating,
   Button,
 } from "@mui/material";
-import Ratings from "../../UI/Rating";
-import Favorites from "./Addfavorite";
 import Cart from "./Shoppingcart";
 import { BookDataProps } from "./HomeComponent";
 import { Method, ModalUse, Role, Toast } from "../../constants/Enums";
@@ -20,9 +18,11 @@ import { BookContext } from "../../store/Book_Context";
 import showToast from "../../utils/Toastify";
 import { UserContext } from "../../store/User_Context";
 import DetailsModal from "../Admin/DetailsModal";
+import { ShoppingCartContext } from "../../store/Shoppingcart_Context";
+import { BookDetails } from "../book/DetailsCard";
 
 interface ICards {
-  bookData: BookDataProps;
+  book: BookDetails;
 }
 
 export default function Cards(props: ICards) {
@@ -30,13 +30,14 @@ export default function Cards(props: ICards) {
   const navigate = useNavigate();
   const bookContext = useContext(BookContext);
   const userContext = useContext(UserContext);
+  const shoppingCartContext = useContext(ShoppingCartContext);
 
   const { makeApiCall, loadingFlag } = useApiService();
   const [editFlag, setEditFlag] = useState(false);
 
   function deleteBook(id: number) {
     makeApiCall(Method.DELETE, `books/deleteBook/${id}`)
-      .then((response: BookDataProps[]) => {
+      .then((response: BookDetails[]) => {
         bookContext?.setAllBooks(response);
         showToast(Toast.SUCCESS, "Delete Successful");
       })
@@ -54,19 +55,19 @@ export default function Cards(props: ICards) {
         <CardActionArea>
           <CardContent
             onClick={() => {
-              navigate(`details/${props.bookData.bookId}`);
+              navigate(`details/${props.book.bookId}`);
             }}
           >
             <>
               <Typography gutterBottom variant="h5" component="div">
-                <b>{props.bookData.name}</b>
+                <b>{props.book.name}</b>
               </Typography>
               <Typography gutterBottom variant="subtitle1" component="div">
-                <b>{props.bookData.author}</b>
+                <b>{props.book.author}</b>
               </Typography>
               <Typography variant="body1" color="text.secondary" fontSize={16}>
                 <b>$</b>
-                {props.bookData.price}
+                {props.book.price}
               </Typography>
               <Typography
                 fontFamily={"monospace"}
@@ -76,7 +77,7 @@ export default function Cards(props: ICards) {
                 component="div"
                 noWrap
               >
-                {props.bookData.description}
+                {props.book.description}
               </Typography>
             </>
           </CardContent>
@@ -89,17 +90,17 @@ export default function Cards(props: ICards) {
               </Button>
               <Button
                 variant="contained"
-                onClick={() => deleteBook(props.bookData.bookId)}
+                onClick={() => deleteBook(props.book.bookId)}
               >
                 Delete
               </Button>
             </>
           ) : (
             <>
-              <Cart />
+              <Cart book={props.book} />
               <Rating
                 name="half-rating"
-                defaultValue={props.bookData.rating!}
+                defaultValue={props.book.rating!}
                 precision={0.5}
                 readOnly
               />
@@ -110,7 +111,7 @@ export default function Cards(props: ICards) {
       {editFlag && (
         <DetailsModal
           setFlag={setEditFlag}
-          bookData={props.bookData}
+          bookData={props.book}
           modalUse={ModalUse.EDIT}
         />
       )}

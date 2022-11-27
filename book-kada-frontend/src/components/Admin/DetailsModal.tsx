@@ -10,6 +10,7 @@ import { Method, ModalUse, Toast } from "../../constants/Enums";
 import useApiService from "../../hooks/UseApiService";
 import { BookDataProps } from "../Home/HomeComponent";
 import { BookContext } from "../../store/Book_Context";
+import { BookDetails } from "../book/DetailsCard";
 
 const style = {
   position: "absolute" as "absolute",
@@ -51,7 +52,7 @@ export default function DetailsModal(props: IDetailsModal) {
       description,
     };
     makeApiCall(Method.PATCH, `books/updateBook/${id}`, body)
-      .then((response: BookDataProps[]) => {
+      .then((response: BookDetails[]) => {
         bookContext?.setAllBooks(response);
         props.setFlag(false);
         showToast(Toast.SUCCESS, "Edit Successful");
@@ -68,7 +69,7 @@ export default function DetailsModal(props: IDetailsModal) {
       rating: 0,
     };
     makeApiCall(Method.POST, `books/addBook`, body)
-      .then((response: BookDataProps[]) => {
+      .then((response: BookDetails[]) => {
         bookContext?.setAllBooks(response);
         props.setFlag(false);
         showToast(Toast.SUCCESS, "Added Successfully");

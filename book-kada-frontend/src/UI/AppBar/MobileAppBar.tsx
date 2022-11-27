@@ -46,11 +46,10 @@ export default function MobileAppBar({
           onClick={() => navigate("/cart")}
           color="inherit"
         >
-          <Typography>
-            {(shoppingcartData?.cartItems !== 0 || shoppingcartData !== null) &&
-              shoppingcartData?.cartItems}
-          </Typography>
           <ShoppingCartSharp />
+          {(shoppingcartData?.itemCount === 0 || shoppingcartData !== null) && (
+            <Typography>{shoppingcartData?.itemCount}</Typography>
+          )}
         </IconButton>
       ) : (
         <IconButton
