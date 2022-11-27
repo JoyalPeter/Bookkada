@@ -51,10 +51,11 @@ export default function PrimarySearchAppBar(props: IPrimarySearchAppBar) {
             variant="h6"
             noWrap
             component="div"
-            sx={{ display: { xs: "none", sm: "block" } }}
+            sx={{ display: { xs: "none", sm: "block", paddingRight:50 } }}
           >
             {Labels.title}
           </Typography>
+          
           <SearchBar></SearchBar>
           <Box sx={{ flexGrow: 1 }} />
           <MainAppBar
