@@ -3,9 +3,7 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import { useNavigate } from "react-router-dom";
 
-export interface IAdminPageProps {}
-
-export default function AdminPage(props: IAdminPageProps) {
+export default function AdminPage() {
   const navigate = useNavigate();
   return (
     <>
@@ -13,7 +11,7 @@ export default function AdminPage(props: IAdminPageProps) {
         <Card
           sx={{ width: "30%", minWidth: 275 }}
           onClick={() => {
-            navigate('/');
+            navigate("/");
           }}
         >
           <CardContent>books</CardContent>
@@ -21,7 +19,7 @@ export default function AdminPage(props: IAdminPageProps) {
         <Card
           sx={{ width: "30%", minWidth: 275 }}
           onClick={() => {
-            navigate('/admin');
+            navigate("/admin");
           }}
         >
           <CardContent>orders</CardContent>
@@ -29,7 +27,7 @@ export default function AdminPage(props: IAdminPageProps) {
         <Card
           sx={{ width: "30%", minWidth: 275 }}
           onClick={() => {
-            navigate('/admin');
+            navigate("/admin");
           }}
         >
           <CardContent>analytics</CardContent>

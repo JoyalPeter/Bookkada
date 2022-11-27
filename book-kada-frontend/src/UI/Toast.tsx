@@ -5,6 +5,7 @@ export default function Toast() {
   return (
     <ToastContainer
       position="top-right"
+      limit={1}
       autoClose={500}
       hideProgressBar={true}
       newestOnTop={false}

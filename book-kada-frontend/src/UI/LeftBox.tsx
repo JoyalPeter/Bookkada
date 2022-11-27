@@ -1,9 +1,5 @@
-import Box, { BoxProps } from "@mui/material/Box";
+import Box from "@mui/material/Box";
 import React from "react";
-
-type Props = {
-  children: JSX.Element;
-};
 
 const LeftBox: React.FC<any> = ({ children }) => (
   <Box

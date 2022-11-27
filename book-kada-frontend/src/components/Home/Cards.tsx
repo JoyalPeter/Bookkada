@@ -17,7 +17,6 @@ import { BookContext } from "../../store/Book_Context";
 import showToast from "../../utils/Toastify";
 import { UserContext } from "../../store/User_Context";
 import DetailsModal from "../Admin/DetailsModal";
-import { ShoppingCartContext } from "../../store/Shoppingcart_Context";
 import { BookDetails } from "../book/DetailsCard";
 import LoadedComponent from "../../UI/LoadedComponent";
 
@@ -26,11 +25,9 @@ interface ICards {
 }
 
 export default function Cards(props: ICards) {
-  const quantity = 0;
   const navigate = useNavigate();
   const bookContext = useContext(BookContext);
   const userContext = useContext(UserContext);
-  const shoppingCartContext = useContext(ShoppingCartContext);
 
   const { makeApiCall, loadingFlag } = useApiService();
   const [editFlag, setEditFlag] = useState(false);
