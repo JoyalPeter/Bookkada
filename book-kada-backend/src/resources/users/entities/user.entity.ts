@@ -3,7 +3,7 @@ import { Book } from "src/resources/books/entities/book.entity";
 import { Order } from "src/resources/orders/entities/order.entity";
 import { Rating } from "src/resources/ratings/entities/rating.entity";
 import { Roles } from 'src/utils/enums';
-import { BeforeInsert, Column, Entity, JoinColumn, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { BeforeInsert, BeforeUpdate, Column, Entity, JoinColumn, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Exclude } from 'class-transformer';
 
 @Entity('users')
@@ -37,6 +37,7 @@ export class User {
     orders: Order[];
 
     @BeforeInsert()
+    @BeforeUpdate()
     async hashPassword() {
         const salt = await bcrypt.genSalt();
         this.password = await bcrypt.hash(this.password, salt);

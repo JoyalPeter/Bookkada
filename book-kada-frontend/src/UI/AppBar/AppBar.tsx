@@ -19,6 +19,7 @@ export default function PrimarySearchAppBar() {
     description: "",
     author: "",
     name: "",
+    cover:""
   };
   const [addFlag, setAddFlag] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
