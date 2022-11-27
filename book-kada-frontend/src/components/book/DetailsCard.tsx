@@ -38,7 +38,6 @@ const DetailsCard: FC<DetailsProps> = ({}) => {
       })
       .catch((error) => error);
   }, []);
-  console.log(loadingFlag);
 
   return (
     <>

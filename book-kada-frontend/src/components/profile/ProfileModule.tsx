@@ -3,12 +3,11 @@ import {
   Box,
   Button,
   Card,
-  CardContent,
   CardMedia,
+  Stack,
   TextField,
   Typography,
 } from "@mui/material";
-import React from "react";
 import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../store/User_Context";
 import useApiService from "../../hooks/UseApiService";
@@ -69,9 +68,11 @@ export default function ProfileModule(props: IAppProps) {
             </Box>
             <Box>
               {/* <CentreBox> */}
-              <Typography variant="h5">Name : {response.name}</Typography>
-              <Typography variant="h5"> Email : {response.email} </Typography>
-              <Button onClick={updateUserProfile}>Update</Button>
+              <Stack spacing={2}>
+                <Typography variant="h5">Name : {response.name}</Typography>
+                <Typography variant="h5"> Email : {response.email} </Typography>
+                <Button onClick={updateUserProfile}>Update</Button>
+              </Stack>
               {/* </CentreBox> */}
             </Box>
             <Box>
@@ -91,6 +92,23 @@ export default function ProfileModule(props: IAppProps) {
                       }}
                     />
                     <Button onClick={userProfileUpdated}>Update</Button>
+                    <Stack spacing={2}>
+                      Enter New Name
+                      <TextField
+                        variant="outlined"
+                        size="small"
+                        onChange={(e) => setNewName(e.target.value)}
+                      />
+                      Enter New Email
+                      <TextField
+                        variant="outlined"
+                        size="small"
+                        onChange={(e) => {
+                          setNewEmail(e.target.value);
+                        }}
+                      />
+                      <Button onClick={userProfileUpdated}>Update</Button>
+                    </Stack>
                   </Box>
                 )}
               </Typography>

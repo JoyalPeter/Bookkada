@@ -1,9 +1,6 @@
-import React from "react";
 import ProfileModule from "../components/profile/ProfileModule";
 
-export interface IAppProps {}
-
-export default function ProfilePage(props: IAppProps) {
+export default function ProfilePage() {
   return (
     <div>
       <ProfileModule />

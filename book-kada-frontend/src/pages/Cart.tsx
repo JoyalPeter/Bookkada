@@ -1,6 +1,5 @@
 import { Button, Typography } from "@mui/material";
 import { useContext } from "react";
-import CartCard from "../components/cart/CartCard";
 import CartContents from "../components/cart/CartContents";
 import { ShoppingCartContext } from "../store/Shoppingcart_Context";
 import PrimarySearchAppBar from "../UI/AppBar/AppBar";

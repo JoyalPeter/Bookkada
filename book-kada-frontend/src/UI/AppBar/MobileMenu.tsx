@@ -1,8 +1,5 @@
 import React, { useState } from "react";
-import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
-import { IconButton } from "@mui/material";
-import { AccountCircle } from "@mui/icons-material";
 
 export interface IUseMobileMenuProps {
   anchorEl: HTMLElement | null;

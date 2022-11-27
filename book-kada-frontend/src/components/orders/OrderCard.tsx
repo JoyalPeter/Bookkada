@@ -1,23 +1,10 @@
-import React from "react";
-import {
-  CardActionArea,
-  Typography,
-  Theme,
-  SxProps,
-  CardMedia,
-  Grid,
-} from "@mui/material";
+import { CardActionArea, Typography, CardMedia } from "@mui/material";
 import Card from "@mui/material/Card";
-
 import { Box } from "@mui/system";
 import RightBox from "../../UI/RightBox";
 import CentreBox from "../../UI/CenterBox";
 
-export interface IAppProps {
-  sx?: SxProps<Theme>;
-}
-
-export default function OrderCard({ sx }: IAppProps) {
+export default function OrderCard() {
   return (
     <div>
       <Card
