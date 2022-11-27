@@ -1,5 +1,5 @@
 import { ShoppingCartCheckout } from "@mui/icons-material";
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import OrderCard from "../components/orders/OrderCard";
 import PrimarySearchAppBar from "../UI/AppBar/AppBar";
 import CentreBox from "../UI/CenterBox";
@@ -12,7 +12,7 @@ export default function OrderPage() {
         <CentreBox>
           <h1> Orders </h1>
         </CentreBox>
-        <OrderCard sx={{ height: "100%" }} />
+        <OrderCard />
       </Padding>
       <CentreBox>
         <Box sx={{ display: "flex", gap: 5 }}>

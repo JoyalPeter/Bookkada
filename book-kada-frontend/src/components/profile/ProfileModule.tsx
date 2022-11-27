@@ -13,6 +13,7 @@ import { UserContext } from "../../store/User_Context";
 import useApiService from "../../hooks/UseApiService";
 import { Method, Toast } from "../../constants/Enums";
 import showToast from "../../utils/Toastify";
+import LoadedComponent from "../../UI/LoadedComponent";
 
 export interface UserDetails {
   name?: string;
@@ -44,45 +45,60 @@ export default function ProfileModule() {
   }
 
   return (
-    <>
+    <LoadedComponent loadingFlag={loadingFlag}>
       <Padding>
-        {response && (
-          <Card
-            sx={{
-              width: 1,
-              display: "grid",
-              gap: 1,
-              height: 200,
-              gridTemplateColumns: "repeat(4, 1fr)",
-            }}
-          >
-            <Box>
-              <CardMedia
-                component="img"
-                height="100%"
-                width="100%"
-                image="https://c1.wallpaperflare.com/preview/127/366/443/library-book-bookshelf-read.jpg"
-                alt="green iguana"
-              />
-            </Box>
-            <Box>
-              {/* <CentreBox> */}
-              <Stack spacing={2}>
-                <Typography variant="h5">Name : {response.name}</Typography>
-                <Typography variant="h5"> Email : {response.email} </Typography>
-                <Button onClick={updateUserProfile}>Update</Button>
-              </Stack>
-              {/* </CentreBox> */}
-            </Box>
-            <Box>
-              <Typography>
-                {updateflag && (
-                  <Box>
+        <Card
+          sx={{
+            width: 1,
+            display: "grid",
+            gap: 1,
+            height: 200,
+            gridTemplateColumns: "repeat(4, 1fr)",
+          }}
+        >
+          <Box>
+            <CardMedia
+              component="img"
+              height="100%"
+              width="100%"
+              image="https://c1.wallpaperflare.com/preview/127/366/443/library-book-bookshelf-read.jpg"
+              alt="green iguana"
+            />
+          </Box>
+          <Box>
+            {/* <CentreBox> */}
+            <Stack spacing={2}>
+              <Typography variant="h5">Name : {response!.name}</Typography>
+              <Typography variant="h5"> Email : {response!.email} </Typography>
+              <Button onClick={updateUserProfile}>Update</Button>
+            </Stack>
+            {/* </CentreBox> */}
+          </Box>
+          <Box>
+            <Typography>
+              {updateflag && (
+                <Box>
+                  <TextField
+                    variant="outlined"
+                    size="small"
+                    onChange={(e) => setNewName(e.target.value)}
+                  />
+                  <TextField
+                    variant="outlined"
+                    size="small"
+                    onChange={(e) => {
+                      setNewEmail(e.target.value);
+                    }}
+                  />
+                  <Button onClick={userProfileUpdated}>Update</Button>
+                  <Stack spacing={2}>
+                    Enter New Name
                     <TextField
                       variant="outlined"
                       size="small"
                       onChange={(e) => setNewName(e.target.value)}
                     />
+                    Enter New Email
                     <TextField
                       variant="outlined"
                       size="small"
@@ -91,30 +107,13 @@ export default function ProfileModule() {
                       }}
                     />
                     <Button onClick={userProfileUpdated}>Update</Button>
-                    <Stack spacing={2}>
-                      Enter New Name
-                      <TextField
-                        variant="outlined"
-                        size="small"
-                        onChange={(e) => setNewName(e.target.value)}
-                      />
-                      Enter New Email
-                      <TextField
-                        variant="outlined"
-                        size="small"
-                        onChange={(e) => {
-                          setNewEmail(e.target.value);
-                        }}
-                      />
-                      <Button onClick={userProfileUpdated}>Update</Button>
-                    </Stack>
-                  </Box>
-                )}
-              </Typography>
-            </Box>
-          </Card>
-        )}
+                  </Stack>
+                </Box>
+              )}
+            </Typography>
+          </Box>
+        </Card>
       </Padding>
-    </>
+    </LoadedComponent>
   );
 }

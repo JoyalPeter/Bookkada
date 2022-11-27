@@ -21,7 +21,7 @@ export default function SearchBar() {
     return () => {
       clearTimeout(timer);
     };
-  }, [searchKey]);
+  }, [searchKey, search]);
 
   function search(searchKey: string) {
     if (searchKey) {

@@ -28,7 +28,7 @@ export default function HomePage() {
         bookContext?.setAllBooks(response);
       })
       .catch((error) => showToast(Toast.ERROR, error));
-  }, []);
+  }, [bookContext, makeApiCall]);
 
   return (
     <LoadedComponent loadingFlag={loadingFlag}>

@@ -34,7 +34,7 @@ export default function CartContextProvider({
   const updateCart = (book: BookDetails, action: CartActions) => {
     setCartItems((cartItems) => {
       let flag = false;
-      cartItems.map((cartItem, index) => {
+      cartItems.forEach((cartItem, index) => {
         if (cartItem.book.bookId === book.bookId) {
           if (action === CartActions.ADD) {
             cartItem.quantity += 1;

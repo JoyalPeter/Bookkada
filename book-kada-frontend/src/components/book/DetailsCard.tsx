@@ -37,7 +37,7 @@ const DetailsCard: FC<DetailsProps> = ({}) => {
         bookContext?.setBookDetails(response);
       })
       .catch((error) => error);
-  }, []);
+  }, [bookContext, id, makeApiCall]);
 
   return (
     <>

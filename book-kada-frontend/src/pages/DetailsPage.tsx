@@ -1,13 +1,10 @@
-import DetailsCard from '../components/book/DetailsCard';
-import PrimarySearchAppBar from '../UI/AppBar/AppBar';
+import DetailsCard from "../components/book/DetailsCard";
+import PrimarySearchAppBar from "../UI/AppBar/AppBar";
 
-export interface IAppProps {}
-
-export default function App(props: IAppProps) {
-  
+export default function App() {
   return (
     <div>
-      <PrimarySearchAppBar  />
+      <PrimarySearchAppBar />
       <DetailsCard />
     </div>
   );
