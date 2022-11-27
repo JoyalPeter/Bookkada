@@ -72,7 +72,7 @@ export default function DetailsSubCard({ book }: DetailsProps) {
               <Button
                 variant="contained"
                 onClick={() => {
-                  shoppingCartContext?.updateCart(book!, CartActions.ADD);
+                  shoppingCartContext?.updateCart(CartActions.ADD, book!);
                 }}
                 endIcon={<AddShoppingCartIcon />}
               >
