@@ -9,11 +9,11 @@ export function ApiCall(
   token?: string | undefined | null,
   userId?: number
 ) {
-  const apiHost = "http://localhost:5000/";
+  const APIHOST = "http://localhost:5000/";
 
   return axios({
     method,
-    url: `${apiHost}${path}`,
+    url: `${APIHOST}${path}`,
     data,
     headers: {
       Authorization: `Bearer "${token}"`,

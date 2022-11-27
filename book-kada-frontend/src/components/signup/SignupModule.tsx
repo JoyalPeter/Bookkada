@@ -16,7 +16,6 @@ import useApiService from "../../hooks/UseApiService";
 import useSignupValidate from "./SignupValdations";
 import { Method, Role, Toast } from "../../constants/Enums";
 import showToast from "../../utils/Toastify";
-import Spinner from "../../UI/Spinner";
 import LoadedComponent from "../../UI/LoadedComponent";
 
 export default function SignUpModule() {

@@ -1,7 +1,6 @@
 import React, { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Role } from "../constants/Enums";
-import useLogout from "../hooks/UseLogout";
 import { UserContext } from "../store/User_Context";
 
 export interface IProtectedAdminRouteProps {

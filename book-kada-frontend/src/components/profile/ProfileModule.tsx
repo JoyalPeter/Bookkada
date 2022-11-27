@@ -13,11 +13,9 @@ import EditIcon from "@mui/icons-material/Edit";
 import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../store/User_Context";
 import useApiService from "../../hooks/UseApiService";
-import { Method } from "../../constants/Enums";
-import CenterBox from "../../UI/CenterBox";
-
-
-export interface IAppProps {}
+import { Method, Toast } from "../../constants/Enums";
+import showToast from "../../utils/Toastify";
+import LoadedComponent from "../../UI/LoadedComponent";
 
 export interface UserDetails {
   name?: string;
@@ -25,7 +23,7 @@ export interface UserDetails {
   password?: string;
 }
 
-export default function ProfileModule(props: IAppProps) {
+export default function ProfileModule() {
   const usercontext = useContext(UserContext);
   const [response, setResponse] = useState<UserDetails | null>(null);
   const { makeApiCall } = useApiService();
@@ -37,7 +35,7 @@ export default function ProfileModule(props: IAppProps) {
     makeApiCall(Method.GET, `users/${userid}`).then((response: UserDetails) => {
       setResponse(response);
     });
-  });
+  }, []);
   function updateUserProfile() {
     setupdateflag(!updateflag);
   }
@@ -45,11 +43,11 @@ export default function ProfileModule(props: IAppProps) {
     makeApiCall(Method.PATCH, `users/updateUser/${userid}`, {
       name: newName,
       email: newEmail,
-    }).then((response: UserDetails) => {});
+    }).catch((error) => showToast(Toast.ERROR, error));
   }
 
   return (
-    <>
+    <LoadedComponent loadingFlag={loadingFlag}>
       <Padding>
         {response && (
           <Container component="main" maxWidth="xs">
@@ -128,6 +126,6 @@ export default function ProfileModule(props: IAppProps) {
           </Container>
         )}
       </Padding>
-    </>
+    </LoadedComponent>
   );
 }
