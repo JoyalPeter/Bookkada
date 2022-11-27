@@ -10,8 +10,7 @@ import DetailsModal from "../../components/Admin/DetailsModal";
 import MainAppBar from "./MainAppBar";
 import MobileAppBar from "./MobileAppBar";
 
-interface IPrimarySearchAppBar {}
-export default function PrimarySearchAppBar(props: IPrimarySearchAppBar) {
+export default function PrimarySearchAppBar() {
   const emptyBook = {
     bookId: 0,
     price: 0,
