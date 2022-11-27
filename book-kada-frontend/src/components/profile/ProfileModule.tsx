@@ -2,6 +2,7 @@ import Padding from "../../UI/Padding";
 import {
   Avatar,
   Box,
+  Card,
   Container,
   Grid,
   TextField,
@@ -16,6 +17,7 @@ import useApiService from "../../hooks/UseApiService";
 import { Method, Toast } from "../../constants/Enums";
 import showToast from "../../utils/Toastify";
 import LoadedComponent from "../../UI/LoadedComponent";
+import CenterBox from "../../UI/CenterBox";
 
 export interface UserDetails {
   name?: string;
@@ -26,10 +28,10 @@ export interface UserDetails {
 export default function ProfileModule() {
   const usercontext = useContext(UserContext);
   const [response, setResponse] = useState<UserDetails | null>(null);
-  const { makeApiCall } = useApiService();
+  const { makeApiCall, loadingFlag } = useApiService();
   const [updateflag, setupdateflag] = useState(false);
   const [newName, setNewName] = useState("");
-  const [newEmail, setNewEmail] = useState("");
+  const [newPassword, setnewPassword] = useState("");
   const userid = usercontext?.userDetails.userId;
   useEffect(() => {
     makeApiCall(Method.GET, `users/${userid}`).then((response: UserDetails) => {
@@ -42,7 +44,7 @@ export default function ProfileModule() {
   function userProfileUpdated() {
     makeApiCall(Method.PATCH, `users/updateUser/${userid}`, {
       name: newName,
-      email: newEmail,
+      password: newPassword,
     }).catch((error) => showToast(Toast.ERROR, error));
   }
 
@@ -50,54 +52,65 @@ export default function ProfileModule() {
     <LoadedComponent loadingFlag={loadingFlag}>
       <Padding>
         {response && (
-          <Container component="main" maxWidth="xs">
-            <CenterBox sx={{ marginTop: 20 }}>
-              <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}></Avatar>
-              <Typography component="h1" variant="h5">
-                Profile
-              </Typography>
-              <Typography component="h1" variant="h5">
-                Name : {response.name}
-              </Typography>
-              <Typography component="h1" variant="h5">
-                Email : {response.email}
-              </Typography>
-              <Grid container justifyContent="center">
-                <IconButton
-                  onClick={updateUserProfile}
-                  sx={{ mt: 3, mb: 2 }}
-                  aria-label="delete"
-                >
-                  <EditIcon />
-                </IconButton>
-              </Grid>
-              {updateflag && (
-                <Box>
-                  <Grid container spacing={2}>
-                    <Grid item xs={12}>
-                      <TextField
-                        autoComplete="given-name"
-                        name="firstname"
-                        required
-                        fullWidth
-                        id="first name"
-                        label={`${response.name}`}
-                        autoFocus
-                        onChange={(e) => setNewName(e.target.value)}
-                      />
-                    </Grid>
-                    <Grid item xs={12}>
-                      <TextField
-                        required
-                        fullWidth
-                        id="email"
-                        label={`${response.email}`}
-                        name="email"
-                        autoComplete="email"
-                        onChange={(e) => setNewEmail(e.target.value)}
-                      />
-                    </Grid>
-                    {/* <Grid item xs={12}>
+          <Card>
+            <Container component="main" maxWidth="xs">
+              <CenterBox sx={{ marginTop: 10 }}>
+                <Avatar
+                  src="https://c1.wallpaperflare.com/preview/127/366/443/library-book-bookshelf-read.jpg"
+                  sx={{
+                    m: 1,
+                    bgcolor: "secondary.main",
+
+                    width: 200,
+                    height: 200,
+                  }}
+                />
+
+                <Typography component="h1" variant="h5">
+                  Profile
+                </Typography>
+                <Typography component="h1" variant="h5">
+                  Name : {response.name}
+                </Typography>
+                <Typography component="h1" variant="h5">
+                  Email : {response.email}
+                </Typography>
+                <Grid container justifyContent="center">
+                  <IconButton
+                    onClick={updateUserProfile}
+                    sx={{ mt: 3, mb: 2 }}
+                    aria-label="delete"
+                  >
+                    <EditIcon />
+                  </IconButton>
+                </Grid>
+                {updateflag && (
+                  <Box>
+                    <Grid container spacing={2}>
+                      <Grid item xs={12}>
+                        <TextField
+                          autoComplete="given-name"
+                          name="firstname"
+                          required
+                          fullWidth
+                          id="first name"
+                          label={`${response.name}`}
+                          autoFocus
+                          onChange={(e) => setNewName(e.target.value)}
+                        />
+                      </Grid>
+                      <Grid item xs={12}>
+                        <TextField
+                          required
+                          fullWidth
+                          id="email"
+                          label="Password"
+                          name="email"
+                          autoComplete="email"
+                          onChange={(e) => setnewPassword(e.target.value)}
+                        />
+                      </Grid>
+                      {/* <Grid item xs={12}>
                       <TextField
                         required
                         fullWidth
@@ -108,22 +121,23 @@ export default function ProfileModule() {
                         autoComplete="new-password"
                       />
                     </Grid> */}
-                    <Grid item xs={12} container justifyContent="center">
-                      <IconButton onClick={userProfileUpdated}>
-                        <BuildIcon />
-                      </IconButton>
+                      <Grid item xs={12} container justifyContent="center">
+                        <IconButton onClick={userProfileUpdated}>
+                          <BuildIcon />
+                        </IconButton>
+                      </Grid>
                     </Grid>
-                  </Grid>
 
-                  {/* <Button
+                    {/* <Button
                   type="submit"
                   fullWidth
                   variant="contained" 
                 > */}
-                </Box>
-              )}
-            </CenterBox>
-          </Container>
+                  </Box>
+                )}
+              </CenterBox>
+            </Container>
+          </Card>
         )}
       </Padding>
     </LoadedComponent>
