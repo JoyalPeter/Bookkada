@@ -13,7 +13,6 @@ import {
   ListItemText,
 } from "@mui/material";
 import Card from "@mui/material/Card";
-import EventIcon from '@mui/icons-material/Event';
 
 import { Box } from "@mui/system";
 import RightBox from "../../UI/RightBox";
