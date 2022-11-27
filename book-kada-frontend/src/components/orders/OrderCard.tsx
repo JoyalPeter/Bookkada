@@ -1,8 +1,17 @@
-import { CardActionArea, Typography, CardMedia } from "@mui/material";
+import {
+  CardActionArea,
+  Typography,
+  CardMedia,
+  ListItem,
+  ListItemAvatar,
+  ListItemText,
+} from "@mui/material";
 import Card from "@mui/material/Card";
+
 import { Box } from "@mui/system";
 import RightBox from "../../UI/RightBox";
 import CentreBox from "../../UI/CenterBox";
+import EventIcon from "@mui/icons-material/Event";
 
 export default function OrderCard() {
   return (
@@ -36,9 +45,14 @@ export default function OrderCard() {
           </CentreBox>
         </Box>
         <Box>
-          <Typography>
-            <RightBox>Cost</RightBox>
-          </Typography>
+          <RightBox>
+            <ListItem>
+              <ListItemAvatar>
+                  <EventIcon />
+              </ListItemAvatar>
+              <ListItemText  primary="Ordered On" secondary="Jan 9, 2014" />
+            </ListItem>
+          </RightBox>
         </Box>
       </Card>
     </div>
