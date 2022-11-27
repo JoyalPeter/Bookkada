@@ -1,4 +1,5 @@
 import axios from "axios";
+
 import { Method } from "../constants/Enums";
 
 export function ApiCall(
