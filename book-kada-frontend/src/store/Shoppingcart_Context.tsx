@@ -32,28 +32,32 @@ export default function CartContextProvider({
   const [cartItems, setCartItems] = useState<CartItems[]>([]);
 
   const updateCart = (action: CartActions, book?: BookDetails) => {
-    setCartItems((cartItems) => {
-      let flag = false;
-      cartItems.forEach((cartItem, index) => {
-        if (cartItem.book.bookId === book?.bookId) {
-          if (action === CartActions.ADD) {
-            cartItem.quantity += 1;
-            showToast(Toast.SUCCESS, "Book added to cart");
+    if (action === CartActions.EMPTY) {
+      setCartItems([]);
+      setItemCount(0);
+    } else
+      setCartItems((cartItems) => {
+        let flag = false;
+        cartItems.forEach((cartItem, index) => {
+          if (cartItem.book.bookId === book?.bookId) {
+            if (action === CartActions.ADD) {
+              cartItem.quantity += 1;
+              showToast(Toast.SUCCESS, "Book added to cart");
+            }
+            if (action === CartActions.REDUCE && cartItem.quantity > 1)
+              cartItem.quantity -= 1;
+            if (action === CartActions.REMOVE) cartItems.splice(index, 1);
+            flag = true;
           }
-          if (action === CartActions.REDUCE && cartItem.quantity > 1)
-            cartItem.quantity -= 1;
-          if (action === CartActions.REMOVE) cartItems.splice(index, 1);
-          flag = true;
+        });
+        if (!flag) {
+          cartItems.push({ book: book!, quantity: 1 });
+          showToast(Toast.SUCCESS, "Book added to cart");
         }
+
+        setItemCount(cartItems.length);
+        return [...cartItems];
       });
-      if (!flag) {
-        cartItems.push({ book: book!, quantity: 1 });
-        showToast(Toast.SUCCESS, "Book added to cart");
-      }
-      if (action === CartActions.EMPTY) setCartItems([]);
-      setItemCount(cartItems.length);
-      return [...cartItems];
-    });
   };
 
   return (

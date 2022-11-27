@@ -72,10 +72,8 @@ export default function DetailsModal(props: IDetailsModal) {
 
     uploadImage.on(
       "state_changed",
-      (_) => {},
-      (error) => {
-        console.log("Error :", error);
-      },
+      () => {},
+      () => {},
       () => {
         getDownloadURL(uploadImage.snapshot.ref).then((url) => {
           const body = {
