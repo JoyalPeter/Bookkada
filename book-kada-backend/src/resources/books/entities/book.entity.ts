@@ -1,5 +1,4 @@
 import { Order } from "src/resources/orders/entities/order.entity";
-import { Photo } from "src/resources/photos/entities/photo.entity";
 import { Rating } from "src/resources/ratings/entities/rating.entity";
 import { User } from "src/resources/users/entities/user.entity";
 import {
@@ -31,6 +30,9 @@ export class Book {
   @Column()
   author: string;
 
+  @Column()
+  cover:string
+
   // @Column()
   // category:string;
 
@@ -41,10 +43,6 @@ export class Book {
   @OneToMany(() => Rating, (rating) => rating.book)
   @JoinColumn({ name: "ratings" })
   ratings: Rating[];
-
-  @OneToMany(() => Photo, (photo) => photo.book)
-  @JoinColumn({ name: "photos" })
-  photos: Photo[];
 
   @OneToMany(() => Order, (order) => order.book)
   @JoinColumn({ name: "orders" })

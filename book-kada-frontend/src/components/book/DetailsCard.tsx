@@ -25,6 +25,7 @@ export interface BookDetails {
   author: string;
   ratings: RatingInterface[];
   rating: number;
+  cover: string;
 }
 
 const DetailsCard: FC<DetailsProps> = ({}) => {

@@ -6,10 +6,9 @@ import { Book } from './entities/book.entity';
 import { Rating } from '../ratings/entities/rating.entity';
 import { RatingsService } from '../ratings/ratings.service';
 import { Order } from '../orders/entities/order.entity';
-import { Photo } from '../photos/entities/photo.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Book, Rating,Order,Photo])],
+  imports: [TypeOrmModule.forFeature([Book, Rating,Order])],
   controllers: [BooksController],
   providers: [BooksService, RatingsService],
 })

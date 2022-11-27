@@ -6,8 +6,6 @@ import { BooksModule } from './resources/books/books.module';
 import { Book } from './resources/books/entities/book.entity';
 import { Order } from './resources/orders/entities/order.entity';
 import { OrdersModule } from './resources/orders/orders.module';
-import { Photo } from './resources/photos/entities/photo.entity';
-import { PhotosModule } from './resources/photos/photos.module';
 import { Rating } from './resources/ratings/entities/rating.entity';
 import { RatingsModule } from './resources/ratings/ratings.module';
 import { User } from './resources/users/entities/user.entity';
@@ -26,14 +24,13 @@ dotenv.config();
       username: process.env.DATABASE_USERNAME,
       password: process.env.DATABASE_PASSWORD,
       database: process.env.DATABASE_NAME,
-      entities: [User, Book, Order, Photo, Rating],
+      entities: [User, Book, Order, Rating],
       synchronize: true,
     }),
     UsersModule,
     BooksModule,
     RatingsModule,
     OrdersModule,
-    PhotosModule,
     AuthModule,
   ],
   controllers: [AppController],

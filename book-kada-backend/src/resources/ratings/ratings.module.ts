@@ -8,11 +8,10 @@ import { Book } from '../books/entities/book.entity';
 import { User } from '../users/entities/user.entity';
 import { UsersService } from '../users/users.service';
 import { Order } from '../orders/entities/order.entity';
-import { Photo } from '../photos/entities/photo.entity';
 
 
 @Module({
-  imports:[TypeOrmModule.forFeature([Rating,User,Book,Order,Photo])],
+  imports:[TypeOrmModule.forFeature([Rating,User,Book,Order])],
   controllers: [RatingsController],
   providers: [RatingsService,UsersService,BooksService]
 })
