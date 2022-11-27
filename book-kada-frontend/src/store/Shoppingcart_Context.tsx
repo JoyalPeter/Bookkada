@@ -8,7 +8,7 @@ export interface ICartContext {
   itemCount: number;
   setItemCount: React.Dispatch<React.SetStateAction<number>>;
   cartItems: CartItems[];
-  updateCart: (_: BookDetails, action: CartActions) => void;
+  updateCart: (action: CartActions, _?: BookDetails) => void;
 }
 
 export interface ICartContextProviderProps {
@@ -31,11 +31,11 @@ export default function CartContextProvider({
 
   const [cartItems, setCartItems] = useState<CartItems[]>([]);
 
-  const updateCart = (book: BookDetails, action: CartActions) => {
+  const updateCart = (action: CartActions, book?: BookDetails) => {
     setCartItems((cartItems) => {
       let flag = false;
       cartItems.forEach((cartItem, index) => {
-        if (cartItem.book.bookId === book.bookId) {
+        if (cartItem.book.bookId === book?.bookId) {
           if (action === CartActions.ADD) {
             cartItem.quantity += 1;
             showToast(Toast.SUCCESS, "Book added to cart");
@@ -47,9 +47,10 @@ export default function CartContextProvider({
         }
       });
       if (!flag) {
-        cartItems.push({ book: book, quantity: 1 });
+        cartItems.push({ book: book!, quantity: 1 });
         showToast(Toast.SUCCESS, "Book added to cart");
       }
+      if (action === CartActions.EMPTY) setCartItems([]);
       setItemCount(cartItems.length);
       return [...cartItems];
     });
