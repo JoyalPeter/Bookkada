@@ -27,8 +27,7 @@ interface ICards {
 export default function Cards(props: ICards) {
   const navigate = useNavigate();
   const bookContext = useContext(BookContext);
-  const userContext = useContext(UserContext);
-
+  const userContext = useContext(UserContext);  
   const { makeApiCall, loadingFlag } = useApiService();
   const [editFlag, setEditFlag] = useState(false);
 
@@ -47,7 +46,7 @@ export default function Cards(props: ICards) {
           component="img"
           height="150"
           image={props.book.cover}
-          alt="name"
+          alt="Book Cover"
         />
         <CardActionArea>
           <CardContent

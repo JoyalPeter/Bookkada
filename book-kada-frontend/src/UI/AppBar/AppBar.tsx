@@ -11,16 +11,18 @@ import MainAppBar from "./MainAppBar";
 import MobileAppBar from "./MobileAppBar";
 import { useNavigate } from "react-router-dom";
 
+export const emptyBook = {
+  bookId: 0,
+  price: 0,
+  description: "",
+  author: "",
+  name: "",
+  cover: "",
+};
+
 export default function PrimarySearchAppBar() {
   const navigate = useNavigate();
-  const emptyBook = {
-    bookId: 0,
-    price: 0,
-    description: "",
-    author: "",
-    name: "",
-    cover:""
-  };
+  
   const [addFlag, setAddFlag] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =

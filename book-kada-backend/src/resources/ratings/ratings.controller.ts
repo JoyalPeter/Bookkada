@@ -41,6 +41,11 @@ export class RatingsController {
     return await this.ratingsService.findOne(+bookId);
   }
 
+@Get('ratingsCount')
+async ratingCount(){
+  return await this.ratingsService.ratingCount();
+}
+
   @Patch(":id")
   async update(
     @Param("id") id: string,

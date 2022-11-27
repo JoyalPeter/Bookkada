@@ -30,6 +30,11 @@ export class BooksController {
     return this.booksService.findOne(+id);
   }
 
+  @Get('/booksCount')
+  totalCount(){
+    return this.booksService.totalCount();
+  }
+
   @Patch("/updateBook/:id")
   update(@Param("id") id: string, @Body() updateBookDto: UpdateBookDto) {
     return this.booksService.update(+id, updateBookDto);

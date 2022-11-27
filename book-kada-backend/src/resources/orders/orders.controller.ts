@@ -17,7 +17,7 @@ import { BooksService } from '../books/books.service';
 import { ApiBearerAuth } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
 
-@Controller('orders')
+@Controller("orders")
 export class OrdersController {
   constructor(
     private readonly ordersService: OrdersService,
@@ -39,15 +39,20 @@ export class OrdersController {
     return "Orders placed successfully"
   }
 
-  @Get('getAllOrders')
+  @Get("getAllOrders")
   async findAll(id: string) {
     return await this.ordersService.findAll();
   }
 
-  // @ApiBearerAuth()
-  // @UseGuards(AuthGuard('jwt'))
-  @Get('bookOrders/:bookId')
-  async findBooks(@Param('bookId') bookId: string) {
+  @Get("ordersCount")
+  async orderCount() {
+    return this.ordersService.orderCount();
+  }
+
+  @Get("bookOrders/:bookId")
+  @ApiBearerAuth()
+  @UseGuards(AuthGuard("jwt"))
+  async findBooks(@Param("bookId") bookId: string) {
     return await this.ordersService.findBooks(+bookId);
   }
 
@@ -62,16 +67,16 @@ export class OrdersController {
   // @UseGuards(AuthGuard('jwt'))
   @Patch(':id')
   async update(
-    @Param('id') id: string,
-    @Body() updateOrderDto: UpdateOrderDto,
+    @Param("id") id: string,
+    @Body() updateOrderDto: UpdateOrderDto
   ) {
     return await this.ordersService.update(+id, updateOrderDto);
   }
 
-  @Delete(':id')
+  @Delete(":id")
   @ApiBearerAuth()
-  @UseGuards(AuthGuard('jwt'))
-  async remove(@Param('id') id: string) {
+  @UseGuards(AuthGuard("jwt"))
+  async remove(@Param("id") id: string) {
     return await this.ordersService.remove(+id);
   }
 }

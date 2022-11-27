@@ -62,6 +62,12 @@ export class OrdersService {
       });
   }
 
+  async orderCount() {
+    return await this.orderRepo.count().catch(() => {
+      throw new DBException();
+    });
+  }
+
   async update(id: number, updateOrderDto: UpdateOrderDto) {
     return await `This action updates a #${id} order`;
   }

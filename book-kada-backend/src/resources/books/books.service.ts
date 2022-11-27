@@ -64,8 +64,18 @@ export class BooksService {
   }
 
   async search(key: string) {
-    return await this.booksRepo.find({
-      where: [{ name: Like(`%${key}%`) }, { author: Like(`%${key}%`) }],
+    return await this.booksRepo
+      .find({
+        where: [{ name: Like(`%${key}%`) }, { author: Like(`%${key}%`) }],
+      })
+      .catch(() => {
+        throw new DBException();
+      });
+  }
+
+  async totalCount(){
+    return await this.booksRepo.count().catch(() => {
+      throw new DBException();
     });
   }
 
