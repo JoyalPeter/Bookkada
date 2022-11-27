@@ -9,12 +9,11 @@ import { User } from '../users/entities/user.entity';
 import { UsersService } from '../users/users.service';
 import { Rating } from '../ratings/entities/rating.entity';
 import { RatingsService } from '../ratings/ratings.service';
-import { Photo } from '../photos/entities/photo.entity';
 
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Order, User, Book,Rating,Photo])],
+  imports: [TypeOrmModule.forFeature([Order, User, Book, Rating])],
   controllers: [OrdersController],
-  providers: [OrdersService, UsersService, BooksService],
+  providers: [OrdersService, UsersService, BooksService, RatingsService],
 })
 export class OrdersModule {}

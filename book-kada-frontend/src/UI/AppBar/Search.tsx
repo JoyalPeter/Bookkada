@@ -15,7 +15,7 @@ export default function SearchBar() {
   useEffect(() => {
     const timer = setTimeout(() => {
       search(searchKey);
-    }, 1000);
+    }, 200);
 
     return () => {
       clearTimeout(timer);
@@ -49,7 +49,7 @@ export default function SearchBar() {
         const bookName = value?.split(" by")[0];
         let id;
         searchResults.forEach((e) => {
-          if (e.name == bookName) {
+          if (e.name === bookName) {
             id = e.bookId;
           }
         });
