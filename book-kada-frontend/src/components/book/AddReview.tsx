@@ -2,8 +2,7 @@ import * as React from "react";
 import { Rating, Button, TextField, Typography } from "@mui/material";
 import { ReviewDetails } from "./ViewReview";
 import { useContext } from "react";
-import { UserContext } from "../../store/User_Context";
-import { FC, useEffect, useState } from "react";
+import { useState } from "react";
 import { BookDetails } from "./DetailsCard";
 import { Method } from "../../constants/Enums";
 import useApiService from "../../hooks/UseApiService";
@@ -31,8 +30,6 @@ export default function Review({ addReviewFlag, setaddReviewFlag }: IAppProps) {
   function reviewSubmit() {
     setaddReviewFlag(!addReviewFlag);
 
-    console.log(ratingvalue);
-
     makeApiCall(Method.POST, "ratings/addRating", {
       description: reviewdata,
       rating: ratingvalue,
@@ -40,17 +37,15 @@ export default function Review({ addReviewFlag, setaddReviewFlag }: IAppProps) {
       bookId: +id!,
     })
       .then((response: ReviewDetails[]) => {
-        console.log("add review", response);
+        
         bookContext?.setReviews(response);
         makeApiCall(Method.GET, `books/getBook/${id}`)
           .then((bookdetails: BookDetails) => {
             bookContext?.setBookDetails(bookdetails);
-            console.log("hi");
           })
           .catch((error) => error);
       })
       .catch((error) => error);
-    // console.log(addreview);
   }
   return (
     <div>

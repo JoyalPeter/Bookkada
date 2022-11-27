@@ -1,4 +1,4 @@
-import { FC, useContext, useEffect, useState } from "react";
+import { FC, useContext, useEffect } from "react";
 
 import CentreBox from "../../UI/CenterBox";
 import Padding from "../../UI/Padding";
@@ -38,7 +38,6 @@ const DetailsCard: FC<DetailsProps> = ({}) => {
       })
       .catch((error) => error);
   }, []);
-  console.log(loadingFlag);
 
   return (
     <>

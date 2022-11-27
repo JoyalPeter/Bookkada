@@ -1,6 +1,6 @@
 import Padding from "../../UI/Padding";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { Tooltip, IconButton } from "@mui/material";
 import { ShoppingCartContext } from "../../store/Shoppingcart_Context";
 import { Labels } from "../../constants/Labels";

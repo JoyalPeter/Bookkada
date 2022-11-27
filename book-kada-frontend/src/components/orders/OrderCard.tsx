@@ -1,14 +1,11 @@
-import * as React from "react";
 import {
   CardActionArea,
   Typography,
   Theme,
   SxProps,
   CardMedia,
-  Grid,
 } from "@mui/material";
 import Card from "@mui/material/Card";
-
 import { Box } from "@mui/system";
 import RightBox from "../../UI/RightBox";
 import CentreBox from "../../UI/CenterBox";

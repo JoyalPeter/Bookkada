@@ -1,5 +1,4 @@
-import React, { useContext, useEffect } from "react";
-import { FC, useState } from "react";
+import { useContext, useEffect } from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import { Box, Rating, Typography } from "@mui/material";
@@ -8,9 +7,7 @@ import { Method } from "../../constants/Enums";
 import useApiService from "../../hooks/UseApiService";
 import Spinner from "../../UI/Spinner";
 import { useParams } from "react-router-dom";
-import { UserContext } from "../../store/User_Context";
 import { BookContext } from "../../store/Book_Context";
-import { BookDetails } from "./DetailsCard";
 
 interface IAppProps {}
 

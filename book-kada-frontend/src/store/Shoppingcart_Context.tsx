@@ -51,7 +51,6 @@ export default function CartContextProvider({
         showToast(Toast.SUCCESS, "Book added to cart");
       }
       setItemCount(cartItems.length);
-      console.log(cartItems);
       return [...cartItems];
     });
   };

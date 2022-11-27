@@ -1,6 +1,5 @@
 import jwtDecode from "jwt-decode";
 import React, { createContext, useEffect, useState } from "react";
-import { Role } from "../constants/Enums";
 
 export interface UserContextProps {
   userDetails: userDetailsProps;
