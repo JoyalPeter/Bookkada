@@ -51,7 +51,7 @@ export class OrdersService {
       });
   }
 
-  async findUsers(id: number) {
+  async findOrderByUser(id: number) {
     return await this.orderRepo
       .find({
         where: { user: { userId: id } },
