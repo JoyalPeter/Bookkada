@@ -18,6 +18,7 @@ export interface RatingInterface {
 }
 
 export interface BookDetails {
+  bookId: number;
   name: string;
   price: number;
   description: string;
@@ -39,14 +40,14 @@ const DetailsCard: FC<DetailsProps> = ({}) => {
   }, []);
   console.log(loadingFlag);
 
-return (
+  return (
     <>
       <Padding>
         {loadingFlag ? (
           <Spinner />
         ) : (
           <>
-            <DetailsSubCard bookDetails={bookContext?.bookDetails} />
+            <DetailsSubCard book={bookContext?.bookDetails} />
             <CentreBox>
               <h1>Reviews</h1>
             </CentreBox>

@@ -1,30 +1,64 @@
 import * as React from "react";
 import { createContext, useState } from "react";
+import { BookDetails } from "../components/book/DetailsCard";
+import { CartActions, Toast } from "../constants/Enums";
+import showToast from "../utils/Toastify";
 
 export interface ICartContext {
-  cartItems: number;
-  setCartItems: React.Dispatch<React.SetStateAction<number>>;
-  books: Number[];
-  setBooks: React.Dispatch<React.SetStateAction<Number[]>>;
+  itemCount: number;
+  setItemCount: React.Dispatch<React.SetStateAction<number>>;
+  cartItems: CartItems[];
+  updateCart: (_: BookDetails, action: CartActions) => void;
+}
+
+export interface ICartContextProviderProps {
+  children?: React.ReactNode;
+}
+
+export interface CartItems {
+  book: BookDetails;
+  quantity: number;
 }
 
 export const ShoppingCartContext = createContext<ICartContext | undefined>(
   undefined
 );
 
-export interface ICartContextProviderProps {
-  children?: React.ReactNode;
-}
-
 export default function CartContextProvider({
   children,
 }: ICartContextProviderProps) {
-  const [cartItems, setCartItems] = useState(0);
+  const [itemCount, setItemCount] = useState(0);
 
-  const [books, setBooks] = useState<Number[]>([]);
+  const [cartItems, setCartItems] = useState<CartItems[]>([]);
+
+  const updateCart = (book: BookDetails, action: CartActions) => {
+    setCartItems((cartItems) => {
+      let flag = false;
+      cartItems.map((cartItem, index) => {
+        if (cartItem.book.bookId === book.bookId) {
+          if (action === CartActions.ADD) {
+            cartItem.quantity += 1;
+            showToast(Toast.SUCCESS, "Book added to cart");
+          }
+          if (action === CartActions.REDUCE && cartItem.quantity > 1)
+            cartItem.quantity -= 1;
+          if (action === CartActions.REMOVE) cartItems.splice(index, 1);
+          flag = true;
+        }
+      });
+      if (!flag) {
+        cartItems.push({ book: book, quantity: 1 });
+        showToast(Toast.SUCCESS, "Book added to cart");
+      }
+      setItemCount(cartItems.length);
+      console.log(cartItems);
+      return [...cartItems];
+    });
+  };
+
   return (
     <ShoppingCartContext.Provider
-      value={{ cartItems, setCartItems, books, setBooks }}
+      value={{ itemCount, setItemCount, cartItems, updateCart }}
     >
       {children}
     </ShoppingCartContext.Provider>

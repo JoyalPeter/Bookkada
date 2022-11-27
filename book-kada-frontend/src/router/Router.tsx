@@ -25,10 +25,26 @@ export default function Router() {
           }
         />
         <Route path="/details/:id" element={<DetailsPage />} />
-        <Route path="/orders" element={<OrderPage />} />
+
+        <Route
+          path="/orders"
+          element={
+            <ProtectedRoute>
+              <OrderPage />
+            </ProtectedRoute>
+          }
+        />
+
         <Route path="/signup" element={<Signup />} />
-        <Route path="/admin" element={<AdminPage />} />
         <Route path="/profile" element={<ProfilePage/>}/>
+        <Route
+          path="/admin"
+          element={
+            <ProtectedRoute>
+              <AdminPage />
+            </ProtectedRoute>
+          }
+        />
         <Route path="/*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
