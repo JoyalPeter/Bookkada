@@ -62,7 +62,7 @@ export default function ProfileModule() {
     <LoadedComponent loadingFlag={loadingFlag}>
       <Padding>
         {response && (
-          <Card sx={{ marginTop: 10 }}>
+          <Card sx={{ marginTop: 8 }}>
             <Container component="main" maxWidth="xs">
               <CenterBox sx={{ marginTop: 10 }}>
                 <Avatar
@@ -70,8 +70,8 @@ export default function ProfileModule() {
                     m: 1,
                     bgcolor: "secondary.main",
 
-                    width: 200,
-                    height: 200,
+                    width: 100,
+                    height: 100,
                   }}
                 />
                 <Typography component="h1" variant="h5">

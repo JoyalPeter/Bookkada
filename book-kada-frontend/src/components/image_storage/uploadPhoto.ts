@@ -10,13 +10,8 @@ export default function uploadPhoto(photo: File) {
 
   uploadImage.on(
     "state_changed",
-
-    (_) => { },
-
-
-    (error) => {
-      console.log("Error :", error);
-    },
+    () => { },
+    () => { },
     () => {
       getDownloadURL(uploadImage.snapshot.ref).then((url) => {
         setUrl(url);
