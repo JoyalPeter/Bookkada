@@ -1,17 +1,21 @@
 import Padding from "../../UI/Padding";
 import {
+  Avatar,
   Box,
-  Button,
-  Card,
-  CardMedia,
-  Stack,
+  Container,
+  Grid,
   TextField,
   Typography,
 } from "@mui/material";
+import { IconButton } from "@mui/material";
+import BuildIcon from "@mui/icons-material/Build";
+import EditIcon from "@mui/icons-material/Edit";
 import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../store/User_Context";
 import useApiService from "../../hooks/UseApiService";
 import { Method } from "../../constants/Enums";
+import CenterBox from "../../UI/CenterBox";
+
 
 export interface IAppProps {}
 
@@ -24,7 +28,7 @@ export interface UserDetails {
 export default function ProfileModule(props: IAppProps) {
   const usercontext = useContext(UserContext);
   const [response, setResponse] = useState<UserDetails | null>(null);
-  const { makeApiCall, loadingFlag } = useApiService();
+  const { makeApiCall } = useApiService();
   const [updateflag, setupdateflag] = useState(false);
   const [newName, setNewName] = useState("");
   const [newEmail, setNewEmail] = useState("");
@@ -32,11 +36,10 @@ export default function ProfileModule(props: IAppProps) {
   useEffect(() => {
     makeApiCall(Method.GET, `users/${userid}`).then((response: UserDetails) => {
       setResponse(response);
-     
     });
   });
   function updateUserProfile() {
-    setupdateflag(!updateflag);  
+    setupdateflag(!updateflag);
   }
   function userProfileUpdated() {
     makeApiCall(Method.PATCH, `users/updateUser/${userid}`, {
@@ -49,59 +52,80 @@ export default function ProfileModule(props: IAppProps) {
     <>
       <Padding>
         {response && (
-          <Card
-            sx={{
-              width: 1,
-              display: "grid",
-              gap: 1,
-              height: 200,
-              gridTemplateColumns: "repeat(4, 1fr)",
-            }}
-          >
-            <Box>
-              <CardMedia
-                component="img"
-                height="100%"
-                width="100%"
-                image="https://c1.wallpaperflare.com/preview/127/366/443/library-book-bookshelf-read.jpg"
-                alt="green iguana"
-              />
-            </Box>
-            <Box>
-              {/* <CentreBox> */}
-              <Stack spacing={2}>
-                <Typography variant="h5">Name : {response.name}</Typography>
-                <Typography variant="h5"> Email : {response.email} </Typography>
-                <Button onClick={updateUserProfile}>Update</Button>
-              </Stack>
-              {/* </CentreBox> */}
-            </Box>
-            <Box>
-              <Typography>
-                {updateflag && (
-                  <Box>
-                    <Stack spacing={2}>
-                      Enter New Name
+          <Container component="main" maxWidth="xs">
+            <CenterBox sx={{ marginTop: 20 }}>
+              <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}></Avatar>
+              <Typography component="h1" variant="h5">
+                Profile
+              </Typography>
+              <Typography component="h1" variant="h5">
+                Name : {response.name}
+              </Typography>
+              <Typography component="h1" variant="h5">
+                Email : {response.email}
+              </Typography>
+              <Grid container justifyContent="center">
+                <IconButton
+                  onClick={updateUserProfile}
+                  sx={{ mt: 3, mb: 2 }}
+                  aria-label="delete"
+                >
+                  <EditIcon />
+                </IconButton>
+              </Grid>
+              {updateflag && (
+                <Box>
+                  <Grid container spacing={2}>
+                    <Grid item xs={12}>
                       <TextField
-                        variant="outlined"
-                        size="small"
+                        autoComplete="given-name"
+                        name="firstname"
+                        required
+                        fullWidth
+                        id="first name"
+                        label={`${response.name}`}
+                        autoFocus
                         onChange={(e) => setNewName(e.target.value)}
                       />
-                      Enter New Email
+                    </Grid>
+                    <Grid item xs={12}>
                       <TextField
-                        variant="outlined"
-                        size="small"
-                        onChange={(e) => {
-                          setNewEmail(e.target.value);
-                        }}
+                        required
+                        fullWidth
+                        id="email"
+                        label={`${response.email}`}
+                        name="email"
+                        autoComplete="email"
+                        onChange={(e) => setNewEmail(e.target.value)}
                       />
-                      <Button onClick={userProfileUpdated}>Update</Button>
-                    </Stack>
-                  </Box>
-                )}
-              </Typography>
-            </Box>
-          </Card>
+                    </Grid>
+                    {/* <Grid item xs={12}>
+                      <TextField
+                        required
+                        fullWidth
+                        name="password"
+                        label={``}
+                        type="password"
+                        id="password"
+                        autoComplete="new-password"
+                      />
+                    </Grid> */}
+                    <Grid item xs={12} container justifyContent="center">
+                      <IconButton onClick={userProfileUpdated}>
+                        <BuildIcon />
+                      </IconButton>
+                    </Grid>
+                  </Grid>
+
+                  {/* <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained" 
+                > */}
+                </Box>
+              )}
+            </CenterBox>
+          </Container>
         )}
       </Padding>
     </>

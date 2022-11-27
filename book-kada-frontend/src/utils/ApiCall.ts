@@ -1,8 +1,6 @@
 import axios from "axios";
-import { useContext } from "react";
 
 import { Method } from "../constants/Enums";
-import { UserContext } from "../store/User_Context";
 
 export function ApiCall(
   method: Method,
