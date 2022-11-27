@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   Card,
@@ -11,7 +11,6 @@ import {
   Button,
 } from "@mui/material";
 import Cart from "./Shoppingcart";
-import { BookDataProps } from "./HomeComponent";
 import { Method, ModalUse, Role, Toast } from "../../constants/Enums";
 import useApiService from "../../hooks/UseApiService";
 import { BookContext } from "../../store/Book_Context";

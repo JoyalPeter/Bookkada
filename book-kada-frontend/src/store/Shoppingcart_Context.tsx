@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import { createContext, useState } from "react";
 import { BookDetails } from "../components/book/DetailsCard";
 import { CartActions, Toast } from "../constants/Enums";

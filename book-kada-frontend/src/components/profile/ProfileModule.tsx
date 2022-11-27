@@ -8,7 +8,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import * as React from "react";
+import React from "react";
 import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../store/User_Context";
 import useApiService from "../../hooks/UseApiService";
@@ -33,11 +33,10 @@ export default function ProfileModule(props: IAppProps) {
   useEffect(() => {
     makeApiCall(Method.GET, `users/${userid}`).then((response: UserDetails) => {
       setResponse(response);
-     
     });
   });
   function updateUserProfile() {
-    setupdateflag(!updateflag);  
+    setupdateflag(!updateflag);
   }
   function userProfileUpdated() {
     makeApiCall(Method.PATCH, `users/updateUser/${userid}`, {
@@ -88,7 +87,7 @@ export default function ProfileModule(props: IAppProps) {
                       variant="outlined"
                       size="small"
                       onChange={(e) => {
-                          setNewEmail(e.target.value)
+                        setNewEmail(e.target.value);
                       }}
                     />
                     <Button onClick={userProfileUpdated}>Update</Button>

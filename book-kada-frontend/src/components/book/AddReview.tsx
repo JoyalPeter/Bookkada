@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import { Rating, Button, TextField, Typography } from "@mui/material";
 import { ReviewDetails } from "./ViewReview";
 import { useContext } from "react";
@@ -73,7 +73,7 @@ export default function Review({ addReviewFlag, setaddReviewFlag }: IAppProps) {
           name="simple-controlled"
           defaultValue={2.5}
           precision={0.5}
-          onChange={(event, newValue) => {
+          onChange={(_, newValue) => {
             setRatingValue(newValue);
           }}
         />

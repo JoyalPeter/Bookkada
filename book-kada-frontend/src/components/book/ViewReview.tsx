@@ -1,19 +1,14 @@
-import React, { useContext, useEffect } from "react";
-import { FC, useState } from "react";
+import { useContext, useEffect } from "react";
+
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import { Box, Rating, Typography } from "@mui/material";
 import CentreBox from "../../UI/CenterBox";
 import { Method } from "../../constants/Enums";
 import useApiService from "../../hooks/UseApiService";
-import Spinner from "../../UI/Spinner";
 import { useParams } from "react-router-dom";
-import { UserContext } from "../../store/User_Context";
 import { BookContext } from "../../store/Book_Context";
-import { BookDetails } from "./DetailsCard";
 import LoadedComponent from "../../UI/LoadedComponent";
-
-interface IAppProps {}
 
 export interface UserInterface {
   name: string;
@@ -25,7 +20,7 @@ export interface ReviewDetails {
   user: UserInterface;
 }
 
-export default function ViewReview(props: IAppProps) {
+export default function ViewReview() {
   const bookContext = useContext(BookContext);
   const { makeApiCall, loadingFlag } = useApiService();
   const { id } = useParams();
