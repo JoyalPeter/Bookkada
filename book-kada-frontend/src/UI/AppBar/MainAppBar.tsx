@@ -6,7 +6,7 @@ import {
   Login,
   AccountCircle,
 } from "@mui/icons-material";
-import { Box, IconButton, Typography } from "@mui/material";
+import { Box, IconButton, Tooltip, Typography } from "@mui/material";
 import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { Themes, Role } from "../../constants/Enums";
@@ -47,22 +47,33 @@ export default function MainAppBar({
         onClick={handleModeChange}
         color="inherit"
       >
-        {themeMode?.themeMode === Themes.DARK ? <LightMode /> : <DarkMode />}
+        {themeMode?.themeMode === Themes.DARK ? (
+          <Tooltip title="Switch to Light Mode">
+            <LightMode />
+          </Tooltip>
+        ) : (
+          <Tooltip title="Switch to Dark Mode">
+            <DarkMode />
+          </Tooltip>
+        )}
       </IconButton>
       {userDetails?.userDetails.role !== Role.ADMIN ? (
-        <IconButton
-          size="large"
-          aria-label="cart of current user"
-          aria-controls={menuId}
-          aria-haspopup="true"
-          onClick={() => navigate("/cart")}
-          color="inherit"
-        >
-          <ShoppingCartSharp />
-          {(shoppingcartData?.itemCount === 0 || shoppingcartData !== null) && (
-            <Typography>{shoppingcartData?.itemCount}</Typography>
-          )}
-        </IconButton>
+        <Tooltip title="Cart">
+          <IconButton
+            size="large"
+            aria-label="cart of current user"
+            aria-controls={menuId}
+            aria-haspopup="true"
+            onClick={() => navigate("/cart")}
+            color="inherit"
+          >
+            <ShoppingCartSharp />
+            {(shoppingcartData?.itemCount === 0 ||
+              shoppingcartData !== null) && (
+              <Typography>{shoppingcartData?.itemCount}</Typography>
+            )}
+          </IconButton>
+        </Tooltip>
       ) : (
         <IconButton
           size="large"

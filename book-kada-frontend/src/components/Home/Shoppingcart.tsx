@@ -16,7 +16,7 @@ export default function Cart({ book }: CartProps) {
   const Shoppingcart = useContext(ShoppingCartContext);
   return (
     <Padding>
-      <Tooltip title={tooltip}>
+      <Tooltip title="Add to Cart">
         <IconButton
           onClick={() => {
             Shoppingcart?.updateCart(book, CartActions.ADD);
