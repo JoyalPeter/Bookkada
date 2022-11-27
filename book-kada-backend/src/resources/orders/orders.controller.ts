@@ -44,25 +44,23 @@ export class OrdersController {
     return await this.ordersService.findAll();
   }
 
-
+  // @ApiBearerAuth()
+  // @UseGuards(AuthGuard('jwt'))
   @Get('bookOrders/:bookId')
-  @ApiBearerAuth()
-  @UseGuards(AuthGuard('jwt'))
   async findBooks(@Param('bookId') bookId: string) {
     return await this.ordersService.findBooks(+bookId);
   }
 
-
+  // @ApiBearerAuth()
+  // @UseGuards(AuthGuard('jwt'))
   @Get('userOrders/:userId')
-  @ApiBearerAuth()
-  @UseGuards(AuthGuard('jwt'))
-  async findUsers(@Param('userId') userId: string) {
-    return await this.ordersService.findUsers(+userId);
+  async findOrderByUser(@Param('userId') userId: string) {
+    return await this.ordersService.findOrderByUser(+userId);
   }
 
+  // @ApiBearerAuth()
+  // @UseGuards(AuthGuard('jwt'))
   @Patch(':id')
-  @ApiBearerAuth()
-  @UseGuards(AuthGuard('jwt'))
   async update(
     @Param('id') id: string,
     @Body() updateOrderDto: UpdateOrderDto,
