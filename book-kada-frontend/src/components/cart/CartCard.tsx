@@ -10,7 +10,7 @@ import {
   Button,
 } from "@mui/material";
 
-import { ArrowUpward, ArrowDownward } from "@mui/icons-material";
+import { ArrowDropUp, ArrowDropDown } from "@mui/icons-material";
 import { Box } from "@mui/system";
 import CentreBox from "../../UI/CenterBox";
 import { BookDetails } from "../book/DetailsCard";
@@ -66,7 +66,7 @@ export default function CartCard({ book, quantity }: ICartCardProps) {
                 shoppingCartContext?.updateCart(book, CartActions.ADD)
               }
             >
-              <ArrowUpward />
+              <ArrowDropUp />
             </IconButton>
             <CentreBox>{quantity}</CentreBox>
             <IconButton
@@ -75,7 +75,7 @@ export default function CartCard({ book, quantity }: ICartCardProps) {
                 shoppingCartContext?.updateCart(book, CartActions.REDUCE)
               }
             >
-              <ArrowDownward />
+              <ArrowDropDown />
             </IconButton>
           </Stack>
         </Box>

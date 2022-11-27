@@ -10,7 +10,7 @@ export default function uploadPhoto(photo: File) {
 
   uploadImage.on(
     "state_changed",
-    (snapshot) => {},
+    (_) => { },
     (error) => {
       console.log("Error :", error);
     },
