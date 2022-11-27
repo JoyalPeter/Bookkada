@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import useLogout from "../../hooks/UseLogout";
+import { useNavigate } from "react-router-dom";
+import { UserContext } from "../../store/User_Context";
+import { Role } from "../../constants/Enums";
 
 export interface IUseMenuProps {
   anchorEl: HTMLElement | null;
@@ -12,22 +15,15 @@ export interface IUseMenuProps {
   >;
 }
 
-export default function useMenu({
-  anchorEl,
-  setAnchorEl,
-  setMobileMoreAnchorEl,
-}: IUseMenuProps) {
+export default function useMenu({ anchorEl, setAnchorEl }: IUseMenuProps) {
   const { logout } = useLogout();
   const isMenuOpen = Boolean(anchorEl);
-
-  const handleMobileMenuClose = () => {
-    setMobileMoreAnchorEl(null);
-  };
+  const userContext = useContext(UserContext);
 
   const handleMenuClose = () => {
     setAnchorEl(null);
-    handleMobileMenuClose();
   };
+  const navigate = useNavigate();
   const menuId = "primary-search-account-menu";
   const renderMenu = (
     <Menu
@@ -45,8 +41,10 @@ export default function useMenu({
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
       <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      {userContext?.userDetails.role === Role.CLIENT && (
+        <MenuItem onClick={() => navigate("/orders")}>My Orders</MenuItem>
+      )}
       <MenuItem onClick={logout}>Logout</MenuItem>
     </Menu>
   );

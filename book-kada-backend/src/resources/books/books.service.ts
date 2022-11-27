@@ -68,7 +68,9 @@ export class BooksService {
   }
 
   async search(key: string) {
-    return await this.booksRepo.find({ where: { name: Like(`%${key}%`) } });
+    return await this.booksRepo.find({
+      where: [{ name: Like(`%${key}%`) }, { author: Like(`%${key}%`) }],
+    });
   }
 
   async remove(id: number) {
