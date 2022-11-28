@@ -24,11 +24,13 @@ export default function SignIn() {
   const { validateSignin, errorTexts } = useSigninValidate();
   const { makeApiCall, loadingFlag } = useApiService();
   const usercontext = useContext(UserContext);
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     let email = data.get("email") as string | null;
     let password = data.get("password") as string | null;
+    
     if (validateSignin(email, password)) {
       makeApiCall(Method.POST, "signin", { email, pass: password })
         .then((response) => {
