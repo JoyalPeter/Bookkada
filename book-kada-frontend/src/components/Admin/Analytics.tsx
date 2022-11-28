@@ -7,10 +7,12 @@ import Divider from "@mui/material/Divider";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
 import CloseIcon from "@mui/icons-material/Close";
 import Slide from "@mui/material/Slide";
 import { TransitionProps } from "@mui/material/transitions";
+import { userDetailsProps } from "../../store/User_Context";
+import { Order } from "../orders/OrderCard";
+import { IReviews } from "../../pages/AdminPage";
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & {
@@ -21,20 +23,24 @@ const Transition = React.forwardRef(function Transition(
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function FullScreenDialog(props:{open:boolean}) {
-  
-  const [open, setOpen] = React.useState(true);
+interface IFullScreenDialog {
+  open: boolean;
+  setOpen: Function;
+  users?: userDetailsProps[];
+  orders?: Order[];
+  reviews?: IReviews[];
+}
 
+export default function FullScreenDialog(props: IFullScreenDialog) {
   const handleClose = () => {
-    setOpen(false);
+    props.setOpen(false);
   };
 
   return (
     <div>
-      
       <Dialog
         fullScreen
-        open={props.open&&open}
+        open={props.open}
         onClose={handleClose}
         TransitionComponent={Transition}
       >
@@ -48,23 +54,41 @@ export default function FullScreenDialog(props:{open:boolean}) {
             >
               <CloseIcon />
             </IconButton>
-            <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
-              Users
-            </Typography>
             
           </Toolbar>
         </AppBar>
         <List>
-          <ListItem button>
-            <ListItemText primary="Phone ringtone" secondary="Titania" />
-          </ListItem>
-          <Divider />
-          <ListItem button>
-            <ListItemText
-              primary="Default notification ringtone"
-              secondary="Tethys"
-            />
-          </ListItem>
+          {props.users?.map((user) => (
+            <>
+              <ListItem button>
+                <ListItemText primary={user.name} secondary={user.role} />
+              </ListItem>
+              <Divider />
+            </>
+          ))}
+          {props.orders?.map((order) => (
+            <>
+              <ListItem button>
+                <ListItemText
+                  primary={order.book.name}
+                  secondary={`Quantity : ${order.quantity}`}
+                  
+                />
+              </ListItem>
+              <Divider />
+            </>
+          ))}
+          {props.reviews?.map((review) => (
+            <>
+              <ListItem button>
+                <ListItemText
+                  primary={`${review.book.name} - ${review.rating} Stars`}
+                  secondary={`${review.user.name} - "${review.description}"`}
+                />
+              </ListItem>
+              <Divider />
+            </>
+          ))}
         </List>
       </Dialog>
     </div>

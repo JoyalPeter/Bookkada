@@ -45,7 +45,10 @@ export default function useMenu({ anchorEl, setAnchorEl }: IUseMenuProps) {
       {userContext?.userDetails.role === Role.CLIENT ? (
         <MenuItem onClick={() => navigate("/orders")}>My Orders</MenuItem>
       ) : (
-        <MenuItem onClick={() => navigate("/signup")}>Add User</MenuItem>
+        <>
+          <MenuItem onClick={() => navigate("/signup")}>Add User</MenuItem>
+          <MenuItem onClick={() => navigate("/admin")}>DashBoard</MenuItem>
+        </>
       )}
       <MenuItem onClick={logout}>Logout</MenuItem>
     </Menu>
