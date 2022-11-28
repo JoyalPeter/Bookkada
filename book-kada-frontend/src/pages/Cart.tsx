@@ -1,9 +1,10 @@
-import { Button, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import { useContext } from "react";
 import CartContents from "../components/cart/CartContents";
 import useCheckoutCart from "../components/cart/CheckoutCart";
 import { ShoppingCartContext } from "../store/Shoppingcart_Context";
 import PrimarySearchAppBar from "../UI/AppBar/AppBar";
+import Button from "../UI/Button";
 import CentreBox from "../UI/CenterBox";
 import LoadedComponent from "../UI/LoadedComponent";
 import Padding from "../UI/Padding";
@@ -23,9 +24,7 @@ export default function CartPage() {
           <Padding>
             <RightBox>
               <LoadedComponent loadingFlag={loadingFlag}>
-                <Button onClick={checkout} variant="contained">
-                  Proceed to checkout
-                </Button>
+                <Button onClick={checkout}>Proceed to checkout</Button>
               </LoadedComponent>
             </RightBox>
           </Padding>

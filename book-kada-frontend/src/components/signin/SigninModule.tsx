@@ -80,6 +80,7 @@ export default function SignIn() {
           />
           <LoadedComponent loadingFlag={loadingFlag}>
             <Button
+              color="secondary"
               type="submit"
               fullWidth
               variant="contained"
