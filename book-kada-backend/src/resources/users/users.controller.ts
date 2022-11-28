@@ -15,7 +15,7 @@ import { UpdateUserDto } from "./dto/update-user.dto";
 
 @Controller("users")
 export class UsersController {
-  constructor(private readonly usersService: UsersService) { }
+  constructor(private readonly usersService: UsersService) {}
 
   @Post("signup")
   async create(
@@ -41,7 +41,6 @@ export class UsersController {
   async findOne(@Param("id") id: string) {
     return await this.usersService.findOne(+id);
   }
-
 
   @Patch("/updateUser/:id")
   async update(@Param("id") id: string, @Body() updateUserDto: UpdateUserDto) {
