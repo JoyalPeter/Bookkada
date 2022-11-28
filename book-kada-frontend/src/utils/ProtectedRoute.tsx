@@ -10,6 +10,9 @@ export default function ProtectedRoute({ children }: IProtectedRouteProps) {
 
   useEffect(() => {
     if (localStorage.getItem("token") === null) logout();
+    
+    
+    
   }, []);
 
   return <>{children}</>;

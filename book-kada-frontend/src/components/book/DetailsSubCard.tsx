@@ -73,7 +73,12 @@ export default function DetailsSubCard({ book }: DetailsProps) {
           <LeftBox>
             <Typography gutterBottom variant="h5" component="div">
               Rating :{" "}
-              <Rating name="half-rating" value={2.5} precision={0.5} readOnly />
+              <Rating
+                name="half-rating"
+                value={book?.rating}
+                precision={0.5}
+                readOnly
+              />
             </Typography>
           </LeftBox>
           <Typography gutterBottom variant="h3" component="div">
