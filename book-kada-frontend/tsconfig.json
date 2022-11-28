@@ -9,7 +9,6 @@
     "noImplicitAny": true,
     "strictNullChecks": true,
     "noUnusedParameters": true,
-    
     "noUnusedLocals": true,
     "sourceMap": true,
     "allowJs": true,
