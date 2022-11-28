@@ -78,7 +78,7 @@ export default function Cards(props: ICards) {
             </>
           </CardContent>
         </CardActionArea>
-        <CardActions>
+        <CardActions color="secondary">
           {userContext?.userDetails.role === Role.ADMIN ? (
             <>
               <Button onClick={() => setEditFlag(true)}>Edit</Button>

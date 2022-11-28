@@ -4,7 +4,6 @@ import {
   Theme,
   ThemeOptions,
 } from "@mui/material/styles";
-import { purple, grey } from "@mui/material/colors";
 
 import { useContext } from "react";
 import { ThemeContext } from "../store/Theme_Context";
@@ -31,11 +30,15 @@ export default function useCustomTheme(): Theme {
         : {
             mode: themeMode?.themeMode,
             primary: {
-              light: purple[300],
-              main: purple[400],
-              dark: purple[500],
+              light: "#fb917c",
+              main: "#ee674b",
+              dark: "#eb5538",
             },
-            secondary: { light: grey[100], main: grey[400], dark: grey[800] },
+            secondary: { light: "#fa7d89", main: "#ed5866", dark: "#cc424f" },
+            background: {
+              default: "#252a38",
+              paper: "50596f",
+            },
           },
     shadows: Array(25).fill("none") as Shadows,
   };
