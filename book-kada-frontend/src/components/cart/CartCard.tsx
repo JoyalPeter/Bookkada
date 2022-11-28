@@ -37,8 +37,8 @@ export default function CartCard({ book, quantity }: ICartCardProps) {
       <CardActionArea>
         <CardMedia
           component="img"
-          height="100%"
-          width="100%"
+          height="200"
+          width="150"
           image={book.cover}
           alt="name"
         />
