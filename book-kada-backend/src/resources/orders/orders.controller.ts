@@ -56,15 +56,11 @@ export class OrdersController {
     return await this.ordersService.findBooks(+bookId);
   }
 
-  // @ApiBearerAuth()
-  // @UseGuards(AuthGuard('jwt'))
   @Get('userOrders/:userId')
   async findOrderByUser(@Param('userId') userId: string) {
     return await this.ordersService.findOrderByUser(+userId);
   }
 
-  // @ApiBearerAuth()
-  // @UseGuards(AuthGuard('jwt'))
   @Patch(':id')
   async update(
     @Param("id") id: string,
