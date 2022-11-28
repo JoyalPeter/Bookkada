@@ -41,7 +41,7 @@ export default function Cards(props: ICards) {
   }
   return (
     <>
-      <Card sx={{ maxWidth: 275, boxShadow: 5, m: 1, maxHeight: 500 }}>
+      <Card sx={{ maxWidth: 275, boxShadow: 5, m: 1, maxHeight: 500, width:300 }}>
         <CardMedia
           component="img"
           height="150"

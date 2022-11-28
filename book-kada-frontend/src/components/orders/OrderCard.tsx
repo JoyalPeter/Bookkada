@@ -54,8 +54,8 @@ export default function OrderCard() {
             <CardActionArea>
               <CardMedia
                 component="img"
-                height="100%"
-                width="100%"
+                height="200"
+                width="150"
                 image={order.book.cover}
                 alt="green iguana"
               />
