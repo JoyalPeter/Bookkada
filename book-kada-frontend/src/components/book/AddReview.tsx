@@ -1,5 +1,5 @@
 import React from "react";
-import { Rating, Button, TextField, Typography } from "@mui/material";
+import { Rating, TextField, Typography } from "@mui/material";
 import { ReviewDetails } from "./ViewReview";
 import { useContext } from "react";
 import { UserContext } from "../../store/User_Context";
@@ -10,6 +10,7 @@ import useApiService from "../../hooks/UseApiService";
 import { BookContext } from "../../store/Book_Context";
 import { useParams } from "react-router-dom";
 import LoadedComponent from "../../UI/LoadedComponent";
+import Button from "../../UI/Button";
 
 export interface IAppProps {
   addReviewFlag: Boolean;
@@ -73,9 +74,7 @@ export default function Review({ addReviewFlag, setaddReviewFlag }: IAppProps) {
           }}
         />
         <LoadedComponent loadingFlag={loadingFlag}>
-          <Button variant="contained" onClick={reviewSubmit}>
-            Submit
-          </Button>
+          <Button onClick={reviewSubmit}>Submit</Button>
         </LoadedComponent>
       </Typography>
     </div>

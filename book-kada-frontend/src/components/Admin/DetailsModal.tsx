@@ -1,5 +1,4 @@
 import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import CloseIcon from "@mui/icons-material/Close";
@@ -15,6 +14,7 @@ import LoadedComponent from "../../UI/LoadedComponent";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { storage } from "../image_storage/uploadConfig";
 import LeftBox from "../../UI/LeftBox";
+import Button from "../../UI/Button";
 
 const style = {
   position: "absolute" as "absolute",
@@ -159,18 +159,17 @@ export default function DetailsModal(props: IDetailsModal) {
             )}
             <LoadedComponent loadingFlag={loadingFlag}>
               <LeftBox>
-                  <Button
-                    variant="contained"
-                    onClick={() => {
-                      if (props.modalUse === ModalUse.EDIT) {
-                        editBook(props.bookData.bookId);
-                      } else {
-                        addBook();
-                      }
-                    }}
-                  >
-                    Submit
-                  </Button>
+                <Button
+                  onClick={() => {
+                    if (props.modalUse === ModalUse.EDIT) {
+                      editBook(props.bookData.bookId);
+                    } else {
+                      addBook();
+                    }
+                  }}
+                >
+                  Submit
+                </Button>
               </LeftBox>
             </LoadedComponent>
           </Typography>

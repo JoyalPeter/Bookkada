@@ -128,6 +128,7 @@ export default function SignUpModule() {
           <LoadedComponent loadingFlag={loadingFlag}>
             <Button
               type="submit"
+              color="secondary"
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}

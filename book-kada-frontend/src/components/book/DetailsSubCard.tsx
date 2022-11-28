@@ -4,7 +4,7 @@ import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
-import { CardActionArea, Rating, Button, Typography } from "@mui/material";
+import { CardActionArea, Rating, Typography } from "@mui/material";
 import CentreBox from "../../UI/CenterBox";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import LeftBox from "../../UI/LeftBox";
@@ -23,6 +23,7 @@ import DetailsModal from "../Admin/DetailsModal";
 import showToast from "../../utils/Toastify";
 import useApiService from "../../hooks/UseApiService";
 import { useNavigate } from "react-router-dom";
+import Button from "../../UI/Button";
 
 interface DetailsProps {
   book: BookDetails | null | undefined;
@@ -90,11 +91,8 @@ export default function DetailsSubCard({ book }: DetailsProps) {
           {userContext?.userDetails.role !== Role.ADMIN ? (
             <CentreBox>
               <Box sx={{ display: "flex", gap: 5 }}>
-                <Button variant="contained" onClick={addReview}>
-                  Add Review
-                </Button>
+                <Button onClick={addReview}>Add Review</Button>
                 <Button
-                  variant="contained"
                   onClick={() => {
                     shoppingCartContext?.updateCart(CartActions.ADD, book!);
                   }}
@@ -107,11 +105,8 @@ export default function DetailsSubCard({ book }: DetailsProps) {
           ) : (
             <CentreBox>
               <Box sx={{ display: "flex", gap: 5 }}>
-                <Button variant="contained" onClick={() => setEditFlag(true)}>
-                  Edit
-                </Button>
+                <Button onClick={() => setEditFlag(true)}>Edit</Button>
                 <Button
-                  variant="contained"
                   onClick={() => {
                     deleteBook((book as BookDetails).bookId);
                   }}

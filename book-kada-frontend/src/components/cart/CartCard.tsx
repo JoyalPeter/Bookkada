@@ -7,7 +7,6 @@ import {
   Card,
   CardContent,
   Stack,
-  Button,
 } from "@mui/material";
 
 import { ArrowDropUp, ArrowDropDown } from "@mui/icons-material";
@@ -16,6 +15,7 @@ import CentreBox from "../../UI/CenterBox";
 import { BookDetails } from "../book/DetailsCard";
 import { ShoppingCartContext } from "../../store/Shoppingcart_Context";
 import { CartActions } from "../../constants/Enums";
+import Button from "../../UI/Button";
 
 export interface ICartCardProps {
   book: BookDetails;
@@ -85,7 +85,6 @@ export default function CartCard({ book, quantity }: ICartCardProps) {
               <CentreBox>{`Total: ${book.price * quantity}`}</CentreBox>
             </Typography>
             <Button
-              variant="outlined"
               onClick={() => {
                 shoppingCartContext?.updateCart(CartActions.REMOVE, book);
               }}

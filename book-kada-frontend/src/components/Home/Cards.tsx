@@ -8,7 +8,6 @@ import {
   Typography,
   CardActionArea,
   Rating,
-  Button,
 } from "@mui/material";
 import Cart from "./Shoppingcart";
 import { Method, ModalUse, Role, Toast } from "../../constants/Enums";
@@ -19,6 +18,7 @@ import { UserContext } from "../../store/User_Context";
 import DetailsModal from "../Admin/DetailsModal";
 import { BookDetails } from "../book/DetailsCard";
 import LoadedComponent from "../../UI/LoadedComponent";
+import Button from "../../UI/Button";
 
 interface ICards {
   book: BookDetails;
@@ -27,7 +27,7 @@ interface ICards {
 export default function Cards(props: ICards) {
   const navigate = useNavigate();
   const bookContext = useContext(BookContext);
-  const userContext = useContext(UserContext);  
+  const userContext = useContext(UserContext);
   const { makeApiCall, loadingFlag } = useApiService();
   const [editFlag, setEditFlag] = useState(false);
 
@@ -78,17 +78,12 @@ export default function Cards(props: ICards) {
             </>
           </CardContent>
         </CardActionArea>
-        <CardActions>
+        <CardActions color="secondary">
           {userContext?.userDetails.role === Role.ADMIN ? (
             <>
-              <Button variant="contained" onClick={() => setEditFlag(true)}>
-                Edit
-              </Button>
+              <Button onClick={() => setEditFlag(true)}>Edit</Button>
               <LoadedComponent loadingFlag={loadingFlag}>
-                <Button
-                  variant="contained"
-                  onClick={() => deleteBook(props.book.bookId)}
-                >
+                <Button onClick={() => deleteBook(props.book.bookId)}>
                   Delete
                 </Button>
               </LoadedComponent>
