@@ -13,6 +13,7 @@ import { TransitionProps } from "@mui/material/transitions";
 import { userDetailsProps } from "../../store/User_Context";
 import { Order } from "../orders/OrderCard";
 import { IReviews } from "../../pages/AdminPage";
+import { Button } from "@mui/material";
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & {
@@ -54,37 +55,38 @@ export default function FullScreenDialog(props: IFullScreenDialog) {
             >
               <CloseIcon />
             </IconButton>
-            
           </Toolbar>
         </AppBar>
         <List>
           {props.users?.map((user) => (
             <>
-              <ListItem button>
+              <ListItem >
                 <ListItemText primary={user.name} secondary={user.role} />
+                <Button>Remove</Button>
               </ListItem>
               <Divider />
             </>
           ))}
           {props.orders?.map((order) => (
             <>
-              <ListItem button>
+              <ListItem >
                 <ListItemText
                   primary={order.book.name}
                   secondary={`Quantity : ${order.quantity}`}
-                  
                 />
+                <Button>Remove</Button>
               </ListItem>
               <Divider />
             </>
           ))}
           {props.reviews?.map((review) => (
             <>
-              <ListItem button>
+              <ListItem >
                 <ListItemText
                   primary={`${review.book.name} - ${review.rating} Stars`}
                   secondary={`${review.user.name} - "${review.description}"`}
                 />
+                <Button>Remove</Button>
               </ListItem>
               <Divider />
             </>
