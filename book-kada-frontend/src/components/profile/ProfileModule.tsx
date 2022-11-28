@@ -3,7 +3,7 @@ import {
   Avatar,
   Card,
   Container,
-  Grid,
+  Stack,
   TextField,
   Typography,
 } from "@mui/material";
@@ -17,6 +17,7 @@ import { Method, Toast } from "../../constants/Enums";
 import showToast from "../../utils/Toastify";
 import LoadedComponent from "../../UI/LoadedComponent";
 import CenterBox from "../../UI/CenterBox";
+import { Email } from "@mui/icons-material";
 
 export interface UserDetails {
   name?: string;
@@ -29,10 +30,8 @@ export default function ProfileModule() {
   const [response, setResponse] = useState<UserDetails | null>(null);
   const { makeApiCall, loadingFlag } = useApiService();
   const [updatenameflag, setNameflag] = useState(true);
-  const [updatePasswordflag, setPasswordflag] = useState(true);
 
   const [newName, setNewName] = useState("");
-  const [newPassword, setnewPassword] = useState("");
   const userid = usercontext?.userDetails.userId;
   useEffect(() => {
     makeApiCall(Method.GET, `users/${userid}`).then((response: UserDetails) => {
@@ -42,20 +41,12 @@ export default function ProfileModule() {
   function updateName() {
     setNameflag(!updatenameflag);
   }
-  function updatePassword() {
-    setPasswordflag(!updatePasswordflag);
-  }
+
   function userNameUpdated() {
     makeApiCall(Method.PATCH, `users/updateUser/${userid}`, {
-      name: newName
+      name: newName,
     }).catch((error) => showToast(Toast.ERROR, error));
     setNameflag(!updatenameflag);
-  }
-  function userPasswordUpdated() {
-    setPasswordflag(!updatePasswordflag);
-    makeApiCall(Method.PATCH, `users/updateUser/${userid}`, {
-      password: newPassword
-    }).catch((error) => showToast(Toast.ERROR, error));
   }
 
   return (
@@ -69,17 +60,14 @@ export default function ProfileModule() {
                   sx={{
                     m: 1,
                     bgcolor: "secondary.main",
-                    width: 200,
-                    height: 200,
+                    width: 100,
+                    height: 100,
                   }}
                 />
-                <Typography component="h1" variant="h5">
-                  Profile
-                </Typography>
                 {updatenameflag ? (
                   <>
                     <Typography component="h1" variant="h5">
-                      Name : {response.name}
+                      {response.name}
                       <IconButton
                         onClick={updateName}
                         sx={{ mt: 3, mb: 3 }}
@@ -106,40 +94,12 @@ export default function ProfileModule() {
                     </IconButton>
                   </>
                 )}
-                <Grid>
+                <Stack direction="row" alignItems="center">
+                  <Email />
                   <Typography component="h1" variant="h5">
-                    Email : {response.email}
+                    {response.email}
                   </Typography>
-                </Grid>
-                {updatePasswordflag ? (
-                  <>
-                    <Typography component="h1" variant="h5">
-                      Password{" "}
-                      <IconButton
-                        onClick={updatePassword}
-                        sx={{ mt: 3, mb: 3 }}
-                        aria-label="delete"
-                      >
-                        <EditIcon />
-                      </IconButton>
-                    </Typography>
-                  </>
-                ) : (
-                  <>
-                        <TextField
-                          required
-                          fullWidth
-                          id="email"
-                          label="Password"
-                          name="email"
-                          autoComplete="email"
-                          onChange={(e) => setnewPassword(e.target.value)}
-                        />
-                        <IconButton onClick={userPasswordUpdated}>
-                          <BuildIcon />
-                        </IconButton>
-                  </>
-                )}
+                </Stack>
               </CenterBox>
             </Container>
           </Card>

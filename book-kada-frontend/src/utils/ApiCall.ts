@@ -7,7 +7,6 @@ export function ApiCall(
   path: string,
   data?: Object,
   token?: string | undefined | null,
-  userId?: number
 ) {
   const APIHOST = "http://localhost:5000/";
 
@@ -16,8 +15,7 @@ export function ApiCall(
     url: `${APIHOST}${path}`,
     data,
     headers: {
-      Authorization: `Bearer "${token}"`,
-      userId: userId
+      'Authorization': `Bearer ${token}`
     },
   });
 }

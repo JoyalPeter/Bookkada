@@ -21,11 +21,11 @@ dotenv.config();
     PassportModule,
     JwtModule.register({
       secret: process.env.JWT_SECRET,
-      signOptions: { expiresIn: "2d" },
+      signOptions: { expiresIn: "7d" },
     }),
   ],
   controllers: [AuthController],
   providers: [AuthService, JwtStrategy, UsersService],
   exports: [AuthService],
 })
-export class AuthModule {}
+export class AuthModule { }
