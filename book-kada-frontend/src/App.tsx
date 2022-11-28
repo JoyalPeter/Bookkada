@@ -1,15 +1,24 @@
-import { Theme, ThemeProvider, CssBaseline } from '@mui/material';
-import './App.css';
-import Router from './router/Router';
-import useCustomTheme from './theme/ColorTheme';
-import Toast from './UI/Toast';
+import {
+  Theme,
+  ThemeProvider,
+  CssBaseline,
+  LinearProgress,
+} from "@mui/material";
+import { useState } from "react";
+import "./App.css";
+import Router from "./router/Router";
+import useCustomTheme from "./theme/ColorTheme";
+import Toast from "./UI/Toast";
+
 function App() {
+  const [loadingPage, setLoadingPage] = useState(true);
+  setTimeout(() => setLoadingPage(false), 500);
   const theme: Theme = useCustomTheme();
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Toast />
-      <Router />
+      {loadingPage ? <LinearProgress /> : <Router />}
     </ThemeProvider>
   );
 }
