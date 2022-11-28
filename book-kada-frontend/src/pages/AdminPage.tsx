@@ -3,6 +3,7 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import FullScreenDialog from "../components/Admin/Analytics";
 import { Method, Toast } from "../constants/Enums";
 import useApiService from "../hooks/UseApiService";
 import PrimarySearchAppBar from "../UI/AppBar/AppBar";
@@ -16,6 +17,8 @@ export default function AdminPage() {
   const [ordersCount, setOrdersCount] = useState(0);
   const navigate = useNavigate();
   const { makeApiCall, loadingFlag } = useApiService();
+  const [open, setOpen] = useState(false);
+
 
   useEffect(() => {
     makeApiCall(Method.GET, "books/booksCount") // get no. of book
@@ -42,7 +45,7 @@ export default function AdminPage() {
       })
       .catch((error) => showToast(Toast.ERROR, error));
   }, []);
-
+console.log(open)
   return (
     <>
       <PrimarySearchAppBar></PrimarySearchAppBar>
@@ -64,7 +67,7 @@ export default function AdminPage() {
             }}
           >
             <CardContent>
-              <h1>{bookCount}</h1>Total Books
+              <h1>{bookCount}</h1> Books
             </CardContent>
           </Card>
           <Card
@@ -74,7 +77,7 @@ export default function AdminPage() {
             }}
           >
             <CardContent>
-              <h1>{ordersCount}</h1>orders
+              <h1>{ordersCount}</h1>Orders
             </CardContent>
           </Card>
           <Card
@@ -90,7 +93,7 @@ export default function AdminPage() {
           <Card
             sx={{ width: "25%", minWidth: 275 }}
             onClick={() => {
-              navigate("/admin");
+              setOpen(true)
             }}
           >
             <CardContent>
@@ -99,6 +102,7 @@ export default function AdminPage() {
           </Card>
         </Grid>
       </LoadedComponent>
+      <FullScreenDialog open={open}></FullScreenDialog>
     </>
   );
 }
