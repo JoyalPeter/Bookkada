@@ -38,7 +38,7 @@ export default function ProfileModule() {
     makeApiCall(Method.GET, `users/${userid}`).then((response: UserDetails) => {
       setResponse(response);
     });
-  }, []);
+  }, [updatenameflag]);
   function updateName() {
     setNameflag(!updatenameflag);
   }
@@ -46,10 +46,10 @@ export default function ProfileModule() {
     setPasswordflag(!updatePasswordflag);
   }
   function userNameUpdated() {
-    setNameflag(!updatenameflag);
     makeApiCall(Method.PATCH, `users/updateUser/${userid}`, {
       name: newName
     }).catch((error) => showToast(Toast.ERROR, error));
+    setNameflag(!updatenameflag);
   }
   function userPasswordUpdated() {
     setPasswordflag(!updatePasswordflag);
@@ -69,7 +69,6 @@ export default function ProfileModule() {
                   sx={{
                     m: 1,
                     bgcolor: "secondary.main",
-
                     width: 200,
                     height: 200,
                   }}
