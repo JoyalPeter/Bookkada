@@ -7,6 +7,7 @@ import {
   Param,
   Delete,
   UseGuards,
+  Logger,
 } from '@nestjs/common';
 import { OrdersService } from './orders.service';
 import { CreateOrderDto } from './dto/create-order.dto';
@@ -16,7 +17,7 @@ import { BooksService } from '../books/books.service';
 import { ApiBearerAuth } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
 
-@Controller('orders')
+@Controller("orders")
 export class OrdersController {
   constructor(
     private readonly ordersService: OrdersService,
@@ -25,50 +26,57 @@ export class OrdersController {
   ) { }
 
 
-  @ApiBearerAuth()
-  @UseGuards(AuthGuard('jwt'))
+  // @ApiBearerAuth()
+  // @UseGuards(AuthGuard('jwt'))
   @Post('placeOrder')
-  async create(@Body() createOrderDto: CreateOrderDto) {
-    const user = await this.usersService.findOne(createOrderDto.userId);
-    const book = await this.booksService.findOneById(createOrderDto.bookId);
-    return await this.ordersService.create(createOrderDto, user, book);
+  async create(@Body() createOrdersDto: CreateOrderDto[]) {
+    createOrdersDto.forEach(async (orderDto: CreateOrderDto) => {
+      const user = await this.usersService.findOne(orderDto.userId);
+      const book = await this.booksService.findOneById(orderDto.bookId);
+      const order = await this.ordersService.create(orderDto.quantity, user, book);
+      Logger.log(order)
+    })
+    return "Orders placed successfully"
   }
 
-  @Get('getAllOrders')
+  @Get("getAllOrders")
   async findAll(id: string) {
     return await this.ordersService.findAll();
   }
 
+  @Get("ordersCount")
+  async orderCount() {
+    return this.ordersService.orderCount();
+  }
 
-  @Get('bookOrders/:bookId')
+  @Get("bookOrders/:bookId")
   @ApiBearerAuth()
-  @UseGuards(AuthGuard('jwt'))
-  async findBooks(@Param('bookId') bookId: string) {
+  @UseGuards(AuthGuard("jwt"))
+  async findBooks(@Param("bookId") bookId: string) {
     return await this.ordersService.findBooks(+bookId);
   }
 
-
+  // @ApiBearerAuth()
+  // @UseGuards(AuthGuard('jwt'))
   @Get('userOrders/:userId')
-  @ApiBearerAuth()
-  @UseGuards(AuthGuard('jwt'))
-  async findUsers(@Param('userId') userId: string) {
-    return await this.ordersService.findUsers(+userId);
+  async findOrderByUser(@Param('userId') userId: string) {
+    return await this.ordersService.findOrderByUser(+userId);
   }
 
+  // @ApiBearerAuth()
+  // @UseGuards(AuthGuard('jwt'))
   @Patch(':id')
-  @ApiBearerAuth()
-  @UseGuards(AuthGuard('jwt'))
   async update(
-    @Param('id') id: string,
-    @Body() updateOrderDto: UpdateOrderDto,
+    @Param("id") id: string,
+    @Body() updateOrderDto: UpdateOrderDto
   ) {
     return await this.ordersService.update(+id, updateOrderDto);
   }
 
-  @Delete(':id')
+  @Delete(":id")
   @ApiBearerAuth()
-  @UseGuards(AuthGuard('jwt'))
-  async remove(@Param('id') id: string) {
+  @UseGuards(AuthGuard("jwt"))
+  async remove(@Param("id") id: string) {
     return await this.ordersService.remove(+id);
   }
 }

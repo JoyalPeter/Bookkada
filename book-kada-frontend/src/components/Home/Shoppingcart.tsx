@@ -19,7 +19,7 @@ export default function Cart({ book }: CartProps) {
       <Tooltip title={tooltip}>
         <IconButton
           onClick={() => {
-            Shoppingcart?.updateCart(book, CartActions.ADD);
+            Shoppingcart?.updateCart(CartActions.ADD, book);
           }}
         >
           <ShoppingCartOutlinedIcon />

@@ -30,5 +30,6 @@ export enum ModalUse {
 export enum CartActions {
   ADD,
   REDUCE,
-  REMOVE
+  REMOVE,
+  EMPTY
 }

@@ -14,6 +14,7 @@ import { BookDetails } from "../book/DetailsCard";
 import LoadedComponent from "../../UI/LoadedComponent";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { storage } from "../image_storage/uploadConfig";
+import LeftBox from "../../UI/LeftBox";
 
 const style = {
   position: "absolute" as "absolute",
@@ -72,10 +73,8 @@ export default function DetailsModal(props: IDetailsModal) {
 
     uploadImage.on(
       "state_changed",
-      (_) => {},
-      (error) => {
-        console.log("Error :", error);
-      },
+      () => {},
+      () => {},
       () => {
         getDownloadURL(uploadImage.snapshot.ref).then((url) => {
           const body = {
@@ -118,23 +117,23 @@ export default function DetailsModal(props: IDetailsModal) {
           <Typography id="modal-modal-title" variant="h6" component="h2">
             Enter Details
           </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+          <Typography id="modal-modal-description" sx={{ mt: 2, px: 5 }}>
             <Box>
-              Name :
+              Name
               <TextField
                 value={name}
                 onChange={(e) => setName(e.target.value)}
               />
             </Box>
             <Box>
-              Author :
+              Author
               <TextField
                 value={author}
                 onChange={(e) => setAuthor(e.target.value)}
               />
             </Box>
             <Box>
-              Price :
+              Price
               <TextField
                 type="number"
                 value={price}
@@ -142,7 +141,7 @@ export default function DetailsModal(props: IDetailsModal) {
               />
             </Box>
             <Box>
-              Discription :
+              Description
               <TextField
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
@@ -150,7 +149,7 @@ export default function DetailsModal(props: IDetailsModal) {
             </Box>
             {props.modalUse === ModalUse.ADD && (
               <Box>
-                Add Book Cover:
+                Add Book Cover
                 <TextField
                   type={"file"}
                   inputProps={{ accept: "images/*" }}
@@ -159,18 +158,20 @@ export default function DetailsModal(props: IDetailsModal) {
               </Box>
             )}
             <LoadedComponent loadingFlag={loadingFlag}>
-              <Button
-                variant="contained"
-                onClick={() => {
-                  if (props.modalUse === ModalUse.EDIT) {
-                    editBook(props.bookData.bookId);
-                  } else {
-                    addBook();
-                  }
-                }}
-              >
-                Submit
-              </Button>
+              <LeftBox>
+                  <Button
+                    variant="contained"
+                    onClick={() => {
+                      if (props.modalUse === ModalUse.EDIT) {
+                        editBook(props.bookData.bookId);
+                      } else {
+                        addBook();
+                      }
+                    }}
+                  >
+                    Submit
+                  </Button>
+              </LeftBox>
             </LoadedComponent>
           </Typography>
         </Box>

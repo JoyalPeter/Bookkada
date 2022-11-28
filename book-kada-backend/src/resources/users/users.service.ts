@@ -38,6 +38,13 @@ export class UsersService {
     });
   }
 
+async userCount(){
+  return await this.userRepo.count().catch((e) => {
+    console.log(e)
+    throw new DBException();
+  });
+}
+
   async update(id: number, updateUserDto: UpdateUserDto) {
     return await this.userRepo.update(id, updateUserDto).catch(() => {
       throw new DBException();

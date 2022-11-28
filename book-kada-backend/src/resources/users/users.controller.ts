@@ -33,6 +33,11 @@ export class UsersController {
   async findAll() {
     return await this.usersService.findAll();
   }
+  
+  @Get("usersCount")
+  async userCount() {
+    return await this.usersService.userCount();
+  }
 
   @Get(":id")
   // @ApiBearerAuth()

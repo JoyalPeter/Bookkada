@@ -1,7 +1,7 @@
 export const errorMessages = {
   mandatoryEmpty: 'Some mandatory fields are empty',
   notEmail: 'Email is not valid',
-  passWordLength: 'Password length should be between 5-24',
+  passWordLength: 'Password length should be between 8-24',
 };
 
 export enum Roles {

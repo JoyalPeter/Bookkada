@@ -47,14 +47,14 @@ export class BooksService {
 
   async findOneById(id: number) {
     return await this.booksRepo.findOne({ where: { bookId: id } }).catch((e) => {
-      console.log(e)
+
       throw new DBException();
     });
   }
 
   async update(id: number, updateBookDto: UpdateBookDto) {
     await this.booksRepo.update(id, updateBookDto).catch((e) => {
-      console.log(e);
+
 
       throw new DBException();
     });
@@ -64,8 +64,18 @@ export class BooksService {
   }
 
   async search(key: string) {
-    return await this.booksRepo.find({
-      where: [{ name: Like(`%${key}%`) }, { author: Like(`%${key}%`) }],
+    return await this.booksRepo
+      .find({
+        where: [{ name: Like(`%${key}%`) }, { author: Like(`%${key}%`) }],
+      })
+      .catch(() => {
+        throw new DBException();
+      });
+  }
+
+  async totalCount(){
+    return await this.booksRepo.count().catch(() => {
+      throw new DBException();
     });
   }
 
