@@ -40,7 +40,7 @@ export default function CartCard({ book, quantity }: ICartCardProps) {
           height="100%"
           width="100%"
           image={book.cover}
-          alt="green iguana"
+          alt="name"
         />
       </CardActionArea>
 
