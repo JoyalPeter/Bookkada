@@ -9,13 +9,7 @@ export default function useApiService() {
   const makeApiCall = (method: Method, path: string, data?: Object) =>
     new Promise<any>(async (resolve, reject) => {
       setloadingFlag(true);
-      ApiCall(
-        method,
-        path,
-        data,
-        userDetails?.token,
-        userDetails?.userDetails.userId
-      )
+      ApiCall(method, path, data, userDetails?.token)
         .then((response) => {
           resolve(response.data);
         })

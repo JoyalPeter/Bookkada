@@ -43,7 +43,7 @@ export default function UserContextProvider({
       setUserDetails({
         userId: decodedToken.userId,
         role: decodedToken.role,
-        name: decodedToken.name
+        name: decodedToken.name,
       });
     }
   }, [token]);
