@@ -20,6 +20,8 @@ import { AuthGuard } from "@nestjs/passport";
 export class UsersController {
   constructor(private readonly usersService: UsersService) { }
 
+  // @ApiBearerAuth()
+  // @UseGuards(AuthGuard("jwt"))
   @Post("signup")
   async create(
     @Body(new ValidationPipe({ errorHttpStatusCode: 422 }))

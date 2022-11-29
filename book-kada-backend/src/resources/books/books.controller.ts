@@ -15,6 +15,8 @@ import { UpdateBookDto } from "src/resources/books/dto/update-book.dto";
 export class BooksController {
   constructor(private readonly booksService: BooksService) {}
 
+  // @ApiBearerAuth()
+  // @UseGuards(AuthGuard("jwt"))
   @Post("/addBook")
   create(@Body() createBookDto: CreateBookDto) {
     return this.booksService.create(createBookDto);
@@ -30,23 +32,27 @@ export class BooksController {
     return this.booksService.findOne(+id);
   }
 
-  @Get('/booksCount')
-  totalCount(){
+  @Get("/booksCount")
+  totalCount() {
     return this.booksService.totalCount();
   }
 
+  // @ApiBearerAuth()
+  // @UseGuards(AuthGuard("jwt"))
   @Patch("/updateBook/:id")
   update(@Param("id") id: string, @Body() updateBookDto: UpdateBookDto) {
     return this.booksService.update(+id, updateBookDto);
   }
 
+  // @ApiBearerAuth()
+  // @UseGuards(AuthGuard("jwt"))
   @Delete("/deleteBook/:id")
   remove(@Param("id") id: string) {
     return this.booksService.remove(+id);
   }
 
   @Get("/search/:searchKey")
-  search(@Param("searchKey") searchKey: string){
-    return this.booksService.search(searchKey)
+  search(@Param("searchKey") searchKey: string) {
+    return this.booksService.search(searchKey);
   }
 }
