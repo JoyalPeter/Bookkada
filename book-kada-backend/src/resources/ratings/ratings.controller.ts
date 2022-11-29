@@ -18,16 +18,18 @@ export class RatingsController {
   constructor(
     private readonly ratingsService: RatingsService,
     private readonly usersService: UsersService,
-    private readonly booksService: BooksService,
-  ) { }
+    private readonly booksService: BooksService
+  ) {}
 
+  // @ApiBearerAuth()
+  // @UseGuards(AuthGuard("jwt"))
   @Post("/addRating")
   async create(@Body() createRatingDto: CreateRatingDto) {
     const user = await this.usersService.findOne(createRatingDto.userId);
     const book = await this.booksService.findOneById(createRatingDto.bookId);
-    await this.ratingsService.create(createRatingDto, user, book)
-    const rating = await this.ratingsService.getAvg(createRatingDto.bookId)
-    await this.booksService.update(createRatingDto.bookId, rating)
+    await this.ratingsService.create(createRatingDto, user, book);
+    const rating = await this.ratingsService.getAvg(createRatingDto.bookId);
+    await this.booksService.update(createRatingDto.bookId, rating);
     return await this.ratingsService.findOne(createRatingDto.bookId);
   }
 
@@ -41,11 +43,13 @@ export class RatingsController {
     return await this.ratingsService.findOne(+bookId);
   }
 
-@Get('ratingsCount')
-async ratingCount(){
-  return await this.ratingsService.ratingCount();
-}
+  @Get("ratingsCount")
+  async ratingCount() {
+    return await this.ratingsService.ratingCount();
+  }
 
+  // @ApiBearerAuth()
+  // @UseGuards(AuthGuard("jwt"))
   @Patch(":id")
   async update(
     @Param("id") id: string,
@@ -54,6 +58,8 @@ async ratingCount(){
     return await this.ratingsService.update(+id, updateRatingDto);
   }
 
+  // @ApiBearerAuth()
+  // @UseGuards(AuthGuard("jwt"))
   @Delete(":id")
   async remove(@Param("id") id: string) {
     return await this.ratingsService.remove(+id);

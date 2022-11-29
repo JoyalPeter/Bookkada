@@ -17,6 +17,8 @@ import { UpdateUserDto } from "./dto/update-user.dto";
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
+  // @ApiBearerAuth()
+  // @UseGuards(AuthGuard("jwt"))
   @Post("signup")
   async create(
     @Body(new ValidationPipe({ errorHttpStatusCode: 422 }))
@@ -26,27 +28,34 @@ export class UsersController {
     return "user created successfully";
   }
 
+  // @ApiBearerAuth()
+  // @UseGuards(AuthGuard("jwt"))
   @Get()
   async findAll() {
     return await this.usersService.findAll();
   }
-  
+
   @Get("usersCount")
   async userCount() {
     return await this.usersService.userCount();
   }
 
-  @Get(":id")
+  // @ApiBearerAuth()
+  // @UseGuards(AuthGuard("jwt"))
   @Get(":id")
   async findOne(@Param("id") id: string) {
     return await this.usersService.findOne(+id);
   }
 
+  // @ApiBearerAuth()
+  // @UseGuards(AuthGuard("jwt"))
   @Patch("/updateUser/:id")
   async update(@Param("id") id: string, @Body() updateUserDto: UpdateUserDto) {
     return await this.usersService.update(+id, updateUserDto);
   }
 
+  // @ApiBearerAuth()
+  // @UseGuards(AuthGuard("jwt"))
   @Delete("/deleteUser/:id")
   async remove(@Param("id") id: string) {
     return await this.usersService.remove(+id);
