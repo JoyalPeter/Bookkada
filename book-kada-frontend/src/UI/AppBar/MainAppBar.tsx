@@ -68,8 +68,7 @@ export default function MainAppBar({
             color="inherit"
           >
             <ShoppingCartSharp />
-            {(shoppingcartData?.itemCount === 0 ||
-              shoppingcartData !== null) && (
+            {shoppingcartData?.itemCount !== 0 && (
               <Typography>{shoppingcartData?.itemCount}</Typography>
             )}
           </IconButton>

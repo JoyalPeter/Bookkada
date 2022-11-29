@@ -33,17 +33,12 @@ export class RatingsController {
     return await this.ratingsService.findOne(createRatingDto.bookId);
   }
 
-  @Get("/getAllRatings")
-  async findAll() {
-    return await this.ratingsService.findAll();
-  }
-
   @Get("/getReview/:bookId")
   async findOne(@Param("bookId") bookId: string) {
     return await this.ratingsService.findOne(+bookId);
   }
 
-  @Get("ratingsCount")
+  @Get('ratingsCount')
   async ratingCount() {
     return await this.ratingsService.ratingCount();
   }

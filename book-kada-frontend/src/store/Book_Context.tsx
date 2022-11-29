@@ -11,14 +11,13 @@ export interface IBookContext {
   setAllBooks: React.Dispatch<React.SetStateAction<BookDetails[]>>;
 }
 
-export interface IBookContextProviderProps {
+export interface IViewResponseContextProviderProps {
   children?: React.ReactNode;
 }
+
 export const BookContext = createContext<IBookContext | undefined>(undefined);
 
-export default function ViewResponseProvider({
-  children,
-}: IBookContextProviderProps) {
+export default function ViewResponseProvider({ children }: IViewResponseContextProviderProps) {
   const [bookDetails, setBookDetails] = useState<BookDetails | null>(null);
 
   const [reviews, setReviews] = useState([] as ReviewDetails[]);

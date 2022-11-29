@@ -22,7 +22,7 @@ export const emptyBook = {
 
 export default function PrimarySearchAppBar() {
   const navigate = useNavigate();
-  
+
   const [addFlag, setAddFlag] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
@@ -49,7 +49,7 @@ export default function PrimarySearchAppBar() {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
+      <AppBar enableColorOnDark={true} position="static">
         <Toolbar>
           <Link onClick={() => navigate("/")}>
             <Typography

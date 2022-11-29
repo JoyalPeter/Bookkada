@@ -12,10 +12,11 @@ export default function SearchBar() {
   const { makeApiCall, loadingFlag } = useApiService();
   const [searchKey, setSearchKey] = useState("");
   const [searchResults, setSearchResults] = useState([] as BookDataProps[]);
+
   useEffect(() => {
     const timer = setTimeout(() => {
       search(searchKey);
-    }, 200);
+    }, 700);
 
     return () => {
       clearTimeout(timer);
@@ -48,14 +49,16 @@ export default function SearchBar() {
       onChange={(_, value) => {
         const bookName = value?.split(" by")[0];
         let id;
-        searchResults.forEach((e) => {
-          if (e.name === bookName) {
-            id = e.bookId;
+        searchResults.forEach((searchResult) => {
+          if (searchResult.name === bookName) {
+            id = searchResult.bookId;
           }
         });
         navigate(`/details/${id}`);
       }}
-      options={searchResults.map((e) => e.name + " by " + e.author)}
+      options={searchResults.map(
+        (searchResult) => searchResult.name + " by " + searchResult.author
+      )}
       onInputChange={(_, value: string, reason: string) => {
         if (reason === "input") {
           setSearchKey(value);
