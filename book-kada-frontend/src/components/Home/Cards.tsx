@@ -10,15 +10,15 @@ import {
   Rating,
 } from "@mui/material";
 import Cart from "./Shoppingcart";
-import { Method, ModalUse, Role, Toast } from "../../constants/Enums";
+import { ModalUse, Role } from "../../constants/Enums";
 import useApiService from "../../hooks/UseApiService";
-import { BookContext } from "../../store/Book_Context";
-import showToast from "../../utils/Toastify";
 import { UserContext } from "../../store/User_Context";
 import DetailsModal from "../Admin/DetailsModal";
 import { BookDetails } from "../book/DetailsCard";
 import LoadedComponent from "../../UI/LoadedComponent";
 import Button from "../../UI/Button";
+import DeleteConfirmation from "../../UI/DeleteConfirmation";
+import useAdminFunctions from "../Admin/adminFunctions";
 
 interface ICards {
   book: BookDetails;
@@ -26,22 +26,18 @@ interface ICards {
 
 export default function Cards(props: ICards) {
   const navigate = useNavigate();
-  const bookContext = useContext(BookContext);
   const userContext = useContext(UserContext);
-  const { makeApiCall, loadingFlag } = useApiService();
+  const { loadingFlag } = useApiService();
   const [editFlag, setEditFlag] = useState(false);
+  const [openFlag, setOpenFlag] = useState(false);
+  const { deleteBook } = useAdminFunctions();
 
-  function deleteBook(id: number) {
-    makeApiCall(Method.DELETE, `books/deleteBook/${id}`)
-      .then((response: BookDetails[]) => {
-        bookContext?.setAllBooks(response);
-        showToast(Toast.SUCCESS, "Delete Successful");
-      })
-      .catch((error: string) => showToast(Toast.ERROR, error));
-  }
+
   return (
     <>
-      <Card sx={{ maxWidth: 275, boxShadow: 5, m: 1, maxHeight: 500, width:300 }}>
+      <Card
+        sx={{ maxWidth: 275, boxShadow: 5, m: 1, maxHeight: 500, width: 300 }}
+      >
         <CardMedia
           component="img"
           height="150"
@@ -83,7 +79,11 @@ export default function Cards(props: ICards) {
             <>
               <Button onClick={() => setEditFlag(true)}>Edit</Button>
               <LoadedComponent loadingFlag={loadingFlag}>
-                <Button onClick={() => deleteBook(props.book.bookId)}>
+                <Button
+                  onClick={() => {
+                    setOpenFlag(true);
+                  }}
+                >
                   Delete
                 </Button>
               </LoadedComponent>
@@ -108,6 +108,12 @@ export default function Cards(props: ICards) {
           modalUse={ModalUse.EDIT}
         />
       )}
+      <DeleteConfirmation
+        openFlag={openFlag}
+        setOpenFlag={setOpenFlag}
+        id={props.book.bookId}
+        ExecutionFunction={deleteBook}
+      />
     </>
   );
 }

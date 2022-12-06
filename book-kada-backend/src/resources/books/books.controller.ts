@@ -32,11 +32,6 @@ export class BooksController {
     return this.booksService.findOne(+id);
   }
 
-  @Get("/booksCount")
-  totalCount() {
-    return this.booksService.totalCount();
-  }
-
   // @ApiBearerAuth()
   // @UseGuards(AuthGuard("jwt"))
   @Patch("/updateBook/:id")

@@ -4,7 +4,6 @@ import DBException from "src/exceptions/db.exception";
 import { Repository } from "typeorm";
 import { CreateBookDto } from "../books/dto/create-book.dto";
 import { CreateUserDto } from "../users/dto/create-user.dto";
-import { CreateOrderDto } from "./dto/create-order.dto";
 import { UpdateOrderDto } from "./dto/update-order.dto";
 import { Order } from "./entities/order.entity";
 
@@ -73,6 +72,8 @@ export class OrdersService {
   }
 
   async remove(id: number) {
-    return await `This action removes a #${id} order`;
+    return await this.orderRepo.delete(id).catch(() => {
+      throw new DBException();
+    });
   }
 }

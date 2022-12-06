@@ -48,13 +48,6 @@ export class OrdersController {
 
   @ApiBearerAuth()
   @UseGuards(AuthGuard('jwt'))
-  @Get("ordersCount")
-  async orderCount() {
-    return this.ordersService.orderCount();
-  }
-
-  @ApiBearerAuth()
-  @UseGuards(AuthGuard('jwt'))
   @Get("bookOrders/:bookId")
   async findBooks(@Param("bookId") bookId: string) {
     return await this.ordersService.findBooks(+bookId);
