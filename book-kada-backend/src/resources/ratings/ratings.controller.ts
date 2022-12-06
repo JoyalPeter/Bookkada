@@ -25,6 +25,7 @@ export class RatingsController {
   // @UseGuards(AuthGuard("jwt"))
   @Post("/addRating")
   async create(@Body() createRatingDto: CreateRatingDto) {
+    
     const user = await this.usersService.findOne(createRatingDto.userId);
     const book = await this.booksService.findOneById(createRatingDto.bookId);
     await this.ratingsService.create(createRatingDto, user, book);
@@ -33,14 +34,14 @@ export class RatingsController {
     return await this.ratingsService.findOne(createRatingDto.bookId);
   }
 
+  @Get('getAllRatings')
+  async findAll(){
+    return await this.ratingsService.findAll()
+  }
+
   @Get("/getReview/:bookId")
   async findOne(@Param("bookId") bookId: string) {
     return await this.ratingsService.findOne(+bookId);
-  }
-
-  @Get('ratingsCount')
-  async ratingCount() {
-    return await this.ratingsService.ratingCount();
   }
 
   // @ApiBearerAuth()

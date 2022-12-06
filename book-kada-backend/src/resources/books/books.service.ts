@@ -73,8 +73,10 @@ export class BooksService {
       });
   }
 
-  async totalCount(){
-    return await this.booksRepo.count().catch(() => {
+  async bookCount(){
+    return await this.booksRepo.count().catch((e) => {
+    console.log(e);
+
       throw new DBException();
     });
   }
@@ -91,7 +93,7 @@ export class BooksService {
 
     books.ratings.forEach(
       async (e) =>
-        await this.ratingRepo.delete(e.ratingId).catch((e) => {
+        await this.ratingRepo.delete(e.ratingId).catch(() => {
           throw new DBException();
         })
     );
