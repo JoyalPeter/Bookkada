@@ -70,6 +70,8 @@ export class RatingsService {
   }
 
   async remove(id: number) {
-    return await `This action removes a #${id} rating`;
+    return await this.ratingRepo.delete(id).catch(() => {
+      throw new DBException();
+    });
   }
 }

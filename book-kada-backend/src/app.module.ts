@@ -12,6 +12,7 @@ import { User } from './resources/users/entities/user.entity';
 import { UsersModule } from './resources/users/users.module';
 import { AuthModule } from './auth/auth.module';
 import * as dotenv from 'dotenv';
+import { AnalyticsModule } from './resources/analytics/analytics.module';
 
 dotenv.config();
 
@@ -32,6 +33,7 @@ dotenv.config();
     RatingsModule,
     OrdersModule,
     AuthModule,
+    AnalyticsModule
   ],
   controllers: [AppController],
   providers: [AppService],

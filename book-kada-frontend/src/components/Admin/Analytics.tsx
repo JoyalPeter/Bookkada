@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Dialog from "@mui/material/Dialog";
 import ListItemText from "@mui/material/ListItemText";
 import ListItem from "@mui/material/ListItem";
@@ -14,6 +14,8 @@ import { userDetailsProps } from "../../store/User_Context";
 import { Order } from "../orders/OrderCard";
 import { IReviews } from "../../pages/AdminPage";
 import { Button } from "@mui/material";
+import DeleteConfirmation from "../../UI/DeleteConfirmation";
+import useAdminFunctions from "./adminFunctions";
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & {
@@ -24,15 +26,20 @@ const Transition = React.forwardRef(function Transition(
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-interface IFullScreenDialog {
+interface IAnalysticsDialog {
   open: boolean;
   setOpen: Function;
-  users?: userDetailsProps[];
-  orders?: Order[];
-  reviews?: IReviews[];
+  users: userDetailsProps[];
+  orders: Order[];
+  reviews: IReviews[];
 }
 
-export default function FullScreenDialog(props: IFullScreenDialog) {
+export default function AnalysticsDialog(props: IAnalysticsDialog) {
+  const [openFlag, setOpenFlag] = useState(false);
+  const [executionFunction, setExecutionFunction] = useState(Function);
+  const [id, setId] = useState(0);
+  const { deleteUser,deleteReview,deleteOrder } = useAdminFunctions();
+
   const handleClose = () => {
     props.setOpen(false);
   };
@@ -60,38 +67,64 @@ export default function FullScreenDialog(props: IFullScreenDialog) {
         <List>
           {props.users?.map((user) => (
             <>
-              <ListItem >
+              <ListItem>
                 <ListItemText primary={user.name} secondary={user.role} />
-                <Button>Remove</Button>
+                <Button
+                  onClick={() => {
+                    setId(user.userId);
+                    setExecutionFunction(() => deleteUser);
+                    setOpenFlag(true);
+                  }}
+                >
+                  Revoke Account
+                </Button>
               </ListItem>
               <Divider />
             </>
           ))}
           {props.orders?.map((order) => (
             <>
-              <ListItem >
+              <ListItem>
                 <ListItemText
                   primary={order.book.name}
                   secondary={`Quantity : ${order.quantity}`}
                 />
-                <Button>Remove</Button>
+                <Button
+                  onClick={() => {
+                    setId(order.orderId);
+                    setExecutionFunction(() => deleteOrder);
+                    setOpenFlag(true);
+                  }}
+                >
+                  Cancel 
+                </Button>
               </ListItem>
               <Divider />
             </>
           ))}
           {props.reviews?.map((review) => (
             <>
-              <ListItem >
+              <ListItem>
                 <ListItemText
                   primary={`${review.book.name} - ${review.rating} Stars`}
                   secondary={`${review.user.name} - "${review.description}"`}
                 />
-                <Button>Remove</Button>
+                <Button onClick={() => {
+                    setId(review.ratingId);
+                    setExecutionFunction(() => deleteReview);
+                    setOpenFlag(true);
+                  }}>Remove</Button>
               </ListItem>
               <Divider />
             </>
           ))}
         </List>
+        <DeleteConfirmation
+          openFlag={openFlag}
+          setOpenFlag={setOpenFlag}
+          id={id}
+          ExecutionFunction={executionFunction}
+        />
       </Dialog>
     </div>
   );

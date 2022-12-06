@@ -17,6 +17,7 @@ import showToast from "../../utils/Toastify";
 import { BookDetails } from "../book/DetailsCard";
 
 export interface Order {
+  orderId:number
   orderDate: string;
   quantity: number;
   book: BookDetails;

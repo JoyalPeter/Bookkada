@@ -3,18 +3,14 @@ import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import CloseIcon from "@mui/icons-material/Close";
 import { TextField } from "@mui/material";
-import { useContext, useState } from "react";
-import showToast from "../../utils/Toastify";
-import { Method, ModalUse, Toast } from "../../constants/Enums";
-import useApiService from "../../hooks/UseApiService";
+import { useEffect, useState } from "react";
+import { ModalUse } from "../../constants/Enums";
 import { BookDataProps } from "../Home/HomeComponent";
-import { BookContext } from "../../store/Book_Context";
-import { BookDetails } from "../book/DetailsCard";
 import LoadedComponent from "../../UI/LoadedComponent";
-import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-import { storage } from "../image_storage/uploadConfig";
+
 import LeftBox from "../../UI/LeftBox";
 import Button from "../../UI/Button";
+import useAdminFunctions from "./adminFunctions";
 
 const style = {
   position: "absolute" as "absolute",
@@ -30,72 +26,54 @@ const style = {
 
 interface IDetailsModal {
   setFlag: Function;
-  bookData: BookDataProps;
-  modalUse: string;
+  bookData?: BookDataProps;
+  modalUse: ModalUse;
 }
 
 export default function DetailsModal(props: IDetailsModal) {
-  const bookContext = useContext(BookContext);
   const [open, setOpen] = useState(true);
-  const [name, setName] = useState(props.bookData.name);
-  const [author, setAuthor] = useState(props.bookData.author);
-  const [price, setPrice] = useState(props.bookData.price);
-  const [description, setDescription] = useState(props.bookData.description);
+  const [name, setName] = useState("");
+  const [author, setAuthor] = useState("");
+  const [price, setPrice] = useState(0);
+  const [description, setDescription] = useState("");
   const [loadingFlag, setLoadingFlag] = useState(false);
-  const { makeApiCall } = useApiService();
+  const { editBook, addBook } = useAdminFunctions();
   let photo: File;
+  
+  useEffect(() => {
+    if (props.bookData) {
+      setName(props.bookData.name);
+      setAuthor(props.bookData.author);
+      setPrice(props.bookData.price);
+      setDescription(props.bookData.description);
+    }
+  }, []);
 
   const handleClose = () => {
     setOpen(false);
     props.setFlag(false);
   };
 
-  function editBook(id: number) {
+  function edit(id: number) {
     const body = {
       name,
       price,
       author,
       description,
     };
-    makeApiCall(Method.PATCH, `books/updateBook/${id}`, body)
-      .then((response: BookDetails[]) => {
-        bookContext?.setAllBooks(response);
-        props.setFlag(false);
-        showToast(Toast.SUCCESS, "Edit Successful");
-      })
-      .catch((error: string) => showToast(Toast.ERROR, error));
+    editBook(id, body);
+    props.setFlag(false);
   }
 
-  function addBook() {
-    setLoadingFlag(true);
-    const storageRef = ref(storage, `Bookkada/${photo.name}`);
-    const uploadImage = uploadBytesResumable(storageRef, photo);
-
-    uploadImage.on(
-      "state_changed",
-      () => {},
-      () => {},
-      () => {
-        getDownloadURL(uploadImage.snapshot.ref).then((url) => {
-          const body = {
-            name: name,
-            price: price,
-            author: author,
-            description: description,
-            rating: 0,
-            cover: url,
-          };
-          makeApiCall(Method.POST, `books/addBook`, body) //API call to add book
-            .then((response: BookDetails[]) => {
-              bookContext?.setAllBooks(response);
-              setLoadingFlag(false);
-              props.setFlag(false);
-              showToast(Toast.SUCCESS, "Added Successfully");
-            })
-            .catch((error: string) => showToast(Toast.ERROR, error));
-        });
-      }
-    );
+  function add() {
+    const book = {
+      name: name,
+      price: price,
+      author: author,
+      description: description,
+      rating: 0,
+    };
+    addBook(photo, book, setLoadingFlag, props.setFlag);
   }
 
   const handlePhotoSubmit = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -161,10 +139,10 @@ export default function DetailsModal(props: IDetailsModal) {
               <LeftBox>
                 <Button
                   onClick={() => {
-                    if (props.modalUse === ModalUse.EDIT) {
-                      editBook(props.bookData.bookId);
+                    if (props.bookData) {
+                      edit(props.bookData.bookId);
                     } else {
-                      addBook();
+                      add();
                     }
                   }}
                 >

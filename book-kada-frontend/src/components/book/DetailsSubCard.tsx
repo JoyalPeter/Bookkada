@@ -24,6 +24,7 @@ import showToast from "../../utils/Toastify";
 import useApiService from "../../hooks/UseApiService";
 import { useNavigate } from "react-router-dom";
 import Button from "../../UI/Button";
+import DeleteConfirmation from "../../UI/DeleteConfirmation";
 
 interface DetailsProps {
   book: BookDetails | null | undefined;
@@ -36,6 +37,7 @@ export default function DetailsSubCard({ book }: DetailsProps) {
   const shoppingCartContext = useContext(ShoppingCartContext);
   const [editFlag, setEditFlag] = useState(false);
   const { makeApiCall } = useApiService();
+  const [openFlag, setOpenFlag] = useState(false);
 
   function addReview() {
     setaddReviewFlag(!addReviewFlag);
@@ -113,7 +115,7 @@ export default function DetailsSubCard({ book }: DetailsProps) {
                 <Button onClick={() => setEditFlag(true)}>Edit</Button>
                 <Button
                   onClick={() => {
-                    deleteBook((book as BookDetails).bookId);
+                    setOpenFlag(true);
                   }}
                 >
                   Delete
@@ -136,6 +138,12 @@ export default function DetailsSubCard({ book }: DetailsProps) {
           modalUse={ModalUse.EDIT}
         />
       )}
+      <DeleteConfirmation
+        openFlag={openFlag}
+        setOpenFlag={setOpenFlag}
+        id={(book as BookDetails).bookId}
+        ExecutionFunction={deleteBook}
+      />
     </>
   );
 }
