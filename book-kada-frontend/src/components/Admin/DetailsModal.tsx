@@ -6,8 +6,7 @@ import { TextField } from "@mui/material";
 import { useEffect, useState } from "react";
 import { ModalUse } from "../../constants/Enums";
 import { BookDataProps } from "../Home/HomeComponent";
-import LoadedComponent from "../../UI/LoadedComponent";
-
+import LoadedComponent from "../../UI/LoadedComponent"; 
 import LeftBox from "../../UI/LeftBox";
 import Button from "../../UI/Button";
 import useAdminFunctions from "./adminFunctions";
@@ -31,6 +30,7 @@ interface IDetailsModal {
 }
 
 export default function DetailsModal(props: IDetailsModal) {
+
   const [open, setOpen] = useState(true);
   const [name, setName] = useState("");
   const [author, setAuthor] = useState("");
