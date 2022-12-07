@@ -141,7 +141,7 @@ export default function DetailsSubCard({ book }: DetailsProps) {
       <DeleteConfirmation
         openFlag={openFlag}
         setOpenFlag={setOpenFlag}
-        id={(book as BookDetails).bookId}
+        id={book?.bookId as number }
         ExecutionFunction={deleteBook}
       />
     </>
