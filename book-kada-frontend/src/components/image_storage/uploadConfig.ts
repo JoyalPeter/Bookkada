@@ -1,12 +1,12 @@
 import { initializeApp } from "firebase/app";
 import {getStorage} from "firebase/storage";
 const firebaseConfig = {
-  apiKey: "AIzaSyDbhG4pK9INPMa6fDSJtmJ18Oy67QwNPpE",
-  authDomain: "bookkada-756c6.firebaseapp.com",
-  projectId: "bookkada-756c6",
-  storageBucket: "bookkada-756c6.appspot.com",
-  messagingSenderId: "2450616118",
-  appId: "1:2450616118:web:b94ba03514ff553a6e4d97",
+  apiKey: proccess.env.apiKey,
+  authDomain: proccess.env.authDomain,
+  projectId: proccess.env.projectId,
+  storageBucket: proccess.env.storageBucket,
+  messagingSenderId: proccess.env.messagingSenderId,
+  appId: proccess.env.appId,
 };
 
 const firebaseapp=initializeApp(firebaseConfig);
